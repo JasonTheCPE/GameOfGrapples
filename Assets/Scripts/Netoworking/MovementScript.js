@@ -11,11 +11,12 @@ function Start() {
 function Update(){
 	if (GetComponent(NetworkView).isMine) {
 		cc.Move(Vector3(Input.GetAxis("Horizontal") * speed * Time.deltaTime, -gravity * Time.deltaTime, Input.GetAxis("Vertical") * speed * Time.deltaTime));
-		if(Input.GetMouseButtonDown(0)){
-            GetComponent(NetworkView).RPC("shoot", RPCMode.All);
-    	}
 	} else {
 		enabled = false;
+	}
+	
+	if(Input.GetMouseButtonDown(0)){
+        GetComponent(NetworkView).RPC("shoot", RPCMode.All);
 	}
 }
 
