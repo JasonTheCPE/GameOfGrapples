@@ -46,6 +46,12 @@ function OnConnectedToServer(){
 	spawnPlayer();
 }
 
+function OnPlayerDisconnected(player : NetworkPlayer) {
+	Debug.Log("Clean up after player " +  player);
+	Network.RemoveRPCs(player);
+	Network.DestroyPlayerObjects(player);
+}
+
 function OnMasterServerEvent(msEvent: MasterServerEvent) {	//premade function that is called on an event received from the master server
 	if (msEvent == MasterServerEvent.RegistrationSucceeded) {
 		Debug.Log("Server registered");
