@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<Level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" LevelName="newLevel" LevelWidth="40" LevelHeight="25" LevelGravity="1">
+  <Tiles>
+    <Tile prefab="BrickTile" posX="10" posY="0" rot="0" scaleX="10" scaleY="10" />
+    <Tile prefab="BrickTile" posX="0" posY="10" rot="0" scaleX="10" scaleY="10" />
+    <Tile prefab="BlueHatchTile" posX="0" posY="0" rot="0" scaleX="10" scaleY="10" />
+  </Tiles>
+</Level>

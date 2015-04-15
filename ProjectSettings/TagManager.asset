@@ -6,7 +6,7 @@ TagManager:
   tags:
   - Background
   - Pickup
-  - Terrain
+  - Tiles
   layers:
   - Default
   - TransparentFX
