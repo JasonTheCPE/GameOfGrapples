@@ -1,4 +1,6 @@
-﻿var speed: int = 5;
+﻿
+
+var speed: int = 5;
 var gravity = 5;
 private var cc: CharacterController;
 
