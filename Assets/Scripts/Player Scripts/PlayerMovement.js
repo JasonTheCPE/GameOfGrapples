@@ -47,8 +47,8 @@ function Update(){
 	
 	if(Input.GetButtonDown("Fire1") && ammo > 0){
 		--ammo;
-		throwStar(Vector3(Input.mousePosition.x - Screen.width/2, Input.mousePosition.y - Screen.height/2, 0));
-        //GetComponent(NetworkView).RPC("throwStar", RPCMode.All, Vector3(1,1,1));
+		//throwStar(Vector3(Input.mousePosition.x - Screen.width/2, Input.mousePosition.y - Screen.height/2, 0));
+        GetComponent(NetworkView).RPC("throwStar", RPCMode.All, Vector3(Input.mousePosition.x - Screen.width/2, Input.mousePosition.y - Screen.height/2, 0));
 	}
 }
 
@@ -63,21 +63,21 @@ function OnTriggerEnter2D (other : Collider2D) {
 @RPC
 function throwStar (dir:Vector3) {
 	Debug.Log("Mousex: " + dir.x + " Mousey: " + dir.y);
-	dir.Normalize();
-	
 	//TODO adjust rotation of new stars
-	var newStar = Instantiate(starPrefab, transform.position + dir*7, transform.rotation);
-	newStar.GetComponent(Rigidbody2D).velocity = dir*throwSpeed;
-	newStar.GetComponent(Shuriken).playerID = playerID;
-	/*if (GetComponent(NetworkView).isMine) {
-		Network.Instantiate(bulletPrefab, transform.position + Vector3(0,1.5,0), Quaternion.identity, 0);
-	}*/
+	if (GetComponent(NetworkView).isMine) {
+		dir.Normalize();
+		var newStar = Network.Instantiate(starPrefab, transform.position + dir*7, transform.rotation, 0);
+		newStar.GetComponent(Rigidbody2D).velocity = dir*throwSpeed;
+		newStar.GetComponent(Shuriken).playerID = playerID;
+	}
 }
 
+@RPC
 function pickupStar () {
 	++ammo;
 }
 
+@RPC
 function Die() {
 	Destroy(gameObject);
 }

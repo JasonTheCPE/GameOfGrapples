@@ -13,6 +13,7 @@ GameObject:
   - 50: {fileID: 5097066}
   - 61: {fileID: 6136354}
   - 114: {fileID: 11481396}
+  - 148: {fileID: 14883116}
   m_Layer: 0
   m_Name: NinjaStar
   m_TagString: Weapon
@@ -103,6 +104,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isActive: 1
+--- !u!148 &14883116
+NetworkView:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 135352}
+  m_Enabled: 1
+  m_StateSynchronization: 1
+  m_Observed: {fileID: 486512}
+  m_ViewID:
+    m_ID: 0
+    m_Type: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
