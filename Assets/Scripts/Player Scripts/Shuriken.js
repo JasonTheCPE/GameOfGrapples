@@ -10,7 +10,7 @@ function OnTriggerEnter2D (other : Collider2D)  {
 		GetComponent(Rigidbody2D).velocity = Vector3(0,0,0);
 	} else if (other.tag == "Player") {
 		if (isActive && other.gameObject.GetComponent(PlayerMovement).playerID != playerID) {
-			other.gameObject.GetComponent(NetworkView).RPC("die", RPCMode.All);
+			other.gameObject.GetComponent(NetworkView).RPC("Die", RPCMode.All);
 			//other.gameObject.GetComponent(PlayerMovement).Die();
 			Destroy(gameObject);
 		} else {

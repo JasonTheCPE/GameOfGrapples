@@ -11,6 +11,7 @@ private var btnX: float;
 private var btnY: float;
 private var btnW: float;
 private var btnH: float;
+private var openID = 0;
 
 function Start () {
 	btnX = Screen.width * 0.05;
@@ -33,7 +34,8 @@ function refreshHostList() {
 }
 
 function spawnPlayer() {
-	Network.Instantiate(playerPrefab, spawnObject.position, Quaternion.identity, 0);
+	var temp = Network.Instantiate(playerPrefab, spawnObject.position, Quaternion.identity, 0);
+	temp.GetComponent(PlayerMovement).playerID = ++openID;
 }
 
 //Messages
