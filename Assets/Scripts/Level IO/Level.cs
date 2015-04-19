@@ -18,6 +18,9 @@ public class Level
 	[XmlAttribute("LevelGravity")]
 	public float levelGravity;
 	
+	[XmlAttribute("LevelBorder")]
+	public string levelBorder;
+	
 	[XmlArray("Tiles"), XmlArrayItem("Tile")]
 	public List<Tile> tiles;
 	

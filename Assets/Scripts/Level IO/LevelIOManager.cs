@@ -10,8 +10,9 @@ public class LevelIOManager : MonoBehaviour
 	public int levelWidth;
 	public int levelHeight;
 	public float levelGravity;
+	public string levelBorder;
 	
-	private string levelDir = "Assets/Levels";
+	private string levelDir = "Assets/Resources/Levels";
 	private Level levelToSave;
 	
 	public void BuildLevelPrimitiveAndSaveLevel()
@@ -22,6 +23,7 @@ public class LevelIOManager : MonoBehaviour
 		levelToSave.levelWidth = this.levelWidth;
 		levelToSave.levelHeight = this.levelHeight;
 		levelToSave.levelGravity = this.levelGravity;
+		levelToSave.levelBorder = this.levelBorder;
 		
 		levelToSave.tiles = new List<Level.Tile>();
 		

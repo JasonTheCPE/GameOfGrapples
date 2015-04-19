@@ -11,13 +11,17 @@ public class LevelEditorManager : MonoBehaviour
 	public int levelHeight = 25;
 	public float levelGravity;
 	
+	public Camera mainCam;
 	public InputField levelNameInputText;
 	public GameObject levelOptionsMenu;
 	public GameObject sameNameWarningText;
 	public GameObject needLevelNameWarningText;
 	public GameObject buildingMenu;
+	public GameObject tileSelectionBox;
+	public LevelScaleManager levelScaleManager;
 	
 	public GameObject levelToEdit;
+	public GameObject selectedTile;
 	
 	public void SetLevelName()
 	{
@@ -28,7 +32,7 @@ public class LevelEditorManager : MonoBehaviour
 		levelNameInputText.text = Regex.Replace(levelNameInputText.text, "[^\\w\\_]", "");
 		
 		//check existing level names
-		DirectoryInfo levelDir = new DirectoryInfo("Assets/Levels");
+		DirectoryInfo levelDir = new DirectoryInfo("Assets/Resources/Levels");
 		FileInfo[] levelInfo = levelDir.GetFiles("*.*");
 		
 		foreach(FileInfo f in levelInfo)
@@ -80,11 +84,46 @@ public class LevelEditorManager : MonoBehaviour
 		gridLines.levelHeight = this.levelHeight;
 		gridLines.InitializeGrid();
 		
+		TileSelectionBox tileBox = tileSelectionBox.GetComponent<TileSelectionBox>();
+		tileBox.SetupTileSelectionBox();
+		
 		levelToEdit.SetActive(true);
+	}
+	
+	public void SetCurrentTile(string tileName)
+	{
+		if(selectedTile != null)
+		{
+			Destroy(selectedTile);
+		}
+
+		selectedTile = Instantiate(Resources.Load<GameObject>("Tiles/" + tileName));
+		levelScaleManager.ScaleTile(selectedTile);
+		selectedTile.SetActive(false);
+	}
+	
+	public void DisplayTileAtCursor()
+	{
+		if(selectedTile != null)
+		{
+			selectedTile.SetActive(true);
+			Vector3 newPos = mainCam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 8f));
+			newPos = levelScaleManager.SnapVector(3, newPos);
+			selectedTile.transform.position = newPos;
+		}
 	}
 	
 	void Update()
 	{
+		if(tileSelectionBox.activeInHierarchy == false)
+		{
+			DisplayTileAtCursor();
+		}
+		else if(selectedTile != null)
+		{
+			selectedTile.SetActive(false);
+		}
+		
 		if(Input.GetButtonDown("LevelEditor_ToggleMenu") || Input.GetButtonDown("Cancel"))
 		{
 			buildingMenu.SetActive(!buildingMenu.activeSelf);
@@ -98,7 +137,19 @@ public class LevelEditorManager : MonoBehaviour
 		
 		if(Input.GetButtonDown("LevelEditor_RotateTile"))
 		{
-			//TODO
+			if(selectedTile != null)
+			{
+				selectedTile.transform.Rotate(new Vector3(0f, 0f, 45.0f));
+			}
+		}
+		
+		if(Input.GetButtonDown("LevelEditor_PlaceTile"))
+		{
+		
+		}
+		else if(Input.GetButtonDown("LevelEditor_DeleteTile"))
+		{
+		
 		}
 	}
 }

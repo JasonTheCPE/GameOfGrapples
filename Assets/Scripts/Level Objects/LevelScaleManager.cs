@@ -10,8 +10,8 @@ public class LevelScaleManager : MonoBehaviour
 	private float widthScaled;
 	private float heightScaled;
 	
-	private const int gameResolutionWidth = 1440;
-	private const int gameResolutionHeight = 900;
+	public const int gameResolutionWidth = 1440;
+	public const int gameResolutionHeight = 900;
 	private const int actualWidth = 480;
 	private const int actualHeight = 300;
 	
@@ -27,6 +27,16 @@ public class LevelScaleManager : MonoBehaviour
 	public void ScaleTile(GameObject tile)
 	{
 		Transform trans = tile.GetComponent<Transform>();
-		trans.localScale = new Vector3(trans.localScale.x * widthScaled, trans.localScale.y * heightScaled, trans.localScale.z);
+		var spriteBounds = tile.GetComponentInChildren<SpriteRenderer>().sprite.bounds;
+		
+		trans.localScale = new Vector3(scaledUnitSize / spriteBounds.size.x, scaledUnitSize / spriteBounds.size.y, 1f);
+	}
+	
+	public Vector3 SnapVector(int snapsPerGridUnit, Vector3 vectToSnap)
+	{
+		float snapDiv = scaledUnitSize / snapsPerGridUnit;
+		float nudge = snapDiv / 2;
+		Vector3 newVector = new Vector3(vectToSnap.x - Mathf.Repeat(vectToSnap.x, snapDiv) + nudge, vectToSnap.y - Mathf.Repeat(vectToSnap.y, snapDiv), vectToSnap.z);
+		return newVector;
 	}
 }
