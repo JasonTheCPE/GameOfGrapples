@@ -1,7 +1,6 @@
 ﻿#pragma strict
 
 var isActive = true;
-var playerID = 0;
 
 function OnTriggerEnter2D (other : Collider2D)  {
 	if(other.tag == "Tiles") {
@@ -10,14 +9,13 @@ function OnTriggerEnter2D (other : Collider2D)  {
 		GetComponent(Rigidbody2D).velocity = Vector3(0,0,0);
 	} else if (other.tag == "Player") {
 		if (isActive) {
-			if (other.gameObject.GetComponent(PlayerMovement).playerID != playerID) {
+			if (other.gameObject.GetComponent(TeamMember).teamID != GetComponent(TeamMember).teamID) {
 				other.gameObject.GetComponent(NetworkView).RPC("Die", RPCMode.All);
-				//other.gameObject.GetComponent(PlayerMovement).Die();
 				GetComponent(NetworkView).RPC("SelfDestruct", RPCMode.AllBuffered);
+				Debug.Log("Shuriken's playerID: " + GetComponent(TeamMember).teamID + " killed " + other.gameObject.GetComponent(TeamMember).teamID);
 			}
 		} else {
 			other.gameObject.GetComponent(NetworkView).RPC("pickupStar", RPCMode.All);
-			//other.gameObject.GetComponent(PlayerMovement).pickupStar();
 			GetComponent(NetworkView).RPC("SelfDestruct", RPCMode.AllBuffered);
 		}
 	}
@@ -27,3 +25,6 @@ function OnTriggerEnter2D (other : Collider2D)  {
 function SelfDestruct() {
 	Destroy(gameObject);
 }
+
+private var RemoveUnusedNameSpaceWarningsq:Queue;
+private var RemoveUnusedNameSpaceWarningsg:GUI;

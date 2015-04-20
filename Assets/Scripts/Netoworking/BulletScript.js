@@ -10,3 +10,6 @@ function Update () {
 function Move(dir:Vector3) {
 	GetComponent(CharacterController).Move(dir);
 }
+
+private var RemoveUnusedNameSpaceWarningsq:Queue;
+private var RemoveUnusedNameSpaceWarningsg:GUI;

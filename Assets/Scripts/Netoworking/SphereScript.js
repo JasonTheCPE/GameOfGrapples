@@ -1,5 +1,11 @@
 ﻿#pragma strict
 
+function Start() {
+}
+
+function Update() { 
+}
+
 function OnTriggerEnter() {
 	Debug.Log("Hello");
 	var newCol:Vector3 = Vector3(1,0,0);
@@ -16,3 +22,6 @@ function OnTriggerExit() {
 function SetColor(newColor:Vector3) {
 	GetComponent(Renderer).material.color = Color(newColor.x, newColor.y, newColor.z, 1);
 }
+
+private var RemoveUnusedNameSpaceWarningsq:Queue;
+private var RemoveUnusedNameSpaceWarningsg:GUI;

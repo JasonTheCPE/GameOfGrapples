@@ -28,3 +28,6 @@ function shoot () {
 		Network.Instantiate(bulletPrefab, transform.position + Vector3(0,1.5,0), Quaternion.identity, 0);
 	}
 }
+
+private var RemoveUnusedNameSpaceWarningsq:Queue;
+private var RemoveUnusedNameSpaceWarningsg:GUI;

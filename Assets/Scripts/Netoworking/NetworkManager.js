@@ -3,6 +3,7 @@
 var playerPrefab:GameObject;
 var spawnObject:Transform;
 var gameName:String = "HowDoMerps"; //a unique game name
+var skins:Object[];
 
 private var refreshing: boolean;
 private var hostdata: HostData[];
@@ -11,13 +12,14 @@ private var btnX: float;
 private var btnY: float;
 private var btnW: float;
 private var btnH: float;
-private var openID = 0;
 
 function Start () {
 	btnX = Screen.width * 0.05;
 	btnY = Screen.width * 0.05;
 	btnW = Screen.width * 0.1;
 	btnH = Screen.width * 0.1;
+	skins = Resources.LoadAll("Skins");
+	Debug.Log("Got all the skins, this many " + skins.Length);
 }
 
 function startServer() {
@@ -33,19 +35,20 @@ function refreshHostList() {
 	//MasterServer.PollHostList();			//gets the list of all hosts on the server
 }
 
-function spawnPlayer() {
-	var temp = Network.Instantiate(playerPrefab, spawnObject.position, Quaternion.identity, 0);
-	//temp.GetComponent(PlayerMovement).playerID = ++openID;
+function spawnPlayer(skinType:int) {
+	var spawnPrefab: GameObject = accessSkin(skinType);
+	var myPlayerGO = Network.Instantiate(spawnPrefab, spawnObject.position, Quaternion.identity, 0);
+	myPlayerGO.GetComponent(TeamMember).teamID = Network.connections.Length;
 }
 
 //Messages
 function OnServerInitialized() {	//premade function that is called when the server is initialized
 	Debug.Log("Server initialized!");
-	spawnPlayer();
+	spawnPlayer(Network.connections.Length);
 }
 
 function OnConnectedToServer(){
-	spawnPlayer();
+	spawnPlayer(Network.connections.Length);
 }
 
 function OnPlayerDisconnected(player : NetworkPlayer) {
@@ -96,3 +99,21 @@ function Update() {
 		}
 	}
 }
+
+function accessSkin(skinID : int) {
+	var arrayLength = skins.Length;
+	
+	if (arrayLength == 0)
+		return playerPrefab;
+		
+	for (var i = 0; i < arrayLength; i++) {
+		var caste: GameObject = skins[i];
+  		if (skinID == caste.GetComponent(Skin).SkinID)
+  			return skins[i];
+	}
+	
+	return playerPrefab;
+}
+
+private var RemoveUnusedNameSpaceWarningsq:Queue;
+private var RemoveUnusedNameSpaceWarningsg:GUI;
