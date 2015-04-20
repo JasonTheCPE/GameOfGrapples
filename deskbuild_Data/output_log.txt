@@ -14,7 +14,7 @@ Platform assembly: C:\Users\Andrew\Documents\Unity Projects\GameOfGrapples\deskb
 Loading C:\Users\Andrew\Documents\Unity Projects\GameOfGrapples\deskbuild_Data\Managed\Assembly-UnityScript.dll into Unity Child Domain
 Platform assembly: C:\Users\Andrew\Documents\Unity Projects\GameOfGrapples\deskbuild_Data\Managed\UnityEngine.UI.dll (this message is harmless)
 Loading C:\Users\Andrew\Documents\Unity Projects\GameOfGrapples\deskbuild_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
-- Completed reload, in  0.097 seconds
+- Completed reload, in  0.096 seconds
 desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
@@ -22,44 +22,11 @@ desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
 Platform assembly: C:\Users\Andrew\Documents\Unity Projects\GameOfGrapples\deskbuild_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: C:\Users\Andrew\Documents\Unity Projects\GameOfGrapples\deskbuild_Data\Managed\System.dll (this message is harmless)
 Unloading 2 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 6.197561 ms
+UnloadTime: 6.016236 ms
 
-Unloading 5 unused Assets to reduce memory usage. Loaded Objects now: 176.
-Total: 0.209550 ms (FindLiveObjects: 0.020099 ms CreateObjectMapping: 0.014540 ms MarkObjects: 0.165074 ms  DeleteObjects: 0.008980 ms)
+Unloading 5 unused Assets to reduce memory usage. Loaded Objects now: 184.
+Total: 0.160370 ms (FindLiveObjects: 0.015823 ms CreateObjectMapping: 0.010691 ms MarkObjects: 0.125730 ms  DeleteObjects: 0.007270 ms)
 
 Setting up 1 worker threads for Enlighten.
-  Thread -> id: 408 -> priority: 1 
+  Thread -> id: fe4 -> priority: 1 
 Platform assembly: C:\Users\Andrew\Documents\Unity Projects\GameOfGrapples\deskbuild_Data\Managed\UnityScript.Lang.dll (this message is harmless)
-refreshing
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
-
-sendto failed with code -1 for char 9 and length 1464.
-sendto failed with code -1 for char 9 and length 1464.
-sendto failed with code -1 for char 9 and length 1464.
-sendto failed with code -1 for char 9 and length 1464.
-Platform assembly: C:\Users\Andrew\Documents\Unity Projects\GameOfGrapples\deskbuild_Data\Managed\Boo.Lang.dll (this message is harmless)
-Games Found: 0
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
-
-refreshing
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
-
-Games Found: 0
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
-
-refreshing
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
-
-Games Found: 1
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
-
-1
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
-
