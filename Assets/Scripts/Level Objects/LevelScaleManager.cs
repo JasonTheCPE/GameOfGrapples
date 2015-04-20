@@ -37,8 +37,9 @@ public class LevelScaleManager : MonoBehaviour
 	public Vector3 SnapVector(int snapsPerGridUnit, Vector3 vectToSnap)
 	{
 		float snapDiv = scaledUnitSize / snapsPerGridUnit;
-		float nudge = snapDiv / 2;
-		return new Vector3(vectToSnap.x - Mathf.Repeat(vectToSnap.x, snapDiv) + nudge, vectToSnap.y - Mathf.Repeat(vectToSnap.y, snapDiv), vectToSnap.z);
+		float nudgeX = levelWidth % 2 == 1 ? 0 : snapDiv / 2;
+		float nudgeY = levelHeight % 2 == 1 ? 0 : snapDiv / 2;
+		return new Vector3(vectToSnap.x - Mathf.Repeat(vectToSnap.x, snapDiv) + nudgeX, vectToSnap.y - Mathf.Repeat(vectToSnap.y, snapDiv) + nudgeY, vectToSnap.z);
 	}
 	
 	public void KeepObjectWithSpriteInBounds(GameObject obj)

@@ -60,25 +60,25 @@ public class GridLines : MonoBehaviour
 		int i = 0;
 		while(i <= levelWidth)
 		{
-			gridVertices.Add(new Vector3(left + i * scaledUnitSize, top + buffer, -2.0f));
+			gridVertices.Add(new Vector3(left + i * scaledUnitSize, top + buffer, 0f));
 			gridVertices.Add(new Vector3(left + i * scaledUnitSize, bottom - buffer, -1.0f));
 			++i;
-			gridVertices.Add(new Vector3(left + i * scaledUnitSize, bottom - buffer, -2.0f));
+			gridVertices.Add(new Vector3(left + i * scaledUnitSize, bottom - buffer, 0f));
 			gridVertices.Add(new Vector3(left + i * scaledUnitSize, top + buffer, -1.0f));
 			++i;
 		}
 		
 		//Get into top right position for horizontal lines
-		gridVertices.Add(new Vector3(right + buffer, scaledUnitSize * halfHeight, -2.0f));
+		gridVertices.Add(new Vector3(right + buffer, scaledUnitSize * halfHeight, 0f));
 		
 		//Set horizontal lines
 		i = 0;
 		while(i <= levelHeight)
 		{
-			gridVertices.Add(new Vector3(left - buffer, top - i * scaledUnitSize, -2.0f));
+			gridVertices.Add(new Vector3(left - buffer, top - i * scaledUnitSize, 0f));
 			++i;
 			gridVertices.Add(new Vector3(left - buffer, top - i * scaledUnitSize, -1.0f));
-			gridVertices.Add(new Vector3(right + buffer, top - i * scaledUnitSize, -2.0f));
+			gridVertices.Add(new Vector3(right + buffer, top - i * scaledUnitSize, 0f));
 			++i;
 			gridVertices.Add(new Vector3(right + buffer, top - i * scaledUnitSize, -1.0f));
 		}

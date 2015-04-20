@@ -62,10 +62,10 @@ public class LevelIOManager : MonoBehaviour
 		}
 	}
 	
-	public static Level LoadLevel(string path)
+	public Level LoadLevel()
 	{
 		var serializer = new XmlSerializer(typeof(Level));
-		using(var stream = new FileStream(path, FileMode.Open))
+		using(var stream = new FileStream(GetLevelPath(), FileMode.Open))
 		{
 			return serializer.Deserialize(stream) as Level;
 		}
