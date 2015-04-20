@@ -35,7 +35,7 @@ function refreshHostList() {
 
 function spawnPlayer() {
 	var temp = Network.Instantiate(playerPrefab, spawnObject.position, Quaternion.identity, 0);
-	temp.GetComponent(PlayerMovement).playerID = ++openID;
+	//temp.GetComponent(PlayerMovement).playerID = ++openID;
 }
 
 //Messages

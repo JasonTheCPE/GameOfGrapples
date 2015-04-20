@@ -14,19 +14,138 @@ Platform assembly: C:\Users\Andrew\Documents\Unity Projects\GameOfGrapples\deskb
 Loading C:\Users\Andrew\Documents\Unity Projects\GameOfGrapples\deskbuild_Data\Managed\Assembly-UnityScript.dll into Unity Child Domain
 Platform assembly: C:\Users\Andrew\Documents\Unity Projects\GameOfGrapples\deskbuild_Data\Managed\UnityEngine.UI.dll (this message is harmless)
 Loading C:\Users\Andrew\Documents\Unity Projects\GameOfGrapples\deskbuild_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
-- Completed reload, in  0.096 seconds
+- Completed reload, in  0.053 seconds
 desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
 <RI> Initialized touch support.
 Platform assembly: C:\Users\Andrew\Documents\Unity Projects\GameOfGrapples\deskbuild_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: C:\Users\Andrew\Documents\Unity Projects\GameOfGrapples\deskbuild_Data\Managed\System.dll (this message is harmless)
-Unloading 2 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 6.016236 ms
+Unloading 3 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 3.904480 ms
 
-Unloading 5 unused Assets to reduce memory usage. Loaded Objects now: 184.
-Total: 0.160370 ms (FindLiveObjects: 0.015823 ms CreateObjectMapping: 0.010691 ms MarkObjects: 0.125730 ms  DeleteObjects: 0.007270 ms)
+Unloading 5 unused Assets to reduce memory usage. Loaded Objects now: 424.
+Total: 0.194154 ms (FindLiveObjects: 0.027797 ms CreateObjectMapping: 0.010263 ms MarkObjects: 0.146685 ms  DeleteObjects: 0.008980 ms)
 
-Setting up 1 worker threads for Enlighten.
-  Thread -> id: fe4 -> priority: 1 
 Platform assembly: C:\Users\Andrew\Documents\Unity Projects\GameOfGrapples\deskbuild_Data\Managed\UnityScript.Lang.dll (this message is harmless)
+refreshing
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+sendto failed with code -1 for char 9 and length 1464.
+sendto failed with code -1 for char 9 and length 1464.
+sendto failed with code -1 for char 9 and length 1464.
+sendto failed with code -1 for char 9 and length 1464.
+Platform assembly: C:\Users\Andrew\Documents\Unity Projects\GameOfGrapples\deskbuild_Data\Managed\Boo.Lang.dll (this message is harmless)
+Games Found: 1
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+1
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Mousex: 81 Mousey: 118
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Mousex: -386 Mousey: 27
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Dead Shuriken
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Mousex: -141 Mousey: 4
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Dead Shuriken
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Hit floor
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Hit floor
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Hit floor
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Mousex: 346 Mousey: 13
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Dead Shuriken
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Mousex: 42 Mousey: 5
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Dead Shuriken
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Mousex: -146 Mousey: 5
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Dead Shuriken
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Hit floor
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Hit floor
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Hit floor
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Mousex: 314 Mousey: 21
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Hit floor
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Dead Shuriken
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Hit floor
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Mousex: -290 Mousey: -1
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Dead Shuriken
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Hit floor
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Hit floor
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Hit floor
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
