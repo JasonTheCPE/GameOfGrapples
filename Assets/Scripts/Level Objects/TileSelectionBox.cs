@@ -43,7 +43,7 @@ public class TileSelectionBox : MonoBehaviour
 			newTileDisplay.transform.SetParent(transform, true);
 			newTileDisplay.SetActive(true);
 			
-			newTileDisplay.GetComponentInChildren<Canvas>().transform.FindChild("Tile Image").GetComponent<Image>().sprite
+			newTileDisplay.GetComponentInChildren<Canvas>().transform.Find("Tile Image").GetComponent<Image>().sprite
 				= tempTile.GetComponentInChildren<SpriteRenderer>().sprite;
 			//instance.GetComponentInChildren<Canvas>().transform.FindChild("Tile Image").GetComponent<Image>().material
 			//    = newTile.GetComponentInChildren<SpriteRenderer>().material;

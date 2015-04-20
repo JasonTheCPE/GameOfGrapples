@@ -31,12 +31,12 @@ public class Level
 		public string prefab;
 		
 		[XmlAttribute("posX")]
-		public int posX;
+		public float posX;
 		[XmlAttribute("posY")]
-		public int posY;
+		public float posY;
 		
 		[XmlAttribute("rot")]
-		public int rot;
+		public float rot;
 		
 		[XmlAttribute("scaleX")]
 		public float scaleX;

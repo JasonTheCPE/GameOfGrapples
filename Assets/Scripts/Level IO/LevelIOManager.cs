@@ -33,13 +33,13 @@ public class LevelIOManager : MonoBehaviour
 			{
 				Level.Tile tile = new Level.Tile();
 				
-				//All tile prefabs should be one word, this then truncates the " #" and returns the name
-				tile.prefab = child.name.Split(' ')[0];
-				tile.posX = (int) child.transform.localPosition.x; //make function to turn into absolute position
-				tile.posY = (int) child.transform.localPosition.y;
-				tile.rot = (int) child.transform.localRotation.z;
-				tile.scaleX = (int) child.localScale.x; //make function to find absolute scale
-				tile.scaleY = (int) child.localScale.y;
+				//Truncates the ending (clone) from tiles
+				tile.prefab = child.name.Split('(')[0];
+				tile.posX = child.transform.localPosition.x; //make function to turn into absolute position
+				tile.posY = child.transform.localPosition.y;
+				tile.rot = child.transform.rotation.eulerAngles.z;
+				tile.scaleX = child.localScale.x; //make function to find absolute scale
+				tile.scaleY = child.localScale.y;
 				
 				levelToSave.tiles.Add(tile);
 			}

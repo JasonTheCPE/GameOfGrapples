@@ -7,21 +7,36 @@ using System.Text.RegularExpressions;
 public class LevelEditorManager : MonoBehaviour
 {
 	public string levelName = "";
-	public int levelWidth = 40;
-	public int levelHeight = 25;
+	public int levelWidth;
+	public int levelHeight;
 	public float levelGravity;
 	
 	public Camera mainCam;
+	public Canvas rootCanvas;
 	public InputField levelNameInputText;
+	public InputField levelWidthInputText;
+	public InputField levelHeightInputText;
 	public GameObject levelOptionsMenu;
 	public GameObject sameNameWarningText;
 	public GameObject needLevelNameWarningText;
+	public GameObject invalidSizeWarningText;
 	public GameObject buildingMenu;
 	public GameObject tileSelectionBox;
 	public LevelScaleManager levelScaleManager;
 	
 	public GameObject levelToEdit;
 	public GameObject selectedTile;
+	
+	private bool placeTile = false;
+	private bool delTile = false;
+	private float lastPlacedX = Mathf.Infinity;
+	private float lastPlacedY = Mathf.Infinity;
+	
+	void Start()
+	{
+		levelWidthInputText.text = "40";
+		levelHeightInputText.text = "25";
+	}
 	
 	public void SetLevelName()
 	{
@@ -48,6 +63,26 @@ public class LevelEditorManager : MonoBehaviour
 		levelName = levelNameInputText.text;
 	}
 	
+	public void SetLevelWidth()
+	{
+		invalidSizeWarningText.SetActive(false);
+		int.TryParse(levelWidthInputText.text, out levelWidth);
+		if(levelWidth < 10 || levelHeight < 10)
+		{
+			invalidSizeWarningText.SetActive(true);
+		}
+	}
+	
+	public void SetLevelHeight()
+	{
+		invalidSizeWarningText.SetActive(false);
+		int.TryParse(levelHeightInputText.text, out levelHeight);
+		if(levelWidth < 10 || levelHeight < 10)
+		{
+			invalidSizeWarningText.SetActive(true);
+		}
+	}
+	
 	public void CloseEditOptions()
 	{
 		if(sameNameWarningText.activeSelf)
@@ -58,6 +93,10 @@ public class LevelEditorManager : MonoBehaviour
 		if(levelName.Equals(""))
 		{
 			needLevelNameWarningText.SetActive(true);
+			return;
+		}
+		if(invalidSizeWarningText.activeSelf)
+		{
 			return;
 		}
 		levelOptionsMenu.SetActive(false);
@@ -77,6 +116,7 @@ public class LevelEditorManager : MonoBehaviour
 		levelScaleManager.levelWidth = this.levelWidth;
 		levelScaleManager.levelHeight = this.levelHeight;
 		levelScaleManager.CalculateScales();
+		levelScaleManager.InitializeVoidBorders(rootCanvas);
 		
 		GridLines gridLines = levelToEdit.GetComponent<GridLines>();
 		gridLines.scaledUnitSize = levelScaleManager.scaledUnitSize;
@@ -98,35 +138,41 @@ public class LevelEditorManager : MonoBehaviour
 		}
 
 		selectedTile = Instantiate(Resources.Load<GameObject>("Tiles/" + tileName));
-		levelScaleManager.ScaleTile(selectedTile);
+		levelScaleManager.ScaleObjectWithSprite(selectedTile);
 		selectedTile.SetActive(false);
 	}
 	
-	public void DisplayTileAtCursor()
+	private void DisplayTileAtCursor()
 	{
-		if(selectedTile != null)
+		selectedTile.SetActive(true);
+		Vector3 newPos = mainCam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 8f));
+		newPos = levelScaleManager.SnapVector(3, newPos);
+		selectedTile.transform.position = newPos;
+		levelScaleManager.KeepObjectWithSpriteInBounds(selectedTile);
+	}
+	
+	private GameObject GetTileUnderCurrent()
+	{
+		selectedTile.SetActive(false);
+		RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+		selectedTile.SetActive(true);
+		
+		if(hit.collider != null && hit.collider.tag == "Tiles")
 		{
-			selectedTile.SetActive(true);
-			Vector3 newPos = mainCam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 8f));
-			newPos = levelScaleManager.SnapVector(3, newPos);
-			selectedTile.transform.position = newPos;
+			return hit.collider.transform.gameObject;
 		}
+		
+		return (GameObject) null;
 	}
 	
 	void Update()
 	{
-		if(tileSelectionBox.activeInHierarchy == false)
-		{
-			DisplayTileAtCursor();
-		}
-		else if(selectedTile != null)
-		{
-			selectedTile.SetActive(false);
-		}
-		
 		if(Input.GetButtonDown("LevelEditor_ToggleMenu") || Input.GetButtonDown("Cancel"))
 		{
-			buildingMenu.SetActive(!buildingMenu.activeSelf);
+			if(levelOptionsMenu.activeSelf == false)
+			{
+				buildingMenu.SetActive(!buildingMenu.activeSelf);
+			}
 		}
 		
 		if(Input.GetButtonDown("LevelEditor_ToggleGridLines"))
@@ -143,13 +189,59 @@ public class LevelEditorManager : MonoBehaviour
 			}
 		}
 		
-		if(Input.GetButtonDown("LevelEditor_PlaceTile"))
+		if(selectedTile != null)
 		{
-		
+			if(tileSelectionBox.activeInHierarchy == false)
+			{
+				DisplayTileAtCursor();
+				if(Input.GetButtonDown("LevelEditor_PlaceTile"))
+				{
+					placeTile = true;				
+				}
+				else if(Input.GetButtonDown("LevelEditor_DeleteTile"))
+				{
+					delTile = true;
+				}
+				
+				if(placeTile)
+				{
+					var tileBounds = selectedTile.transform.localScale;
+					var spriteBounds = selectedTile.GetComponentInChildren<SpriteRenderer>().sprite.bounds.size;
+					
+					if(Mathf.Abs(lastPlacedX - selectedTile.transform.position.x) >= tileBounds.x * spriteBounds.x ||
+					   Mathf.Abs(lastPlacedY - selectedTile.transform.position.y) >= tileBounds.y * spriteBounds.y)
+					{
+						GameObject tempTile = Instantiate(selectedTile);
+						tempTile.transform.SetParent(levelToEdit.transform, true);
+						lastPlacedX = selectedTile.transform.position.x;
+						lastPlacedY = selectedTile.transform.position.y;
+					}
+					
+				}
+				else if(delTile)
+				{
+					GameObject tempTile = GetTileUnderCurrent();
+					if(tempTile != null)
+					{
+						Destroy(tempTile);
+					}
+				}
+			}
+			else
+			{
+				selectedTile.SetActive(false);
+			}
 		}
-		else if(Input.GetButtonDown("LevelEditor_DeleteTile"))
-		{
 		
+		if(Input.GetButtonUp("LevelEditor_PlaceTile"))
+		{
+			placeTile = false;
+			lastPlacedX = Mathf.Infinity;
+			lastPlacedY = Mathf.Infinity;
+		}
+		if(Input.GetButtonUp("LevelEditor_DeleteTile"))
+		{
+			delTile = false;
 		}
 	}
 }

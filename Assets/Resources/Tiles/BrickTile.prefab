@@ -8,6 +8,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 474032}
+  - 61: {fileID: 6192370}
   m_Layer: 0
   m_Name: BrickTile
   m_TagString: Tiles
@@ -56,6 +57,19 @@ Transform:
   - {fileID: 447844}
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!61 &6192370
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 141432}
+  m_Enabled: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Size: {x: .689999998, y: .689999998}
 --- !u!212 &21203924
 SpriteRenderer:
   m_ObjectHideFlags: 1
