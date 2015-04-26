@@ -6,28 +6,18 @@ using System.IO;
 
 public class LevelIOManager : MonoBehaviour
 {	
-	public string levelName;
-	public int levelWidth;
-	public int levelHeight;
-	public float levelGravity;
-	public string levelBorder;
+	public const string customLevelDir = "Assets/Resources/Levels/Custom";
+	public const string builtInLevelDir = "Assets/Resources/Levels/BuiltIn";
 	
-	private string levelDir = "Assets/Resources/Levels";
-	private Level levelToSave;
-	
-	public void BuildLevelPrimitiveAndSaveLevel()
+	//Builds a Level XML out of the layout of the level set up inside levelCanvas 
+	//and the given Level properties.
+	public static void BuildLevelPrimitiveAndSaveLevel(GameObject levelCanvas, string levelName, int levelWidth, int levelHeight, float levelGravity, string levelBorder)
 	{
-		levelToSave = new Level();
-		
-		levelToSave.levelName = this.levelName;
-		levelToSave.levelWidth = this.levelWidth;
-		levelToSave.levelHeight = this.levelHeight;
-		levelToSave.levelGravity = this.levelGravity;
-		levelToSave.levelBorder = this.levelBorder;
+		Level levelToSave = new Level();
 		
 		levelToSave.tiles = new List<Level.Tile>();
 		
-		foreach(Transform child in transform)
+		foreach(Transform child in levelCanvas.transform)
 		{
 			if(child.tag == "Tiles")
 			{
@@ -45,36 +35,63 @@ public class LevelIOManager : MonoBehaviour
 			}
 		}
 		Debug.Log("Level contains " + levelToSave.tiles.Count + " tiles");
-		SaveLevel();
+		SaveLevel(levelToSave);
 	}
 	
-	public string GetLevelPath()
+	//Given the name of a Level and whether or not it is a custom Level, returns its resource path.
+	public static string GetLevelPath(string levelName, bool isCustom)
 	{
-		return Path.Combine(levelDir, levelName + ".xml");
+		if(isCustom)
+		{
+			return Path.Combine(customLevelDir, levelName + ".xml");
+		}
+		return Path.Combine(builtInLevelDir, levelName + ".xml");
 	}
 	
-	public void SaveLevel()
+	//Saves the given Level as a custom Level.
+	public static void SaveLevel(Level levelToSave)
 	{
 		var serializer = new XmlSerializer(typeof(Level));
-		using(var stream = new FileStream(GetLevelPath(), FileMode.Create))
+		using(var stream = new FileStream(GetLevelPath(levelToSave.levelName, true), FileMode.Create))
 		{
 			serializer.Serialize(stream, levelToSave);
 		}
 	}
 	
-	public Level LoadLevel()
+	//Loads and returns the Level with the name levelName and status as a custom Level or not.
+	public static Level LoadLevel(string levelName, bool isCustom)
 	{
 		var serializer = new XmlSerializer(typeof(Level));
-		using(var stream = new FileStream(GetLevelPath(), FileMode.Open))
+		using(var stream = new FileStream(GetLevelPath(levelName, isCustom), FileMode.Open))
 		{
 			return serializer.Deserialize(stream) as Level;
 		}
 	}
 	
-	//Loads the xml directly from the given string. Useful in combination with www.text.
+	//Loads the XML directly from the given string. Useful in combination with www.text.
 	public static Level LoadLevelFromText(string text) 
 	{
 		var serializer = new XmlSerializer(typeof(Level));
 		return serializer.Deserialize(new StringReader(text)) as Level;
+	}
+	
+	//Adds all the tiles from the given Level into the given Level Canvas and 
+	//adds and initializes its LevelScaleManager.
+	public static void ConstructLevelInCanvas(GameObject levelCanvas, Level level)
+	{
+		levelCanvas.AddComponent<LevelScaleManager>();
+		levelCanvas.GetComponent<LevelScaleManager>().InitializeLevelScaleManager(level.levelWidth, level.levelHeight);
+	
+		levelCanvas.GetComponent<LevelScaleManager>().InitializeVoidBorders(levelCanvas);
+	
+		foreach(Level.Tile tile in level.tiles)
+		{
+			GameObject newTile = Instantiate(Resources.Load<GameObject>("Tiles/" + tile.prefab));
+			newTile.transform.SetParent(levelCanvas.transform, true);
+			newTile.transform.position = new Vector3(tile.posX, tile.posY, 0f);
+			newTile.transform.localScale = new Vector3(tile.scaleX, tile.scaleY, 1f);
+			newTile.transform.Rotate(new Vector3(0f, 0f, tile.rot));
+		}
+		levelCanvas.SetActive(true);
 	}
 }

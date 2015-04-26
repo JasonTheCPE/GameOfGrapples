@@ -47,8 +47,10 @@ public class TileSelectionBox : MonoBehaviour
 				= tempTile.GetComponentInChildren<SpriteRenderer>().sprite;
 			//instance.GetComponentInChildren<Canvas>().transform.FindChild("Tile Image").GetComponent<Image>().material
 			//    = newTile.GetComponentInChildren<SpriteRenderer>().material;
-			newTileDisplay.GetComponentInChildren<Canvas>().GetComponentInChildren<InputField>().text
-				= tile.name;
+			newTileDisplay.GetComponentInChildren<Canvas>().GetComponentInChildren<Text>().text = tile.name;
+			
+			//Debug.Log(newTileDisplay.GetComponentInChildren<Canvas>().GetComponentInChildren<Text>().text);
+			//Debug.Log(numTile + ": Tile Name is " + tile.name);
 			
 			AddSetCurrentTileListener(newTileDisplay.GetComponentInChildren<Button>(), tile.name);
 			

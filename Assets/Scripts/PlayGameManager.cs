@@ -4,24 +4,20 @@ using System.Collections;
 public class PlayGameManager : MonoBehaviour
 {
 	public string selectedLevel = "";
-	public LevelIOManager levelIOManager;
 	public LevelScaleManager levelScaleManager;
 	public GameObject levelCanvas;
 	public GameObject levelSelectMenu;
 	public GameObject pauseMenu;
 	
-	public Level loadedLevel;
-	public string levelName;
-	public int levelWidth;
-	public int levelHeight;
-	public float levelGravity;
-	public string levelBorder;
+	public Level levelToLoad;
 	
+	//Called by buttons on the Level Select menu.
 	public void SelectLevel(string levelName)
 	{
 		selectedLevel = levelName;
 	}
 	
+	//Loads the last clicked Level from the Level Select menu.
 	public void LoadSelectedLevel()
 	{
 		if(selectedLevel.Equals(""))
@@ -29,28 +25,8 @@ public class PlayGameManager : MonoBehaviour
 			return;
 		}
 		
-		levelIOManager.levelName = selectedLevel;
-		loadedLevel = levelIOManager.LoadLevel();
+		levelToLoad = LevelIOManager.LoadLevel(selectedLevel, false);
 		levelSelectMenu.SetActive(false);
-		ConstructLevel();
-	}
-	
-	private void ConstructLevel()
-	{
-		this.levelName = loadedLevel.levelName;
-		this.levelWidth = loadedLevel.levelWidth;
-		this.levelHeight = loadedLevel.levelHeight;
-		this.levelGravity = loadedLevel.levelGravity;
-		this.levelBorder = loadedLevel.levelBorder;
-		
-		foreach(Level.Tile tile in loadedLevel.tiles)
-		{
-			GameObject newTile = Instantiate(Resources.Load<GameObject>("Tiles/" + tile.prefab));
-			newTile.transform.SetParent(levelCanvas.transform, true);
-			newTile.transform.position = new Vector3(tile.posX, tile.posY, 0f);
-			newTile.transform.localScale = new Vector3(tile.scaleX, tile.scaleY, 1f);
-			newTile.transform.Rotate(new Vector3(0f, 0f, tile.rot));
-		}
-		levelCanvas.SetActive(true);
+		LevelIOManager.ConstructLevelInCanvas(levelCanvas, levelToLoad);
 	}
 }

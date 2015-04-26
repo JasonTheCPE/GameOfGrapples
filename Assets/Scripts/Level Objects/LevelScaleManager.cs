@@ -16,9 +16,11 @@ public class LevelScaleManager : MonoBehaviour
 	private const int actualWidth = 480;
 	private const int actualHeight = 300;
 	
-	//Initializes this class, first set levelWidth and levelHeight
-	public void CalculateScales()
+	//Initializes the LevelScaleManager to do scaling for a level with the given width and height.
+	public void InitializeLevelScaleManager(int level_Width, int level_Height)
 	{
+		levelWidth = level_Width;
+		levelHeight = level_Height;
 		widthScaled = (float) actualWidth / levelWidth;
 		heightScaled = (float) actualHeight / levelHeight;
 		scaledUnitSize = widthScaled < heightScaled ? widthScaled : heightScaled;
@@ -26,22 +28,19 @@ public class LevelScaleManager : MonoBehaviour
 		//Debug.Log("WidthScaled: " + widthScaled + " HeightScaled: " + heightScaled + " scaledUnitSize: " + scaledUnitSize);
 	}
 	
-	public void ScaleObjectWithSprite(GameObject obj)
+	//Finds the SpriteRenderer in the children of this GameObject and scales its sprite to be 
+	//the number of units wide and tall given.
+	public void ScaleObjectWithSprite(GameObject obj, float unitsWide, float unitsTall)
 	{
 		Transform trans = obj.GetComponent<Transform>();
 		var spriteBounds = obj.GetComponentInChildren<SpriteRenderer>().sprite.bounds.size;
 		
-		trans.localScale = new Vector3(scaledUnitSize / spriteBounds.x, scaledUnitSize / spriteBounds.y, 1f);
+		trans.localScale = new Vector3(unitsWide * scaledUnitSize / spriteBounds.x, unitsTall * scaledUnitSize / spriteBounds.y, 1f);
 	}
 	
-	public Vector3 SnapVector(int snapsPerGridUnit, Vector3 vectToSnap)
-	{
-		float snapDiv = scaledUnitSize / snapsPerGridUnit;
-		float nudgeX = levelWidth % 2 == 1 ? 0 : snapDiv / 2;
-		float nudgeY = levelHeight % 2 == 1 ? 0 : snapDiv / 2;
-		return new Vector3(vectToSnap.x - Mathf.Repeat(vectToSnap.x, snapDiv) + nudgeX, vectToSnap.y - Mathf.Repeat(vectToSnap.y, snapDiv) + nudgeY, vectToSnap.z);
-	}
-	
+	//For a GameObject with a SpriteRenderer, adjusts the given GameObject's transform vector 
+	//to keep it within the level bounds set for this LevelScaleManager based on the size of 
+	//the GameObject's Sprite.
 	public void KeepObjectWithSpriteInBounds(GameObject obj)
 	{
 		Transform trans = obj.GetComponent<Transform>();
@@ -53,7 +52,20 @@ public class LevelScaleManager : MonoBehaviour
 		trans.position = new Vector3(Mathf.Clamp(trans.position.x, -maxX, maxX), Mathf.Clamp(trans.position.y, -maxY, maxY), trans.position.z);
 	}
 	
-	public void InitializeVoidBorders(Canvas hasBorders)
+	//Creates and returns a new Vector3 that is snapped into a grid that has snapsPerGridUnit 
+	//number of possible x or y positions for an area that is scaledUnitSize by scaledUnitSize 
+	//wide and tall.
+	public Vector3 SnapVector(int snapsPerGridUnit, Vector3 vectToSnap)
+	{
+		float snapDiv = scaledUnitSize / snapsPerGridUnit;
+		float nudgeX = levelWidth % 2 == 1 ? 0 : snapDiv / 2;
+		float nudgeY = levelHeight % 2 == 1 ? 0 : snapDiv / 2;
+		return new Vector3(vectToSnap.x - Mathf.Repeat(vectToSnap.x, snapDiv) + nudgeX, vectToSnap.y - Mathf.Repeat(vectToSnap.y, snapDiv) + nudgeY, vectToSnap.z);
+	}
+	
+	//Given the Canvas that contains the Level border RawImages, this will adjust those RawImages 
+	//to be in the perfect position and have the perfect size to frame the Level.
+	public void InitializeVoidBorders(GameObject hasBorders)
 	{
 		RawImage topBorder = hasBorders.transform.Find("Top Border").GetComponent<RawImage>();
 		RawImage bottomBorder = hasBorders.transform.Find("Bottom Border").GetComponent<RawImage>();

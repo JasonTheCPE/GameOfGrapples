@@ -9,7 +9,8 @@ public class LevelEditorManager : MonoBehaviour
 	public string levelName = "";
 	public int levelWidth;
 	public int levelHeight;
-	public float levelGravity;
+	public float levelGravity = 1f;
+	public string levelBorder = "block";
 	
 	public Camera mainCam;
 	public Canvas rootCanvas;
@@ -105,18 +106,10 @@ public class LevelEditorManager : MonoBehaviour
 	}
 	
 	private void PrepareEditor()
-	{
-		LevelIOManager levelIOManager = levelToEdit.GetComponent<LevelIOManager>();
-		levelIOManager.levelName = this.levelName;
-		levelIOManager.levelWidth = this.levelWidth;
-		levelIOManager.levelHeight = this.levelHeight;
-		levelIOManager.levelGravity = this.levelGravity;
-		
+	{	
 		LevelScaleManager levelScaleManager = levelToEdit.GetComponent<LevelScaleManager>();
-		levelScaleManager.levelWidth = this.levelWidth;
-		levelScaleManager.levelHeight = this.levelHeight;
-		levelScaleManager.CalculateScales();
-		levelScaleManager.InitializeVoidBorders(rootCanvas);
+		levelScaleManager.InitializeLevelScaleManager(levelWidth, levelHeight);
+		levelScaleManager.InitializeVoidBorders(rootCanvas.gameObject);
 		
 		GridLines gridLines = levelToEdit.GetComponent<GridLines>();
 		gridLines.scaledUnitSize = levelScaleManager.scaledUnitSize;
@@ -130,6 +123,11 @@ public class LevelEditorManager : MonoBehaviour
 		levelToEdit.SetActive(true);
 	}
 	
+	public void SaveLevel()
+	{
+		LevelIOManager.BuildLevelPrimitiveAndSaveLevel(levelToEdit, levelName, levelWidth, levelHeight, levelGravity, levelBorder);
+	}
+	
 	public void SetCurrentTile(string tileName)
 	{
 		if(selectedTile != null)
@@ -138,7 +136,7 @@ public class LevelEditorManager : MonoBehaviour
 		}
 
 		selectedTile = Instantiate(Resources.Load<GameObject>("Tiles/" + tileName));
-		levelScaleManager.ScaleObjectWithSprite(selectedTile);
+		levelScaleManager.ScaleObjectWithSprite(selectedTile, 1f, 1f);
 		selectedTile.SetActive(false);
 	}
 	

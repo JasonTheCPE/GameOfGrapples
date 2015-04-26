@@ -10,10 +10,9 @@ public class LevelSelectSubmenu : MonoBehaviour
 	
 	private const float levelDisplayHeight = 30f;
 	
-	
 	void Start ()
 	{	
-		DirectoryInfo levelDir = new DirectoryInfo("Assets/Resources/Levels");
+		DirectoryInfo levelDir = new DirectoryInfo(LevelIOManager.builtInLevelDir);
 		FileInfo[] levelInfo = levelDir.GetFiles("*.*");
 		
 		float height = levelInfo.Length > 5 ? levelInfo.Length * levelDisplayHeight : 160f;
@@ -31,7 +30,7 @@ public class LevelSelectSubmenu : MonoBehaviour
 				newLevelDisplay.transform.SetParent(transform, true);
 				newLevelDisplay.SetActive(true);
 				
-				newLevelDisplay.GetComponentInChildren<Canvas>().GetComponentInChildren<InputField>().text
+				newLevelDisplay.GetComponentInChildren<Canvas>().GetComponentInChildren<Text>().text
 					= level.Name.Remove(level.Name.Length - 4);
 				
 				AddSetCurrentLevelListener(newLevelDisplay.GetComponentInChildren<Button>(), level.Name.Remove(level.Name.Length - 4));

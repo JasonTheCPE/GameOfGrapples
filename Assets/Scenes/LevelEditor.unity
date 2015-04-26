@@ -412,7 +412,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a04b6552ae768143a59280ee316c8ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tileDisplayPrefab: {fileID: 193170, guid: 67370333583aeee4d8065ed5cdc181e4, type: 2}
+  tileDisplayPrefab: {fileID: 162058, guid: e1f3eac51cf49594b889d1befded54bd, type: 2}
   LEM: {fileID: 714500728}
 --- !u!1 &191350924
 GameObject:
@@ -1116,8 +1116,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 721135083}
-        m_MethodName: BuildLevelPrimitiveAndSaveLevel
+      - m_Target: {fileID: 714500728}
+        m_MethodName: SaveLevel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1318,6 +1318,7 @@ MonoBehaviour:
   levelWidth: 40
   levelHeight: 25
   levelGravity: 1
+  levelBorder: block
   mainCam: {fileID: 1415194994}
   rootCanvas: {fileID: 191350928}
   levelNameInputText: {fileID: 1710537303}
@@ -1343,7 +1344,6 @@ GameObject:
   - 223: {fileID: 721135085}
   - 114: {fileID: 721135084}
   - 120: {fileID: 721135081}
-  - 114: {fileID: 721135083}
   - 114: {fileID: 721135082}
   - 114: {fileID: 721135086}
   m_Layer: 0
@@ -1421,22 +1421,6 @@ MonoBehaviour:
   levelWidth: 0
   levelHeight: 0
   scaledUnitSize: 0
---- !u!114 &721135083
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 721135079}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 953004d257c87d54b9d10a9965c7e6c3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  levelName: newLevel
-  levelWidth: 0
-  levelHeight: 0
-  levelGravity: 1
-  levelBorder: 
 --- !u!114 &721135084
 MonoBehaviour:
   m_ObjectHideFlags: 0
