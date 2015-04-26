@@ -4,7 +4,6 @@ using System.Collections;
 public class PlayGameManager : MonoBehaviour
 {
 	public string selectedLevel = "";
-	public LevelScaleManager levelScaleManager;
 	public GameObject levelCanvas;
 	public GameObject levelSelectMenu;
 	public GameObject pauseMenu;
