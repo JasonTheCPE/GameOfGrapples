@@ -4,7 +4,7 @@ using System.Xml;
 using System.Xml.Serialization;
 using System.IO;
 
-public class LevelIOManager : MonoBehaviour
+public static class LevelIOManager
 {	
 	public const string customLevelDir = "Assets/Resources/Levels/Custom";
 	public const string builtInLevelDir = "Assets/Resources/Levels/BuiltIn";
@@ -86,7 +86,7 @@ public class LevelIOManager : MonoBehaviour
 	
 		foreach(Level.Tile tile in level.tiles)
 		{
-			GameObject newTile = Instantiate(Resources.Load<GameObject>("Tiles/" + tile.prefab));
+			GameObject newTile = Object.Instantiate(Resources.Load<GameObject>("Tiles/" + tile.prefab));
 			newTile.transform.SetParent(levelCanvas.transform, true);
 			newTile.transform.position = new Vector3(tile.posX, tile.posY, 0f);
 			newTile.transform.localScale = new Vector3(tile.scaleX, tile.scaleY, 1f);
