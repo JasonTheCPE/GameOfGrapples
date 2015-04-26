@@ -94,4 +94,10 @@ public class LevelIOManager : MonoBehaviour
 		}
 		levelCanvas.SetActive(true);
 	}
+	
+	public static void ContructLevelInCanvasByName(GameObject levelCanvas, string levelName, bool isCustom)
+	{
+		Level levelToLoad = LevelIOManager.LoadLevel(levelName, isCustom);
+		ConstructLevelInCanvas(levelCanvas, levelToLoad);
+	}
 }
