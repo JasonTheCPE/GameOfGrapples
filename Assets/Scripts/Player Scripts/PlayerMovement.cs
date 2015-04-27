@@ -13,8 +13,7 @@ public class PlayerMovement : MonoBehaviour {
 	private short isJumping = 0;
 	private bool facingRight = true;
 	private int ammo;
-	private Vector3 col;
-	
+
 	public GameObject ropePrefab;
 	public GameObject starPrefab;
 
@@ -70,7 +69,7 @@ public class PlayerMovement : MonoBehaviour {
 		//TODO adjust rotation of new stars
 		if (GetComponent<NetworkView>().isMine) {
 			dir.Normalize();
-			GameObject newStar = (GameObject)Network.Instantiate(starPrefab, transform.position + dir*7, transform.rotation, 0);
+			GameObject newStar = (GameObject)Network.Instantiate(starPrefab, transform.position + dir*7, Quaternion.identity, 0);
 			newStar.GetComponent<Rigidbody2D>().velocity = dir*throwSpeed;
 			newStar.GetComponent<Team>().teamID = GetComponent<Team>().teamID;
 		}
@@ -93,10 +92,5 @@ public class PlayerMovement : MonoBehaviour {
 	void Land() {
 		isJumping = 0;
 	}
-	
-	[RPC]
-	void setColor(Vector3 newColor) {
-		col = newColor;
-		GetComponent<Renderer>().material.color = new Color(newColor.x, newColor.y, newColor.z, 1);
-	}
+
 }
