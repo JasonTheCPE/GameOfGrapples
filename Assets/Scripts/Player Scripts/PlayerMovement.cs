@@ -51,8 +51,10 @@ public class PlayerMovement : MonoBehaviour {
 		}
 		
 		if(Input.GetButtonDown("Fire1") && ammo > 0){
-			//throwStar(Vector3(Input.mousePosition.x - Screen.width/2, Input.mousePosition.y - Screen.height/2, 0));
-			GetComponent<NetworkView>().RPC("throwStar", RPCMode.All, new Vector3(Input.mousePosition.x - Screen.width/2, Input.mousePosition.y - Screen.height/2, 0));
+			Vector3 throwVector = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0));
+			throwVector = throwVector - transform.position;
+
+			GetComponent<NetworkView>().RPC("throwStar", RPCMode.All, throwVector);
 		}
 	}
 	
