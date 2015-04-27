@@ -10,9 +10,11 @@ public class MultiplayerManager : MonoBehaviour {
 	private string matchName = "";				//name of the match
 	private string matchPassword = "";			//password to enter the match
 	private int matchMaxUsers = 4;				//max players in the match
-	
+	private string toLoad = "";					//stores the level to load in OnLevelWasLoaded
+	private bool isCustom = false;
+
 	public string playerName = "Host Player";	//the player name the current player will have in the match
-	
+
 	public List<MyPlayer> PlayerList = new List<MyPlayer>();
 	public List<MapSettings> MapList = new List<MapSettings>();
 
@@ -20,13 +22,17 @@ public class MultiplayerManager : MonoBehaviour {
 
 	public int oldPrefix;
 	public bool isMatchStarted = false;
-	
+
+	void Awake() {
+		DontDestroyOnLoad(transform.gameObject);
+	}
+
 	// Use this for initialization
 	void Start () {
 		instance = this;
 		playerName = PlayerPrefs.GetString("Player Name");	//get saved player settings for their name
 
-		DirectoryInfo levelDir = new DirectoryInfo("Assets/Resources/Levels");
+		DirectoryInfo levelDir = new DirectoryInfo("Assets/Resources/Levels/BuiltIn");
 		FileInfo[] levelInfo = levelDir.GetFiles("*.*");
 
 		foreach(FileInfo level in levelInfo)
@@ -35,7 +41,7 @@ public class MultiplayerManager : MonoBehaviour {
 			{
 				MapSettings newLevelDisplay = new MapSettings();
 				newLevelDisplay.mapName = level.Name.Remove(level.Name.Length - 4);
-				newLevelDisplay.mapLoadName = level.Name;
+				newLevelDisplay.mapLoadName = level.Name.Remove(level.Name.Length - 4);
 				MapList.Add(newLevelDisplay);
 			}
 		}
@@ -139,7 +145,17 @@ public class MultiplayerManager : MonoBehaviour {
 	[RPC]
 	void Client_LoadMultiplayerMap(string map, int prefix) {
 		Network.SetLevelPrefix(prefix); //make sure you only recieve new RPCs
-		Application.LoadLevel(map);
+		toLoad = map;
+		isCustom = false;
+		Application.LoadLevel("inmultiplayergame");
+	}
+
+	void OnLevelWasLoaded(int level) {
+		if (level == 5) {
+			Debug.Log("Loading Level " + toLoad);
+			LevelIOManager.ContructLevelInCanvasByName(GameObject.Find("Level"), toLoad, isCustom);
+		}
+
 	}
 	
 	
