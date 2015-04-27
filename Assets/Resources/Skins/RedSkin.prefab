@@ -17,6 +17,7 @@ GameObject:
   - 148: {fileID: 14805314}
   - 114: {fileID: 11488652}
   - 114: {fileID: 11430148}
+  - 114: {fileID: 11480518}
   m_Layer: 0
   m_Name: RedSkin
   m_TagString: Player
@@ -138,6 +139,18 @@ MonoBehaviour:
   throwSpeed: 200
   ropePrefab: {fileID: 0}
   starPrefab: {fileID: 135352, guid: 67784293c8d767d4f9318681bbf4184f, type: 2}
+--- !u!114 &11480518
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 142992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 476741df08d05844699f105fdd93cb19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skinID: 1
 --- !u!114 &11488652
 MonoBehaviour:
   m_ObjectHideFlags: 1

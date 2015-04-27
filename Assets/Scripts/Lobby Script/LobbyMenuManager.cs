@@ -140,12 +140,12 @@ public class LobbyMenuManager : MonoBehaviour {
 		GUI.Box(new Rect(250, 10, 200, 40), MultiplayerManager.instance.currentMap.mapName);
 
 		if (Network.isServer) {
-			if(GUI.Button(new Rect(Screen.width - 405, Screen.height - 30, 200, 40), "Start Match")) {
+			if(GUI.Button(new Rect(Screen.width - 405, Screen.height - 40, 200, 40), "Start Match")) {
 				MultiplayerManager.instance.GetComponent<NetworkView>().RPC("Client_LoadMultiplayerMap", 
 				      RPCMode.All, MultiplayerManager.instance.currentMap.mapLoadName, MultiplayerManager.instance.oldPrefix + 1);
 				MultiplayerManager.instance.oldPrefix += 1;
 				MultiplayerManager.instance.isMatchStarted = true;
-				//MultiplayerManager.instance.GetComponent<Network>().maxConnections = -1;
+				//MultiplayerManager.instance.GetComponent<Network>().maxConnections = -1; // TODO
 			}
 		}
 

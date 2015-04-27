@@ -17,6 +17,7 @@ GameObject:
   - 148: {fileID: 14895262}
   - 114: {fileID: 11499096}
   - 114: {fileID: 11465968}
+  - 114: {fileID: 11467138}
   m_Layer: 0
   m_Name: BlueSkin
   m_TagString: Player
@@ -138,6 +139,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SkinID: 2
+--- !u!114 &11467138
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 180124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 476741df08d05844699f105fdd93cb19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skinID: 2
 --- !u!114 &11499096
 MonoBehaviour:
   m_ObjectHideFlags: 1

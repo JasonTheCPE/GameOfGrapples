@@ -244,6 +244,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerName: Host Player
+  playerPrefab: {fileID: 0}
   PlayerList: []
   MapList: []
   currentMap:

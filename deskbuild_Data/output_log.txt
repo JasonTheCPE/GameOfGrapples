@@ -14,7 +14,7 @@ Platform assembly: C:\Users\Andrew\Documents\Unity Projects\GameOfGrapples\deskb
 Loading C:\Users\Andrew\Documents\Unity Projects\GameOfGrapples\deskbuild_Data\Managed\Assembly-UnityScript.dll into Unity Child Domain
 Platform assembly: C:\Users\Andrew\Documents\Unity Projects\GameOfGrapples\deskbuild_Data\Managed\UnityEngine.UI.dll (this message is harmless)
 Loading C:\Users\Andrew\Documents\Unity Projects\GameOfGrapples\deskbuild_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
-- Completed reload, in  0.132 seconds
+- Completed reload, in  0.045 seconds
 desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
@@ -22,25 +22,30 @@ desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
 Platform assembly: C:\Users\Andrew\Documents\Unity Projects\GameOfGrapples\deskbuild_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: C:\Users\Andrew\Documents\Unity Projects\GameOfGrapples\deskbuild_Data\Managed\System.dll (this message is harmless)
 Unloading 2 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 5.230219 ms
+UnloadTime: 3.924161 ms
 
 Unloading 5 unused Assets to reduce memory usage. Loaded Objects now: 149.
-Total: 0.174910 ms (FindLiveObjects: 0.014112 ms CreateObjectMapping: 0.016678 ms MarkObjects: 0.134283 ms  DeleteObjects: 0.008553 ms)
+Total: 0.157377 ms (FindLiveObjects: 0.020099 ms CreateObjectMapping: 0.019672 ms MarkObjects: 0.109052 ms  DeleteObjects: 0.007697 ms)
 
 sendto failed with code -1 for char 9 and length 1464.
 sendto failed with code -1 for char 9 and length 1464.
 sendto failed with code -1 for char 9 and length 1464.
 sendto failed with code -1 for char 9 and length 1464.
 Unloading 1 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 0.265573 ms
+UnloadTime: 0.297647 ms
 Loading Level Basic_Arena
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
 
 Platform assembly: C:\Users\Andrew\Documents\Unity Projects\GameOfGrapples\deskbuild_Data\Managed\System.Xml.dll (this message is harmless)
-IOException: Sharing violation on path C:\Users\Andrew\Documents\Unity Projects\GameOfGrapples\Assets\Resources\Levels\BuiltIn\Basic_Arena.xml
-  at System.IO.FileStream..ctor (System.String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, Boolean anonymous, FileOptions options) [0x00000] in <filename unknown>:0 
-  at System.IO.FileStream..ctor (System.String path, FileMode mode) [0x00000] in <filename unknown>:0 
+ArgumentException: Encoding name 'Windows-1252' not supported
+Parameter name: name
+  at System.Text.Encoding.GetEncoding (System.String name) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlInputStream.Initialize (System.IO.Stream stream) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlInputStream..ctor (System.IO.Stream stream) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlStreamReader..ctor (System.IO.Stream input) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlTextReader..ctor (System.IO.Stream input) [0x00000] in <filename unknown>:0 
+  at System.Xml.Serialization.XmlSerializer.Deserialize (System.IO.Stream stream) [0x00000] in <filename unknown>:0 
   at LevelIOManager.LoadLevel (System.String levelName, Boolean isCustom) [0x00000] in <filename unknown>:0 
   at LevelIOManager.ContructLevelInCanvasByName (UnityEngine.GameObject levelCanvas, System.String levelName, Boolean isCustom) [0x00000] in <filename unknown>:0 
   at MultiplayerManager.OnLevelWasLoaded (Int32 level) [0x00000] in <filename unknown>:0 
@@ -49,5 +54,5 @@ IOException: Sharing violation on path C:\Users\Andrew\Documents\Unity Projects\
 
 
 Unloading 2 unused Assets to reduce memory usage. Loaded Objects now: 199.
-Total: 0.289522 ms (FindLiveObjects: 0.015395 ms CreateObjectMapping: 0.009836 ms MarkObjects: 0.259158 ms  DeleteObjects: 0.004276 ms)
+Total: 0.305773 ms (FindLiveObjects: 0.014967 ms CreateObjectMapping: 0.010263 ms MarkObjects: 0.275409 ms  DeleteObjects: 0.004704 ms)
 

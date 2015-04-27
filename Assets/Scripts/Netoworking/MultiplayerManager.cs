@@ -12,8 +12,10 @@ public class MultiplayerManager : MonoBehaviour {
 	private int matchMaxUsers = 4;				//max players in the match
 	private string toLoad = "";					//stores the level to load in OnLevelWasLoaded
 	private bool isCustom = false;
+	private Object[] skins;
 
 	public string playerName = "Host Player";	//the player name the current player will have in the match
+	public GameObject playerPrefab;
 
 	public List<MyPlayer> PlayerList = new List<MyPlayer>();
 	public List<MapSettings> MapList = new List<MapSettings>();
@@ -48,6 +50,9 @@ public class MultiplayerManager : MonoBehaviour {
 
 		if(MapList.Count > 0)
 			currentMap = MapList[0];
+
+		skins = Resources.LoadAll("Skins");
+		Debug.Log("Got all the skins, this many " + skins.Length);
 	}
 
 	//keep the instance alive
@@ -104,6 +109,7 @@ public class MultiplayerManager : MonoBehaviour {
 		MyPlayer tempPlayer = new MyPlayer();
 		tempPlayer.playerName = playerName;
 		tempPlayer.playerNetwork = view;
+		tempPlayer.skinID = 0;
 		PlayerList.Add(tempPlayer);
 	}
 	
@@ -154,10 +160,29 @@ public class MultiplayerManager : MonoBehaviour {
 		if (level == 5) {
 			Debug.Log("Loading Level " + toLoad);
 			LevelIOManager.ContructLevelInCanvasByName(GameObject.Find("Level"), toLoad, isCustom);
+			spawnPlayer(0);
 		}
 
 	}
-	
+
+	void spawnPlayer(int skinType) {
+		GameObject spawnPrefab = accessSkin(skinType);
+		Vector3 spawnlocation = new Vector3(0,0,0);
+		GameObject myPlayerGO = (GameObject)Network.Instantiate(spawnPrefab, spawnlocation, Quaternion.identity, 0);
+		//myPlayerGO.GetComponent(TeamMember).teamID = Network.connections.Length;
+	}
+
+	GameObject accessSkin(int skinID) {
+		int arrayLength = skins.Length;
+		
+		for (int i = 0; i < arrayLength; i++) {
+			GameObject caste = (GameObject)skins[i];
+			if (skinID == caste.GetComponent<SkinNum>().skinID) 
+				return caste;
+		}
+		
+		return playerPrefab;
+	}
 	
 }
 
