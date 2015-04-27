@@ -13,6 +13,7 @@ public class MultiplayerManager : MonoBehaviour {
 	private string toLoad = "";					//stores the level to load in OnLevelWasLoaded
 	private bool isCustom = false;
 	private Object[] skins;
+	private int usingSkin = 0;
 
 	public string playerName = "Host Player";	//the player name the current player will have in the match
 	public GameObject playerPrefab;
@@ -133,6 +134,18 @@ public class MultiplayerManager : MonoBehaviour {
 		currentMap = GetMap(map); //can add in mode later if I want to
 	}
 
+	[RPC]
+	void SetSkin(int skinNum, NetworkPlayer view) {
+		foreach(MyPlayer pl in PlayerList) {
+			if(pl.playerNetwork == view) {
+				pl.skinID = skinNum;
+			}
+		}
+
+		if (view == Network.player)
+			usingSkin = skinNum;
+	}
+
 	//can possibly make better by getting rid of get variable. we will see if i need it later
 	public MapSettings GetMap(string name) {
 		MapSettings get = null;
@@ -157,10 +170,10 @@ public class MultiplayerManager : MonoBehaviour {
 	}
 
 	void OnLevelWasLoaded(int level) {
-		if (level == 5) {
+		if (level == 4) {
 			Debug.Log("Loading Level " + toLoad);
 			LevelIOManager.ContructLevelInCanvasByName(GameObject.Find("Level"), toLoad, isCustom);
-			spawnPlayer(0);
+			spawnPlayer(usingSkin);
 		}
 
 	}

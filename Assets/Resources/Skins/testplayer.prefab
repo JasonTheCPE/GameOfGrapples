@@ -12,12 +12,11 @@ GameObject:
   - 23: {fileID: 2314694}
   - 61: {fileID: 6190216}
   - 50: {fileID: 5035010}
-  - 114: {fileID: 11419210}
   - 61: {fileID: 6182954}
   - 148: {fileID: 14857256}
-  - 114: {fileID: 11499896}
-  - 114: {fileID: 11407056}
   - 114: {fileID: 11482514}
+  - 114: {fileID: 11421308}
+  - 114: {fileID: 11440750}
   m_Layer: 0
   m_Name: testplayer
   m_TagString: Player
@@ -109,7 +108,7 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Size: {x: 1, y: 2}
---- !u!114 &11407056
+--- !u!114 &11421308
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -117,11 +116,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 165502}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7565411bc302de144b1470e0c0b89d96, type: 3}
+  m_Script: {fileID: 11500000, guid: bf29a684d89aafb428f05c91273c20fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SkinID: 0
---- !u!114 &11419210
+  teamID: 0
+--- !u!114 &11440750
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -129,10 +128,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 165502}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6652f19f74bdb3b4aa86df5dbd2c7b62, type: 3}
+  m_Script: {fileID: 11500000, guid: fd915cd374004a740b1fd5c41444649e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
+  speed: 20
   maxSpeed: 50
   jump: 240
   maxAmmo: 4
@@ -151,18 +150,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skinID: 0
---- !u!114 &11499896
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 165502}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d222594b63095b43b1cf717f3b68a76, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  teamID: 0
 --- !u!148 &14857256
 NetworkView:
   m_ObjectHideFlags: 1

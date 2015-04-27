@@ -9,6 +9,7 @@ public class LobbyMenuManager : MonoBehaviour {
 	public int maxPlayers = 4;
 	public LobbyMenuManager instance;
 
+	private Object[] skins;
 	private Vector2 scrollLobby = Vector2.zero;
 	private string iptemp = "127.0.0.1";
 
@@ -17,6 +18,7 @@ public class LobbyMenuManager : MonoBehaviour {
 		currentMenu = "Main";
 		matchName = "Temp Name: " + Random.Range(0, 5000);
 		instance = this;
+		skins = Resources.LoadAll("Skins");
 	}
 
 	//keep the instance alive
@@ -121,7 +123,6 @@ public class LobbyMenuManager : MonoBehaviour {
 			maxPlayers = 8;
 
 		GUI.Label(new Rect(650, 10, 130, 30), MultiplayerManager.instance.currentMap.mapName);
-
 	}
 
 	private void Menu_Lobby() {
@@ -138,6 +139,17 @@ public class LobbyMenuManager : MonoBehaviour {
 		GUILayout.EndScrollView();
 
 		GUI.Box(new Rect(250, 10, 200, 40), MultiplayerManager.instance.currentMap.mapName);
+
+		GUI.Label(new Rect(250, 55, 130, 30), "Choose Skin");
+		GUILayout.BeginArea(new Rect(250, 86, 150, Screen.height - 90));
+		
+		for(int i = 0; i < skins.Length; ++i) {
+			if(GUILayout.Button("Skin " + i.ToString())) {
+				MultiplayerManager.instance.GetComponent<NetworkView>().RPC("SetSkin", RPCMode.All, i, Network.player);
+			}
+		}
+		
+		GUILayout.EndArea();
 
 		if (Network.isServer) {
 			if(GUI.Button(new Rect(Screen.width - 405, Screen.height - 40, 200, 40), "Start Match")) {

@@ -38,7 +38,7 @@ function refreshHostList() {
 function spawnPlayer(skinType:int) {
 	var spawnPrefab: GameObject = accessSkin(skinType);
 	var myPlayerGO = Network.Instantiate(spawnPrefab, spawnObject.position, Quaternion.identity, 0);
-	myPlayerGO.GetComponent(TeamMember).teamID = Network.connections.Length;
+	//myPlayerGO.GetComponent(TeamMember).teamID = Network.connections.Length;
 }
 
 //Messages
@@ -108,7 +108,7 @@ function accessSkin(skinID : int) {
 		
 	for (var i = 0; i < arrayLength; i++) {
 		var caste: GameObject = skins[i];
-  		if (skinID == caste.GetComponent(Skin).SkinID)
+  		//if (skinID == caste.GetComponent(Skin).SkinID)
   			return skins[i];
 	}
 	

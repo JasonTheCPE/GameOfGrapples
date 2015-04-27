@@ -12,12 +12,11 @@ GameObject:
   - 23: {fileID: 2358766}
   - 61: {fileID: 6180956}
   - 50: {fileID: 5053186}
-  - 114: {fileID: 11436068}
   - 61: {fileID: 6124600}
   - 148: {fileID: 14805314}
-  - 114: {fileID: 11488652}
-  - 114: {fileID: 11430148}
   - 114: {fileID: 11480518}
+  - 114: {fileID: 11471210}
+  - 114: {fileID: 11422014}
   m_Layer: 0
   m_Name: RedSkin
   m_TagString: Player
@@ -109,7 +108,7 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Size: {x: 1, y: 2}
---- !u!114 &11430148
+--- !u!114 &11422014
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -117,28 +116,28 @@ MonoBehaviour:
   m_GameObject: {fileID: 142992}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7565411bc302de144b1470e0c0b89d96, type: 3}
+  m_Script: {fileID: 11500000, guid: fd915cd374004a740b1fd5c41444649e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SkinID: 1
---- !u!114 &11436068
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 142992}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6652f19f74bdb3b4aa86df5dbd2c7b62, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 10
+  speed: 20
   maxSpeed: 50
   jump: 240
   maxAmmo: 4
   throwSpeed: 200
   ropePrefab: {fileID: 0}
-  starPrefab: {fileID: 135352, guid: 67784293c8d767d4f9318681bbf4184f, type: 2}
+  starPrefab: {fileID: 143626, guid: 7e7372d0421ddfe4dbdb08a892a2fcae, type: 2}
+--- !u!114 &11471210
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 142992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf29a684d89aafb428f05c91273c20fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  teamID: 0
 --- !u!114 &11480518
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -151,18 +150,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skinID: 1
---- !u!114 &11488652
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 142992}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d222594b63095b43b1cf717f3b68a76, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  teamID: 0
 --- !u!148 &14805314
 NetworkView:
   m_ObjectHideFlags: 1
