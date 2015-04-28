@@ -4,20 +4,26 @@ using System.Collections;
 public class Shuriken : MonoBehaviour {
 
 	public bool isActive = true;
+	public static float spinAmount = 16.0f;
 
 	// Use this for initialization
 	void Start () {
-		Debug.Log("Hello");
+		//Debug.Log("Hello");
+		Debug.Log(Time.deltaTime);
 	}
 	
 	// Update is called once per frame
 	void Update () {
-	
+		if(!Mathf.Approximately(GetComponent<Rigidbody2D>().velocity.x, 0f) || !Mathf.Approximately(GetComponent<Rigidbody2D>().velocity.y, 0f))
+		{
+			transform.Rotate(new Vector3(0, 0, spinAmount * -Mathf.Sign(GetComponent<Rigidbody2D>().velocity.x)));
+		}
+		
 	}
 
 	void OnTriggerEnter2D (Collider2D other)  {
 		if(other.tag == "Tiles") {
-			Debug.Log("Dead Shuriken");
+			//Debug.Log("Dead Shuriken");
 			isActive = false;
 			GetComponent<Rigidbody2D>().velocity = new Vector3(0,0,0);
 		} else if (other.tag == "Player") {

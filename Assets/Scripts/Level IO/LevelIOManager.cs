@@ -6,7 +6,7 @@ using System.IO;
 
 public static class LevelIOManager
 {	
-	public const string customLevelDir = "Assets/Resources/Levels/Custom";
+	public static string customLevelDir = Application.persistentDataPath;
 	public const string builtInLevelDir = "Assets/Resources/Levels/BuiltIn";
 	
 	//Builds a Level XML out of the layout of the level set up inside levelCanvas 
@@ -14,6 +14,12 @@ public static class LevelIOManager
 	public static void BuildLevelPrimitiveAndSaveLevel(GameObject levelCanvas, string levelName, int levelWidth, int levelHeight, float levelGravity, string levelBorder)
 	{
 		Level levelToSave = new Level();
+		
+		levelToSave.levelName = levelName;
+		levelToSave.levelWidth = levelWidth;
+		levelToSave.levelHeight = levelHeight;
+		levelToSave.levelGravity = levelGravity;
+		levelToSave.levelBorder = levelBorder;
 		
 		levelToSave.tiles = new List<Level.Tile>();
 		
@@ -48,7 +54,26 @@ public static class LevelIOManager
 		return Path.Combine(builtInLevelDir, levelName + ".xml");
 	}
 	
-	//Saves the given Level as a custom Level.
+	//Returns an array containing all of the Level names for either built-in or custom (not filenames).
+	public static List<string> GetBuiltInLevelNames(bool isCustom)
+	{
+		DirectoryInfo levelDir = new DirectoryInfo(isCustom ? customLevelDir : builtInLevelDir);
+		FileInfo[] levelInfo = levelDir.GetFiles("*.*");
+		
+		List<string> levelNames = new List<string>();
+		
+		foreach(FileInfo f in levelInfo)
+		{
+			if(f.Name.EndsWith(".xml"))
+			{
+				levelNames.Add(f.Name.Remove(f.Name.Length - 4));
+			}
+		}
+		
+		return levelNames;
+	}
+	
+	//Saves the given Level to the persistentDataPath folder.
 	public static void SaveLevel(Level levelToSave)
 	{
 		var serializer = new XmlSerializer(typeof(Level));

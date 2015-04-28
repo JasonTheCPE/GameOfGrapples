@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="Windows-1252"?>
-<Level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" LevelName="Basic_Arena" LevelWidth="20" LevelHeight="15" LevelGravity="1" LevelBorder="">
+<Level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" LevelName="Basic_Arena" LevelWidth="20" LevelHeight="15" LevelGravity="1" LevelBorder="block">
   <Tiles>
     <Tile prefab="DarkGradientTile" posX="-190" posY="140" rot="0" scaleX="31.25" scaleY="31.25" />
     <Tile prefab="DarkGradientTile" posX="-190" posY="120" rot="0" scaleX="31.25" scaleY="31.25" />

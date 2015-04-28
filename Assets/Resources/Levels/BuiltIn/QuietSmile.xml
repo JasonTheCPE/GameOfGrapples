@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="Windows-1252"?>
-<Level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" LevelName="QuietSmile" LevelWidth="30" LevelHeight="20" LevelGravity="1" LevelBorder="">
+<Level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" LevelName="QuietSmile" LevelWidth="30" LevelHeight="20" LevelGravity="1" LevelBorder="block">
   <Tiles>
     <Tile prefab="DarkGradientTile" posX="-217.5" posY="-142.5" rot="0" scaleX="23.4375" scaleY="23.4375" />
     <Tile prefab="DarkGradientTile" posX="-202.5" posY="-142.5" rot="0" scaleX="23.4375" scaleY="23.4375" />
