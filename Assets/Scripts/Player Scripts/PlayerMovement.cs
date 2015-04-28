@@ -9,12 +9,15 @@ public class PlayerMovement : MonoBehaviour {
 	public int maxAmmo = 4;
 	public int throwSpeed = 200;
 	
+	public bool grappleIsThrown = false;
+	
 	private Rigidbody2D rb;
 	private short isJumping = 0;
 	private bool facingRight = true;
 	private int ammo;
 
 	public GameObject ropePrefab;
+	public GameObject kunaiPrefab;
 	public GameObject starPrefab;
 
 	// Use this for initialization
@@ -50,11 +53,21 @@ public class PlayerMovement : MonoBehaviour {
 			enabled = false;
 		}
 		
-		if(Input.GetButtonDown("Fire1") && ammo > 0){
+		if(Input.GetButtonDown("Fire1") && ammo > 0)
+		{
 			Vector3 throwVector = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0));
 			throwVector = throwVector - transform.position;
 
 			GetComponent<NetworkView>().RPC("throwStar", RPCMode.All, throwVector);
+		}
+		
+		if(Input.GetButtonDown("Fire2") && !grappleIsThrown)
+		{
+			//grappleIsThrown = true;
+			Vector3 throwVector = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0));
+			throwVector = throwVector - transform.position;
+			
+			GetComponent<NetworkView>().RPC("throwGrapple", RPCMode.All, throwVector);
 		}
 	}
 	
@@ -66,14 +79,25 @@ public class PlayerMovement : MonoBehaviour {
 	}
 	
 	[RPC]
-	void throwStar (Vector3 dir) {
+	void throwStar (Vector3 dir) {//TODO - optimize: Vector3 (12 bytes) -> float, float (8 bytes)
 		--ammo;
-		//TODO adjust rotation of new stars
 		if (GetComponent<NetworkView>().isMine) {
 			dir.Normalize();
 			GameObject newStar = (GameObject)Network.Instantiate(starPrefab, transform.position + dir*7, Quaternion.identity, 0);
 			newStar.GetComponent<Rigidbody2D>().velocity = dir*throwSpeed;
 			newStar.GetComponent<Team>().teamID = GetComponent<Team>().teamID;
+		}
+	}
+	
+	[RPC]
+	void throwGrapple (Vector3 dir) {
+		if (GetComponent<NetworkView>().isMine) {
+			dir.Normalize();
+			GameObject myKunai = (GameObject)Network.Instantiate(kunaiPrefab, transform.position + dir*7, Quaternion.identity, 0);
+			myKunai.GetComponent<Rigidbody2D>().velocity = dir*throwSpeed;
+			float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90f;
+			myKunai.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+			myKunai.GetComponent<Team>().teamID = GetComponent<Team>().teamID;
 		}
 	}
 	

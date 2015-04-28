@@ -148,7 +148,9 @@ MonoBehaviour:
   jump: 240
   maxAmmo: 4
   throwSpeed: 200
+  grappleIsThrown: 0
   ropePrefab: {fileID: 0}
+  kunaiPrefab: {fileID: 110460, guid: d79bed03d5cb27841908ba1918ccf494, type: 2}
   starPrefab: {fileID: 143626, guid: 7e7372d0421ddfe4dbdb08a892a2fcae, type: 2}
 --- !u!148 &14895262
 NetworkView:

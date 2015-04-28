@@ -120,6 +120,7 @@ public static class LevelIOManager
 		levelCanvas.SetActive(true);
 	}
 	
+	//Constructs a level in the provided Level prefab canvas by looking for a level of the given name.
 	public static void ContructLevelInCanvasByName(GameObject levelCanvas, string levelName, bool isCustom)
 	{
 		Level levelToLoad = LevelIOManager.LoadLevel(levelName, isCustom);

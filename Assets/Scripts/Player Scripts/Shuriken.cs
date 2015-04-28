@@ -9,7 +9,6 @@ public class Shuriken : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		//Debug.Log("Hello");
-		Debug.Log(Time.deltaTime);
 	}
 	
 	// Update is called once per frame
