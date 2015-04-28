@@ -9,6 +9,7 @@ TagManager:
   - Tiles
   - Weapon
   - Level
+  - SpawnPoint
   layers:
   - Default
   - TransparentFX

@@ -19,6 +19,7 @@ public class LobbyMenuManager : MonoBehaviour {
 		matchName = "Temp Name: " + Random.Range(0, 5000);
 		instance = this;
 		skins = Resources.LoadAll("Skins");
+		//DontDestroyOnLoad(transform.gameObject);
 	}
 
 	//keep the instance alive
@@ -44,6 +45,9 @@ public class LobbyMenuManager : MonoBehaviour {
 			break;
 		case "SelMap":
 			Menu_ChooseMap();
+			break;
+		case "InGame":
+			Menu_InGame();
 			break;
 		}
 	}
@@ -132,7 +136,7 @@ public class LobbyMenuManager : MonoBehaviour {
 			if (pl.playerNetwork == Network.player) {
 				GUI.color = Color.cyan;
 			}
-			GUILayout.Box(pl.playerName);
+			GUILayout.Box(pl.playerName + ": " + pl.wins + " wins");
 			GUI.color = Color.white;
 		}
 
@@ -184,6 +188,10 @@ public class LobbyMenuManager : MonoBehaviour {
 		GUILayout.EndArea();
 	}
 
+	private void Menu_InGame() {
+
+	}
+
 	void OnConnectedToServer() {
 		NavigateTo("Lobby");
 	}
@@ -195,4 +203,16 @@ public class LobbyMenuManager : MonoBehaviour {
 	void OnDisconnectedFromServer(NetworkDisconnection info) {
 		NavigateTo("Main");
 	}
+
+	/*void OnLevelWasLoaded(int level) {
+		if (level == 0) {
+			Destroy(gameObject);
+		} else if (level == 3) {
+			Debug.Log("Entered Level 3");
+			NavigateTo("Lobby");
+		} else if (level == 4) {
+			NavigateTo("InGame");
+		}
+		
+	}*/
 }

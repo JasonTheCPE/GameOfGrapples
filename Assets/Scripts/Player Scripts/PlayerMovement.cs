@@ -87,6 +87,10 @@ public class PlayerMovement : MonoBehaviour {
 		ammo = maxAmmo;
 		rb.velocity = new Vector3(0,0,0);
 		rb.position = new Vector3(0, 0, 0);
+		Referee reff = GameObject.Find("Ingame Manager").GetComponent<Referee>();
+		if (reff) {
+			reff.KillPlayer(Network.player);
+		}
 		//Destroy(gameObject);
 	}
 	
