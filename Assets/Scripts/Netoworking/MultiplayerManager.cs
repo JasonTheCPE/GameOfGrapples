@@ -111,6 +111,7 @@ public class MultiplayerManager : MonoBehaviour {
 		tempPlayer.playerName = playerName;
 		tempPlayer.playerNetwork = view;
 		tempPlayer.skinID = 0;
+		tempPlayer.wins = 0;
 		PlayerList.Add(tempPlayer);
 	}
 	
@@ -146,6 +147,15 @@ public class MultiplayerManager : MonoBehaviour {
 			usingSkin = skinNum;
 	}
 
+	[RPC]
+	void AssignWin(NetworkPlayer view) {
+		foreach(MyPlayer pl in PlayerList) {
+			if(pl.playerNetwork == view) {
+				++pl.wins;
+			}
+		}
+	}
+
 	//can possibly make better by getting rid of get variable. we will see if i need it later
 	public MapSettings GetMap(string name) {
 		MapSettings get = null;
@@ -170,7 +180,11 @@ public class MultiplayerManager : MonoBehaviour {
 	}
 
 	void OnLevelWasLoaded(int level) {
-		if (level == 4) {
+		if (level == 0) {
+			Destroy(gameObject);
+		} else if (level == 3) {
+			GameObject.Find("LobbyMenu").GetComponent<LobbyMenuManager>().NavigateTo("Lobby");
+		} else if (level == 4) {
 			Debug.Log("Loading Level " + toLoad);
 			LevelIOManager.ContructLevelInCanvasByName(GameObject.Find("Level"), toLoad, isCustom);
 			spawnPlayer(usingSkin);
@@ -204,7 +218,7 @@ public class MyPlayer {
 	public string playerName = "";
 	public NetworkPlayer playerNetwork;
 	public int skinID = 0;
-	public int ammo = 4;
+	public int wins = 0;
 }
 
 [System.Serializable]

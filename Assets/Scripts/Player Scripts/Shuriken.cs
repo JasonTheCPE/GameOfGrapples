@@ -40,6 +40,7 @@ public class Shuriken : MonoBehaviour {
 		}
 	}
 
+	//TODO this may not need to be destroyed as RPC
 	[RPC]
 	void SelfDestruct() {
 		Destroy(gameObject);
