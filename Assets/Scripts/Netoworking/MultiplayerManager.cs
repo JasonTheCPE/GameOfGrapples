@@ -35,7 +35,7 @@ public class MultiplayerManager : MonoBehaviour {
 		instance = this;
 		playerName = PlayerPrefs.GetString("Player Name");	//get saved player settings for their name
 
-		DirectoryInfo levelDir = new DirectoryInfo("Assets/Resources/Levels/BuiltIn");
+		DirectoryInfo levelDir = new DirectoryInfo("Assets/Resources/Levels");
 		FileInfo[] levelInfo = levelDir.GetFiles("*.*");
 
 		foreach(FileInfo level in levelInfo)

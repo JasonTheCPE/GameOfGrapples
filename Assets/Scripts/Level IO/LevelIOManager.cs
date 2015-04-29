@@ -7,7 +7,7 @@ using System.IO;
 public static class LevelIOManager
 {	
 	public static string customLevelDir = Application.persistentDataPath;
-	public const string builtInLevelDir = "Assets/Resources/Levels/BuiltIn";
+	public const string builtInLevelDir = "Assets/Resources/Levels";
 	
 	//Builds a Level XML out of the layout of the level set up inside levelCanvas 
 	//and the given Level properties.
@@ -86,10 +86,18 @@ public static class LevelIOManager
 	//Loads and returns the Level with the name levelName and status as a custom Level or not.
 	public static Level LoadLevel(string levelName, bool isCustom)
 	{
-		var serializer = new XmlSerializer(typeof(Level));
-		using(var stream = new FileStream(GetLevelPath(levelName, isCustom), FileMode.Open))
+		if(!isCustom)
 		{
-			return serializer.Deserialize(stream) as Level;
+			TextAsset lvlText = Resources.Load<TextAsset>("Levels/" + levelName);
+			return LoadLevelFromText(lvlText.text);
+		}
+		else
+		{
+			var serializer = new XmlSerializer(typeof(Level));
+			using(var stream = new FileStream(GetLevelPath(levelName, isCustom), FileMode.Open))
+			{
+				return serializer.Deserialize(stream) as Level;
+			}
 		}
 	}
 	
