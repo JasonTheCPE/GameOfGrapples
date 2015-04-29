@@ -5,11 +5,20 @@ public class Kunai : MonoBehaviour
 {
 	
 	public bool hasStuck = false;
+	public bool retract = false;
+	
+	private Collider2D stickInWallCollider;
+	private Collider2D lethalCollider;
+	
 	
 	// Use this for initialization
 	void Start ()
 	{
 		//Debug.Log("Kunai Born!");
+		stickInWallCollider = transform.GetComponentInChildren<CircleCollider2D>();
+		lethalCollider = transform.GetComponentInChildren<PolygonCollider2D>();
+		Debug.Log(stickInWallCollider);
+		Debug.Log(lethalCollider);
 	}
 	
 	// Update is called once per frame
@@ -35,7 +44,7 @@ public class Kunai : MonoBehaviour
 				if (other.gameObject.GetComponent<Team>().teamID != GetComponent<Team>().teamID)
 				{
 					other.gameObject.GetComponent<NetworkView>().RPC("Die", RPCMode.All);
-					GetComponent<NetworkView>().RPC("SelfDestruct", RPCMode.AllBuffered);
+					//GetComponent<NetworkView>().RPC("SelfDestruct", RPCMode.AllBuffered);
 					Debug.Log("Kunai's playerID: " + GetComponent<Team>().teamID + " killed " + other.gameObject.GetComponent<Team>().teamID);
 				}
 			}
@@ -48,9 +57,9 @@ public class Kunai : MonoBehaviour
 	}
 	
 	//TODO this may not need to be destroyed as RPC
-	[RPC]
-	void SelfDestruct()
-	{
-		Destroy(gameObject);
-	}
+//	[RPC]
+//	void SelfDestruct()
+//	{
+//		Destroy(gameObject);
+//	}
 }
