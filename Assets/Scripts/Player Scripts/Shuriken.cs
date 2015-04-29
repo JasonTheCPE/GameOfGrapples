@@ -27,7 +27,8 @@ public class Shuriken : MonoBehaviour {
 			GetComponent<Rigidbody2D>().velocity = new Vector3(0,0,0);
 		} else if (other.tag == "Player") {
 			if (isActive) {
-				if (other.gameObject.GetComponent<Team>().teamID != GetComponent<Team>().teamID) {
+				int otherID = GetComponent<Team>().teamID;
+				if (otherID == -1 || other.gameObject.GetComponent<Team>().teamID != otherID) {
 					other.gameObject.GetComponent<NetworkView>().RPC("Die", RPCMode.All);
 					GetComponent<NetworkView>().RPC("SelfDestruct", RPCMode.AllBuffered);
 					Debug.Log("Shuriken's playerID: " + GetComponent<Team>().teamID + " killed " + other.gameObject.GetComponent<Team>().teamID);

@@ -211,7 +211,7 @@ public class MultiplayerManager : MonoBehaviour {
 		GameObject spawnPrefab = accessSkin(skinType);
 		Vector3 spawnlocation = new Vector3(0,0,0);
 		GameObject myPlayerGO = (GameObject)Network.Instantiate(spawnPrefab, spawnlocation, Quaternion.identity, 0);
-		//myPlayerGO.GetComponent(TeamMember).teamID = Network.connections.Length;
+		//myPlayerGO.GetComponent(TeamMember).teamID = -1; //TODO uncomment this when teams is a go!
 	}
 
 	GameObject accessSkin(int skinID) {
