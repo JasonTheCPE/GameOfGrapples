@@ -157,6 +157,20 @@ public class MultiplayerManager : MonoBehaviour {
 		Application.LoadLevel("Prep");
 	}
 
+	[RPC]
+	void ToPrepRoom() {
+		Application.LoadLevel("Prep");
+	}
+
+	[RPC]
+	void SetCurrentMap(string newMap) {
+		foreach(MapSettings map in MapList) {
+			if(map.mapName == newMap) {
+				currentMap = map;
+			}
+		}
+	}
+
 	//can possibly make better by getting rid of get variable. we will see if i need it later
 	public MapSettings GetMap(string name) {
 		MapSettings get = null;

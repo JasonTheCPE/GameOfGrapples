@@ -91,7 +91,7 @@ public class MapSelector : MonoBehaviour {
 		foreach(MapSettings map in MultiplayerManager.instance.MapList) {
 			if(GUILayout.Button(map.mapName)) {
 				NavigateTo("Lobby");
-				MultiplayerManager.instance.currentMap = map;
+				MultiplayerManager.instance.GetComponent<NetworkView>().RPC("SetCurrentMap", RPCMode.All, map.mapName);
 			}
 		}
 		

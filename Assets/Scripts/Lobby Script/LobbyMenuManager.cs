@@ -153,7 +153,7 @@ public class LobbyMenuManager : MonoBehaviour {
 
 		if (Network.isServer) {
 			if(GUI.Button(new Rect(Screen.width - 405, Screen.height - 40, 200, 40), "Enter Dojo")) {
-				Application.LoadLevel("Prep");
+				MultiplayerManager.instance.GetComponent<NetworkView>().RPC("ToPrepRoom", RPCMode.All);
 				/*MultiplayerManager.instance.GetComponent<NetworkView>().RPC("Client_LoadMultiplayerMap", 
 				      RPCMode.All, MultiplayerManager.instance.currentMap.mapLoadName, MultiplayerManager.instance.oldPrefix + 1);
 				MultiplayerManager.instance.oldPrefix += 1;
