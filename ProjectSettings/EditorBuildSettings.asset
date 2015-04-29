@@ -17,3 +17,5 @@ EditorBuildSettings:
     path: Assets/Scenes/Lobby.unity
   - enabled: 1
     path: Assets/Scenes/inmultiplayergame.unity
+  - enabled: 1
+    path: Assets/Scenes/Prep.unity
