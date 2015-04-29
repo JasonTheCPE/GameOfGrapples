@@ -19,7 +19,6 @@ public class LobbyMenuManager : MonoBehaviour {
 		matchName = "Temp Name: " + Random.Range(0, 5000);
 		instance = this;
 		skins = Resources.LoadAll("Skins");
-		//DontDestroyOnLoad(transform.gameObject);
 	}
 
 	//keep the instance alive
@@ -43,12 +42,9 @@ public class LobbyMenuManager : MonoBehaviour {
 		case "Host":
 			Menu_HostGame();
 			break;
-		case "SelMap":
+		/*case "SelMap":
 			Menu_ChooseMap();
-			break;
-		case "InGame":
-			Menu_InGame();
-			break;
+			break;*/
 		}
 	}
 
@@ -84,7 +80,7 @@ public class LobbyMenuManager : MonoBehaviour {
 		foreach(HostData match in MasterServer.PollHostList()) {
 			GUILayout.BeginHorizontal("Box");
 
-			GUILayout.Label(match.gameName);
+			GUILayout.Label(match.gameName + ": " + match.connectedPlayers.ToString() + "/" + match.playerLimit.ToString());
 			if(GUILayout.Button("Connect")) {
 				Network.Connect(match);
 			}
@@ -105,9 +101,9 @@ public class LobbyMenuManager : MonoBehaviour {
 			MultiplayerManager.instance.StartServer(matchName, matchPassword, maxPlayers);
 		}
 
-		if (GUI.Button(new Rect(10, 160, 200, 50), "Choose Map")) {
+		/*if (GUI.Button(new Rect(10, 160, 200, 50), "Choose Map")) {
 			NavigateTo("SelMap");
-		}
+		}*/
 
 
 		GUI.Label(new Rect(220, 10, 130, 30), "Match Name");
@@ -126,7 +122,7 @@ public class LobbyMenuManager : MonoBehaviour {
 		if(GUI.Button(new Rect(325, 90, 100, 30), "8 Player Mode"))
 			maxPlayers = 8;
 
-		GUI.Label(new Rect(650, 10, 130, 30), MultiplayerManager.instance.currentMap.mapName);
+		//GUI.Label(new Rect(650, 10, 130, 30), MultiplayerManager.instance.currentMap.mapName);
 	}
 
 	private void Menu_Lobby() {
@@ -136,15 +132,15 @@ public class LobbyMenuManager : MonoBehaviour {
 			if (pl.playerNetwork == Network.player) {
 				GUI.color = Color.cyan;
 			}
-			GUILayout.Box(pl.playerName + ": " + pl.wins + " wins");
+			GUILayout.Box(pl.playerName);
 			GUI.color = Color.white;
 		}
 
 		GUILayout.EndScrollView();
 
-		GUI.Box(new Rect(250, 10, 200, 40), MultiplayerManager.instance.currentMap.mapName);
+		//GUI.Box(new Rect(250, 10, 200, 40), MultiplayerManager.instance.currentMap.mapName);
 
-		GUI.Label(new Rect(250, 55, 130, 30), "Choose Skin");
+		/*GUI.Label(new Rect(250, 55, 130, 30), "Choose Skin");
 		GUILayout.BeginArea(new Rect(250, 86, 150, Screen.height - 90));
 		
 		for(int i = 0; i < skins.Length; ++i) {
@@ -153,14 +149,15 @@ public class LobbyMenuManager : MonoBehaviour {
 			}
 		}
 		
-		GUILayout.EndArea();
+		GUILayout.EndArea();*/
 
 		if (Network.isServer) {
-			if(GUI.Button(new Rect(Screen.width - 405, Screen.height - 40, 200, 40), "Start Match")) {
-				MultiplayerManager.instance.GetComponent<NetworkView>().RPC("Client_LoadMultiplayerMap", 
+			if(GUI.Button(new Rect(Screen.width - 405, Screen.height - 40, 200, 40), "Enter Dojo")) {
+				Application.LoadLevel("Prep");
+				/*MultiplayerManager.instance.GetComponent<NetworkView>().RPC("Client_LoadMultiplayerMap", 
 				      RPCMode.All, MultiplayerManager.instance.currentMap.mapLoadName, MultiplayerManager.instance.oldPrefix + 1);
 				MultiplayerManager.instance.oldPrefix += 1;
-				MultiplayerManager.instance.isMatchStarted = true;
+				MultiplayerManager.instance.isMatchStarted = true;*/
 				//MultiplayerManager.instance.GetComponent<Network>().maxConnections = -1; // TODO
 			}
 		}
@@ -170,7 +167,7 @@ public class LobbyMenuManager : MonoBehaviour {
 		}
 	}
 
-	private void Menu_ChooseMap() {
+	/*private void Menu_ChooseMap() {
 		if(GUI.Button(new Rect(10, 10, 200, 50), "Back")) {
 			NavigateTo("Host");
 		}
@@ -186,11 +183,7 @@ public class LobbyMenuManager : MonoBehaviour {
 		}
 
 		GUILayout.EndArea();
-	}
-
-	private void Menu_InGame() {
-
-	}
+	}*/
 
 	void OnConnectedToServer() {
 		NavigateTo("Lobby");
@@ -203,16 +196,4 @@ public class LobbyMenuManager : MonoBehaviour {
 	void OnDisconnectedFromServer(NetworkDisconnection info) {
 		NavigateTo("Main");
 	}
-
-	/*void OnLevelWasLoaded(int level) {
-		if (level == 0) {
-			Destroy(gameObject);
-		} else if (level == 3) {
-			Debug.Log("Entered Level 3");
-			NavigateTo("Lobby");
-		} else if (level == 4) {
-			NavigateTo("InGame");
-		}
-		
-	}*/
 }

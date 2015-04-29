@@ -53,7 +53,7 @@ public class MultiplayerManager : MonoBehaviour {
 			currentMap = MapList[0];
 
 		skins = Resources.LoadAll("Skins");
-		Debug.Log("Got all the skins, this many " + skins.Length);
+		//Debug.Log("Got all the skins, this many " + skins.Length);
 	}
 
 	//keep the instance alive
@@ -67,7 +67,7 @@ public class MultiplayerManager : MonoBehaviour {
 		matchPassword = serverPassword;
 		matchMaxUsers = maxUsers;
 		
-		Network.InitializeServer(matchMaxUsers, 2652, false);				//set the max number of players, port number, and something else
+		Network.InitializeServer(matchMaxUsers - 1, 2652, false);				//set the max number of players, port number, and something else
 		MasterServer.RegisterHost("Deathmatch", matchName, "No Comment");	//gametype, game name, and comment
 
 		//Network.InitializeSecurity();	//breaks everything till further notice
@@ -154,6 +154,7 @@ public class MultiplayerManager : MonoBehaviour {
 				++pl.wins;
 			}
 		}
+		Application.LoadLevel("Prep");
 	}
 
 	//can possibly make better by getting rid of get variable. we will see if i need it later

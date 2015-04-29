@@ -27,7 +27,8 @@ public class Referee : MonoBehaviour {
 
 	void OnGUI() {
 		if (GUI.Button(new Rect(Screen.width - 200, Screen.height - 200, 100, 100), "Win")) {
-			MultiplayerManager.instance.GetComponent<NetworkView>().RPC("AssignWin", Network.player);
+			//Debug.Log(MultiplayerManager.instance.currentMap.mapName);
+			MultiplayerManager.instance.GetComponent<NetworkView>().RPC("AssignWin", RPCMode.All, Network.player);
 		}
 	}
 
