@@ -159,6 +159,21 @@ public class MultiplayerManager : MonoBehaviour {
 	}
 
 	[RPC]
+	void AssignTeamWin(int team) {
+		foreach(MyPlayer pl in PlayerList) {
+			if(pl.team == team) {
+				++pl.wins;
+			}
+		}
+		Application.LoadLevel("Prep");
+	}
+
+	[RPC]
+	void AssignDraw() {
+		Application.LoadLevel("Prep");
+	}
+
+	[RPC]
 	void ToPrepRoom() {
 		Application.LoadLevel("Prep");
 	}
@@ -238,10 +253,11 @@ public class MultiplayerManager : MonoBehaviour {
 		Debug.Log("But I picked: " + spawnlocation.ToString());*/
 
 		GameObject myPlayerGO = (GameObject)Network.Instantiate(spawnPrefab, spawnlocation, Quaternion.identity, 0);
+		myPlayerGO.GetComponent<PlayerMovement>().playerNumber = playerNumber;
 		if (allowTeams)
 			myPlayerGO.GetComponent<Team>().teamID = PlayerList[playerNumber].team;
 		else 
-			myPlayerGO.GetComponent<Team>().teamID = 0;//-1; TODO! uncomment and remove the 0 part, currently don't want to kill people
+			myPlayerGO.GetComponent<Team>().teamID = -1;
 	}
 
 	GameObject accessSkin(int skinID) {

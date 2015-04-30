@@ -10,6 +10,8 @@ public class PlayerMovement : MonoBehaviour {
 	public int throwSpeed = 200;
 	
 	public bool grappleIsThrown = false;
+
+	public int playerNumber;
 	
 	private Rigidbody2D rb;
 	private short isJumping = 0;
@@ -86,6 +88,7 @@ public class PlayerMovement : MonoBehaviour {
 			GameObject newStar = (GameObject)Network.Instantiate(starPrefab, transform.position + dir*7, Quaternion.identity, 0);
 			newStar.GetComponent<Rigidbody2D>().velocity = dir*throwSpeed;
 			newStar.GetComponent<Team>().teamID = GetComponent<Team>().teamID;
+			newStar.GetComponent<Shuriken>().playerNumber = playerNumber;
 		}
 	}
 	

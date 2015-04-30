@@ -5,6 +5,7 @@ public class Shuriken : MonoBehaviour {
 
 	public bool isActive = true;
 	public static float spinAmount = 16.0f;
+	public int playerNumber;
 
 	// Use this for initialization
 	void Start () {
@@ -26,11 +27,13 @@ public class Shuriken : MonoBehaviour {
 			GetComponent<Rigidbody2D>().velocity = new Vector3(0,0,0);
 		} else if (other.tag == "Player") {
 			if (isActive) {
-				int otherID = GetComponent<Team>().teamID;
-				if (otherID == -1 || other.gameObject.GetComponent<Team>().teamID != otherID) {
+				int myID = GetComponent<Team>().teamID;
+				int otherID = other.gameObject.GetComponent<Team>().teamID;
+				int otherPlayerNumber = other.gameObject.GetComponent<PlayerMovement>().playerNumber;
+				if (playerNumber != otherPlayerNumber && (myID == -1 || myID != otherID)) {
 					other.gameObject.GetComponent<NetworkView>().RPC("Die", RPCMode.All);
 					GetComponent<NetworkView>().RPC("SelfDestruct", RPCMode.AllBuffered);
-					Debug.Log("Shuriken's playerID: " + GetComponent<Team>().teamID + " killed " + other.gameObject.GetComponent<Team>().teamID);
+					Debug.Log("Shuriken's playerID: " + playerNumber + " killed " + otherPlayerNumber);
 				}
 			} else {
 				other.gameObject.GetComponent<NetworkView>().RPC("pickupStar", RPCMode.All);
