@@ -26,6 +26,8 @@ public class MultiplayerManager : MonoBehaviour {
 	public int oldPrefix;
 	public bool isMatchStarted = false;
 
+	public bool allowTeams = false;
+
 	void Awake() {
 		DontDestroyOnLoad(transform.gameObject);
 	}
@@ -53,7 +55,6 @@ public class MultiplayerManager : MonoBehaviour {
 			currentMap = MapList[0];
 
 		skins = Resources.LoadAll("Skins");
-		//Debug.Log("Got all the skins, this many " + skins.Length);
 	}
 
 	//keep the instance alive
@@ -67,7 +68,7 @@ public class MultiplayerManager : MonoBehaviour {
 		matchPassword = serverPassword;
 		matchMaxUsers = maxUsers;
 		
-		Network.InitializeServer(matchMaxUsers - 1, 2652, false);				//set the max number of players, port number, and something else
+		Network.InitializeServer(matchMaxUsers - 1, 2652, false);			//set the max number of players, port number, and something else
 		MasterServer.RegisterHost("Deathmatch", matchName, "No Comment");	//gametype, game name, and comment
 
 		//Network.InitializeSecurity();	//breaks everything till further notice
@@ -207,11 +208,40 @@ public class MultiplayerManager : MonoBehaviour {
 
 	}
 
+	int FindPlayerNumber() {
+		for (int i = 0; i < PlayerList.Count; ++i) {
+			if(PlayerList[i].playerNetwork == Network.player) {
+				return i;
+			}
+		}
+
+		return -1;
+	}
+
 	void spawnPlayer(int skinType) {
+		GameObject[] spawnPoints = GameObject.FindGameObjectsWithTag("SpawnPoint");
+
+		int playerNumber = FindPlayerNumber();
+
+		if (playerNumber == -1) {
+			Debug.Log("ERROR! Didn't find player number!");
+			playerNumber = 0;
+		}
+
 		GameObject spawnPrefab = accessSkin(skinType);
-		Vector3 spawnlocation = new Vector3(0,0,0);
+		Vector3 spawnlocation = spawnPoints[playerNumber%spawnPoints.Length].GetComponent<Transform>().position; //new Vector3(0,0,0);
+
+		/*Debug.Log("Found these spawn points: ");
+		foreach(GameObject spawn in spawnPoints) {
+			Debug.Log(spawn.GetComponent<Transform>().position.ToString());
+		}
+		Debug.Log("But I picked: " + spawnlocation.ToString());*/
+
 		GameObject myPlayerGO = (GameObject)Network.Instantiate(spawnPrefab, spawnlocation, Quaternion.identity, 0);
-		//myPlayerGO.GetComponent(TeamMember).teamID = -1; //TODO uncomment this when teams is a go!
+		if (allowTeams)
+			myPlayerGO.GetComponent<Team>().teamID = PlayerList[playerNumber].team;
+		else 
+			myPlayerGO.GetComponent<Team>().teamID = 0;//-1; TODO! uncomment and remove the 0 part, currently don't want to kill people
 	}
 
 	GameObject accessSkin(int skinID) {
@@ -225,6 +255,20 @@ public class MultiplayerManager : MonoBehaviour {
 		
 		return playerPrefab;
 	}
+
+	[RPC]
+	void ToggleTeams() {
+		allowTeams = !allowTeams;
+	}
+
+	[RPC]
+	void SetTeam(NetworkPlayer view, int team) {
+		foreach(MyPlayer pl in PlayerList) {
+			if(pl.playerNetwork == view) {
+				pl.team = team;
+			}
+		}
+	}
 	
 }
 
@@ -234,6 +278,7 @@ public class MyPlayer {
 	public NetworkPlayer playerNetwork;
 	public int skinID = 0;
 	public int wins = 0;
+	public int team = 0;
 }
 
 [System.Serializable]

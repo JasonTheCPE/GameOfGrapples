@@ -27,7 +27,6 @@ public class Referee : MonoBehaviour {
 
 	void OnGUI() {
 		if (GUI.Button(new Rect(Screen.width - 200, Screen.height - 200, 100, 100), "Win")) {
-			//Debug.Log(MultiplayerManager.instance.currentMap.mapName);
 			MultiplayerManager.instance.GetComponent<NetworkView>().RPC("AssignWin", RPCMode.All, Network.player);
 		}
 	}
@@ -45,7 +44,7 @@ public class Referee : MonoBehaviour {
 			foreach(ActivePlayer ap in ingamePlayers) {
 				if (ap.isAlive) {
 					Debug.Log("The winner is " + ap.playerName);
-					mm.GetComponent<NetworkView>().RPC("AssignWin", ap.playerNetwork);
+					mm.GetComponent<NetworkView>().RPC("AssignWin", RPCMode.All, ap.playerNetwork);
 					return;
 				}
 			}

@@ -22,7 +22,6 @@ public class Shuriken : MonoBehaviour {
 
 	void OnTriggerEnter2D (Collider2D other)  {
 		if(other.tag == "Tiles") {
-			//Debug.Log("Dead Shuriken");
 			isActive = false;
 			GetComponent<Rigidbody2D>().velocity = new Vector3(0,0,0);
 		} else if (other.tag == "Player") {
@@ -40,7 +39,7 @@ public class Shuriken : MonoBehaviour {
 		}
 	}
 
-	//TODO this may not need to be destroyed as RPC
+	//This needs to be RPC
 	[RPC]
 	void SelfDestruct() {
 		Destroy(gameObject);

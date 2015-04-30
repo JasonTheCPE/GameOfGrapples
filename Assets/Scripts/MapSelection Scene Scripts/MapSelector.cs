@@ -41,7 +41,11 @@ public class MapSelector : MonoBehaviour {
 			if (pl.playerNetwork == Network.player) {
 				GUI.color = Color.cyan;
 			}
-			GUILayout.Box(pl.playerName + ": " + pl.wins + " wins");
+			if (MultiplayerManager.instance.allowTeams) {
+				GUILayout.Box(pl.playerName + ": " + pl.wins + " wins | Team " + pl.team.ToString());
+			} else {
+				GUILayout.Box(pl.playerName + ": " + pl.wins + " wins");
+			}
 			GUI.color = Color.white;
 		}
 		GUILayout.EndScrollView();
@@ -66,12 +70,24 @@ public class MapSelector : MonoBehaviour {
 		GUILayout.EndArea();
 		
 		if (Network.isServer) {
+			if(GUI.Button(new Rect(621, 10, 130, 40), "Toggle Teams")) {
+				MultiplayerManager.instance.GetComponent<NetworkView>().RPC("ToggleTeams", RPCMode.All);
+			}
+
 			if(GUI.Button(new Rect(Screen.width - 405, Screen.height - 40, 200, 40), "Start Match")) {
 				MultiplayerManager.instance.GetComponent<NetworkView>().RPC("Client_LoadMultiplayerMap", 
 					RPCMode.All, MultiplayerManager.instance.currentMap.mapLoadName, MultiplayerManager.instance.oldPrefix + 1);
 				MultiplayerManager.instance.oldPrefix += 1;
 				MultiplayerManager.instance.isMatchStarted = true;
-				//MultiplayerManager.instance.GetComponent<Network>().maxConnections = -1; // TODO
+				//MultiplayerManager.instance.GetComponent<Network>().maxConnections = -1; // TODO Stop new players from joining while in game
+			}
+		}
+
+		if (MultiplayerManager.instance.allowTeams) {
+			for (int i = 0; i < 7; ++i) {
+				if(GUI.Button(new Rect(621, 50 + 40*i, 130, 40), "Team " + i.ToString())) {
+					MultiplayerManager.instance.GetComponent<NetworkView>().RPC("SetTeam", RPCMode.All, Network.player, i);
+				}
 			}
 		}
 		
@@ -99,6 +115,7 @@ public class MapSelector : MonoBehaviour {
 	}
 
 	void OnDisconnectedFromServer(NetworkDisconnection info) {
+		MultiplayerManager.instance.PlayerList.Clear();
 		Application.LoadLevel("Lobby");
 	}
 }
