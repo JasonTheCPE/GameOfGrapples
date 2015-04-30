@@ -235,6 +235,7 @@ public class MultiplayerManager : MonoBehaviour {
 
 	void spawnPlayer(int skinType) {
 		GameObject[] spawnPoints = GameObject.FindGameObjectsWithTag("SpawnPoint");
+		Vector3 spawnlocation;
 
 		int playerNumber = FindPlayerNumber();
 
@@ -244,13 +245,11 @@ public class MultiplayerManager : MonoBehaviour {
 		}
 
 		GameObject spawnPrefab = accessSkin(skinType);
-		Vector3 spawnlocation = spawnPoints[playerNumber%spawnPoints.Length].GetComponent<Transform>().position; //new Vector3(0,0,0);
-
-		/*Debug.Log("Found these spawn points: ");
-		foreach(GameObject spawn in spawnPoints) {
-			Debug.Log(spawn.GetComponent<Transform>().position.ToString());
+		if (spawnPoints.Length == 0) {
+			spawnlocation = new Vector3(0,0,0);
+		} else {
+			spawnlocation = spawnPoints[playerNumber%spawnPoints.Length].GetComponent<Transform>().position;
 		}
-		Debug.Log("But I picked: " + spawnlocation.ToString());*/
 
 		GameObject myPlayerGO = (GameObject)Network.Instantiate(spawnPrefab, spawnlocation, Quaternion.identity, 0);
 		myPlayerGO.GetComponent<PlayerMovement>().playerNumber = playerNumber;
