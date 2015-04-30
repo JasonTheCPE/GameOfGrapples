@@ -50,7 +50,7 @@ public class Referee : MonoBehaviour {
 
 			if (teamsAlive == 1) {
 				Debug.Log("Game over! Team " + winningTeam.ToString() + " wins!");
-				mm.GetComponent<NetworkView>().RPC("AssignWin", RPCMode.All, winningTeam);
+				mm.GetComponent<NetworkView>().RPC("AssignTeamWin", RPCMode.All, winningTeam);
 			} else if (teamsAlive == 0) {
 				Debug.Log("Game over! It's a DRAW! All teams DIED!");
 				mm.GetComponent<NetworkView>().RPC("AssignDraw", RPCMode.All);
@@ -81,6 +81,11 @@ public class Referee : MonoBehaviour {
 		tempPlayer.onTeam = teamNumber;
 		ingamePlayers.Add(tempPlayer);
 		teams[teamNumber + 1] += 1;
+	}
+
+	void OnDisconnectedFromServer(NetworkDisconnection info) {
+		MultiplayerManager.instance.PlayerList.Clear();
+		Application.LoadLevel("Lobby");
 	}
 }
 
