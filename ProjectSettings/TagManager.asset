@@ -4,12 +4,13 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Background
   - Pickup
   - Tiles
   - Weapon
   - Level
   - SpawnPoint
+  - TerrainHazard
+  - OtherDestructible
   layers:
   - Default
   - TransparentFX

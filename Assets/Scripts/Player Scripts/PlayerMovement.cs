@@ -68,8 +68,8 @@ public class PlayerMovement : MonoBehaviour {
 			//grappleIsThrown = true;
 			Vector3 throwVector = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0));
 			throwVector = throwVector - transform.position;
-			
-			GetComponent<NetworkView>().RPC("throwGrapple", RPCMode.All, throwVector);
+			throwVector.Normalize();
+			GetComponent<NetworkView>().RPC("throwGrapple", RPCMode.All, throwVector.x, throwVector.y);
 		}
 	}
 	
@@ -93,14 +93,15 @@ public class PlayerMovement : MonoBehaviour {
 	}
 	
 	[RPC]
-	void throwGrapple (Vector3 dir) {
+	void throwGrapple (float xDir, float yDir) {
 		if (GetComponent<NetworkView>().isMine) {
-			dir.Normalize();
-			GameObject myKunai = (GameObject)Network.Instantiate(kunaiPrefab, transform.position + dir*7, Quaternion.identity, 0);
-			myKunai.GetComponent<Rigidbody2D>().velocity = dir*throwSpeed;
+			Vector3 dir = new Vector3(xDir, yDir, 0.1f);
+			GameObject myKunai = (GameObject)Network.Instantiate(kunaiPrefab, transform.position + dir * 7, Quaternion.identity, 0);
+			myKunai.GetComponent<Rigidbody2D>().velocity = dir * throwSpeed * 2;
 			float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90f;
 			myKunai.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 			myKunai.GetComponent<Team>().teamID = GetComponent<Team>().teamID;
+			myKunai.GetComponent<Kunai>().playerNumber = playerNumber;
 		}
 	}
 	

@@ -280,6 +280,7 @@ MonoBehaviour:
     mapLoadTexture: {fileID: 0}
   oldPrefix: 0
   isMatchStarted: 0
+  allowTeams: 0
 --- !u!4 &1741522683
 Transform:
   m_ObjectHideFlags: 0
