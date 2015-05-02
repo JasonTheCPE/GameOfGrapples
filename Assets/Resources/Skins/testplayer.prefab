@@ -137,8 +137,9 @@ MonoBehaviour:
   maxAmmo: 4
   throwSpeed: 200
   grappleIsThrown: 0
-  ropePrefab: {fileID: 0}
-  kunaiPrefab: {fileID: 110460, guid: d79bed03d5cb27841908ba1918ccf494, type: 2}
+  playerNumber: 0
+  ropePrefab: {fileID: 104764, guid: c2835045a44042a4cbda7c221cb5cc4e, type: 2}
+  kunaiPrefab: {fileID: 100052, guid: d79bed03d5cb27841908ba1918ccf494, type: 2}
   starPrefab: {fileID: 135352, guid: 67784293c8d767d4f9318681bbf4184f, type: 2}
 --- !u!114 &11482514
 MonoBehaviour:

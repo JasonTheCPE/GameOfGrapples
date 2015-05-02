@@ -7,6 +7,10 @@ public class KunaiOuterCollide : MonoBehaviour
 	{
 		if(GetComponentInParent<Kunai>().isStuck == false)
 		{
+			if(other.tag == "Tile")
+			{
+				GetComponentInParent<Rigidbody2D>().velocity *= 0.5f;
+			}
 			if(other.tag == "Player")
 			{
 				int myTeam = GetComponentInParent<Team>().teamID;
@@ -25,6 +29,14 @@ public class KunaiOuterCollide : MonoBehaviour
 			
 			}
 			//Debug.Log("Kunai outer collider triggered: " + other.tag);
+		}
+	}
+	
+	void OnTriggerStay2D (Collider2D other)
+	{
+		if(other.tag == "Tile")
+		{
+			GetComponentInParent<Rigidbody2D>().velocity *= 0.5f;
 		}
 	}
 }
