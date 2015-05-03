@@ -4,7 +4,7 @@ using System.Collections;
 public class Shuriken : MonoBehaviour
 {
 	public bool isActive = true;
-	public static float spinAmount = 16.0f;
+	public const float spinAmount = 16.0f;
 	public int playerNumber;
 
 	// Use this for initialization
