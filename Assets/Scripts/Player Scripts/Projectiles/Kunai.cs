@@ -27,23 +27,4 @@ public class Kunai : MonoBehaviour
 			transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 		}
 	}
-	
-	void OnTriggerEnter2D (Collider2D other)
-	{
-		if(other.tag == "Tiles")
-		{
-			
-		}
-		else if (other.tag == "Player")
-		{
-			if (!isStuck)
-			{
-				
-			}
-			else
-			{
-				
-			}
-		}
-	}
 }
