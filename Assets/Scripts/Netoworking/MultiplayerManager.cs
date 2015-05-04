@@ -263,12 +263,13 @@ public class MultiplayerManager : MonoBehaviour {
 			spawnlocation = spawnPoints[playerNumber%spawnPoints.Length].GetComponent<Transform>().position;
 		}
 
-		GameObject myPlayerGO = (GameObject)Network.Instantiate(spawnPrefab, spawnlocation, Quaternion.identity, 0);
-		myPlayerGO.GetComponent<PlayerMovement>().playerNumber = playerNumber;
+		spawnPrefab.GetComponent<PlayerMovement>().playerNumber = playerNumber;
 		if (allowTeams)
-			myPlayerGO.GetComponent<Team>().teamID = PlayerList[playerNumber].team;
+			spawnPrefab.GetComponent<Team>().teamID = PlayerList[playerNumber].team;
 		else 
-			myPlayerGO.GetComponent<Team>().teamID = -1;
+			spawnPrefab.GetComponent<Team>().teamID = -1;
+
+		GameObject myPlayerGO = (GameObject)Network.Instantiate(spawnPrefab, spawnlocation, Quaternion.identity, 0);
 	}
 
 	GameObject accessSkin(int skinID) {

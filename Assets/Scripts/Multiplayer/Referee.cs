@@ -8,7 +8,7 @@ public class Referee : MonoBehaviour {
 	public List<ActivePlayer> ingamePlayers;
 	public int[] teams = new int[8] {0,0,0,0,0,0,0,0};
 	public float timer = 60; // in seconds
-	public bool isTimed = true;
+	public bool isTimed = false;
 
 	// Use this for initialization
 	void Start () {
@@ -55,7 +55,7 @@ public class Referee : MonoBehaviour {
 		//ingamePlayers[killedID].isAlive = false;
 		//teams[ingamePlayers[killedID].onTeam + 1] -= 1;
 
-		if (mm.allowTeams) {
+		/*if (mm.allowTeams) {
 			int teamsAlive = 0, winningTeam = -1;
 			for (int i = 1; i < 8; ++i) {
 				if(teams[i] > 0) {
@@ -86,7 +86,7 @@ public class Referee : MonoBehaviour {
 				Debug.Log("Game over! It's a DRAW!");
 				mm.GetComponent<NetworkView>().RPC("AssignDraw", RPCMode.All);
 			}
-		}
+		}*/
 	}
 
 	void AddPlayer(string name, NetworkPlayer view, int teamNumber, int playerID) {
