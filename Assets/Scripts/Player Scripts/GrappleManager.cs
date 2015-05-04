@@ -3,7 +3,10 @@ using System.Collections;
 
 public class GrappleManager : MonoBehaviour
 {
-	public uint ropeSegments = 30;
+	private const int pullInRate = 1;
+
+	public int ropeSegments = 30;
+	//public float pulledIn = 0f;
 	public bool grappleIsOut = false;
 	public bool beingRetracted = false;
 	
@@ -16,16 +19,28 @@ public class GrappleManager : MonoBehaviour
 	
 	public void InitializeGrapple(Kunai newKunai)
 	{
+		if(ropeSegments == 0)
+		{
+			Destroy(kunai.gameObject);
+			return;
+		}
+	
 		kunai = newKunai;
 		grappleIsOut = true;
+		Debug.Log(ropePrefab);
+		Debug.Log(kunai);
 		lastRopeSegment = (GameObject)Network.Instantiate(ropePrefab, transform.position, Quaternion.identity, 0);
 		lastRopeSegment.GetComponent<RopeDestruction>().kunai = kunai;
-		SpringJoint2D joint = lastRopeSegment.GetComponent<SpringJoint2D>();
-		joint.connectedBody = kunai.GetComponent<Rigidbody2D>();
+		SpringJoint2D jointSpr = lastRopeSegment.GetComponent<SpringJoint2D>();
+		DistanceJoint2D jointDis = lastRopeSegment.GetComponent<DistanceJoint2D>();
+		jointSpr.connectedBody = kunai.GetComponent<Rigidbody2D>();
+		jointDis.connectedBody = jointSpr.connectedBody;
 		Transform ropeBindPoint = kunai.transform.FindChild("RopeBindPoint");
-		joint.connectedAnchor = new Vector2(ropeBindPoint.localPosition.x, ropeBindPoint.localPosition.y);
+		jointSpr.connectedAnchor = new Vector2(ropeBindPoint.localPosition.x, ropeBindPoint.localPosition.y);
+		jointDis.connectedAnchor = jointSpr.connectedAnchor;
 		ropeSegSize = lastRopeSegment.GetComponent<SpriteRenderer>().sprite.bounds.size.x;
-		joint.distance = ropeSegSize;
+		jointSpr.distance = ropeSegSize;
+		jointDis.distance = ropeSegSize;
 		
 	}
 	
@@ -35,6 +50,8 @@ public class GrappleManager : MonoBehaviour
 		{
 			kunai.isStuck = false;
 			kunai.beingRetracted = beingRetracted = true;
+			kunai.GetComponent<Rigidbody2D>().mass = 5;
+			kunai.GetComponent<Rigidbody2D>().isKinematic = false;
 		}
 		else
 		{
@@ -55,9 +72,12 @@ public class GrappleManager : MonoBehaviour
 			{
 				GameObject newRope = (GameObject)Network.Instantiate(ropePrefab, lastRopeSegment.transform.position - dir * ropeSegSize, Quaternion.identity, 0);
 				newRope.GetComponent<RopeDestruction>().kunai = kunai;
-				SpringJoint2D joint = newRope.GetComponent<SpringJoint2D>();
-				joint.connectedBody = lastRopeSegment.GetComponent<Rigidbody2D>();
-				joint.distance = ropeSegSize;
+				SpringJoint2D jointSpr = newRope.GetComponent<SpringJoint2D>();
+				jointSpr.connectedBody = lastRopeSegment.GetComponent<Rigidbody2D>();
+				jointSpr.distance = ropeSegSize;
+				DistanceJoint2D jointDis = newRope.GetComponent<DistanceJoint2D>();
+				jointDis.connectedBody = lastRopeSegment.GetComponent<Rigidbody2D>();
+				jointDis.distance = ropeSegSize;
 				lastRopeSegment = newRope;
 				
 				distanceLeft -= ropeSegSize;
@@ -67,18 +87,56 @@ public class GrappleManager : MonoBehaviour
 		
 		if(ropeSegments == 0 || kunai.isStuck)
 		{
-			
-			SpringJoint2D playerRopeJoint = GetComponent<SpringJoint2D>();
-			playerRopeJoint.enabled = true;
-			playerRopeJoint.connectedBody = lastRopeSegment.GetComponent<Rigidbody2D>();
+			SpringJoint2D playerSprJoint = GetComponent<SpringJoint2D>();
+			playerSprJoint.enabled = true;
+			playerSprJoint.connectedBody = lastRopeSegment.GetComponent<Rigidbody2D>();
 			
 			SpringJoint2D lastInRope = lastRopeSegment.GetComponent<SpringJoint2D>();
-			playerRopeJoint.distance = 0;
-			playerRopeJoint.dampingRatio = lastInRope.dampingRatio;
-			playerRopeJoint.frequency = lastInRope.frequency;
+			playerSprJoint.distance = 0;
+			playerSprJoint.dampingRatio = lastInRope.dampingRatio;
+			playerSprJoint.frequency = lastInRope.frequency;
+			
+			DistanceJoint2D playerDisJoint = GetComponent<DistanceJoint2D>();
+			playerDisJoint.enabled = true;
+			playerDisJoint.connectedBody = lastRopeSegment.GetComponent<Rigidbody2D>();
+			playerDisJoint.distance = 0;
 		}
 	}
 	
+	private void PullInRope()
+	{
+		SpringJoint2D playersJoint = GetComponent<SpringJoint2D>();
+		Rigidbody2D grapplePiece = playersJoint.connectedBody;
+		Rigidbody2D toDestroy;
+		int pulledIn = 0;
+		
+		while(grapplePiece != null && pulledIn <= pullInRate)
+		{
+			toDestroy = grapplePiece;
+			if(grapplePiece == kunai.GetComponent<Rigidbody2D>())
+			{
+				--pulledIn;
+			}
+			else
+			{
+				grapplePiece = grapplePiece.GetComponent<SpringJoint2D>().connectedBody;
+			}
+			Destroy(toDestroy.gameObject);
+			++pulledIn;
+		}
+		
+		if(grapplePiece == null)
+		{
+			grappleIsOut = false;
+		}
+		else
+		{
+			playersJoint.connectedBody = grapplePiece;
+		}
+		
+		ropeSegments += pulledIn;
+	}
+		
 	// Update is called once per frame
 	void Update ()
 	{
@@ -86,13 +144,17 @@ public class GrappleManager : MonoBehaviour
 		{
 			if(beingRetracted)
 			{
-				
+				PullInRope();
 			}
 			else
 			{
 				if(kunai.ropeIntact)
 				{
 					AddToRope();
+				}
+				else
+				{
+					beingRetracted = true;
 				}
 			}
 		}

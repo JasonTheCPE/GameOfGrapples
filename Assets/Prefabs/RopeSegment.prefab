@@ -11,6 +11,7 @@ GameObject:
   - 212: {fileID: 21208394}
   - 50: {fileID: 5057832}
   - 231: {fileID: 23126018}
+  - 232: {fileID: 23238998}
   - 58: {fileID: 5828546}
   - 114: {fileID: 11465264}
   - 114: {fileID: 11419552}
@@ -125,6 +126,19 @@ SpringJoint2D:
   m_Distance: 5.5
   m_DampingRatio: .949999988
   m_Frequency: 15
+--- !u!232 &23238998
+DistanceJoint2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 104764}
+  m_Enabled: 1
+  m_CollideConnected: 0
+  m_ConnectedRigidBody: {fileID: 0}
+  m_Anchor: {x: 0, y: 0}
+  m_ConnectedAnchor: {x: 0, y: 0}
+  m_Distance: 5.5
+  m_MaxDistanceOnly: 1
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
