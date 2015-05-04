@@ -105,6 +105,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isActive: 1
+  playerNumber: 0
 --- !u!114 &11478936
 MonoBehaviour:
   m_ObjectHideFlags: 1

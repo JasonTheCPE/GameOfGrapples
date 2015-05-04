@@ -11,6 +11,8 @@ TagManager:
   - SpawnPoint
   - TerrainHazard
   - OtherDestructible
+  - Background
+  - Star
   layers:
   - Default
   - TransparentFX

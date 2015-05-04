@@ -14,32 +14,32 @@ public class MultiplayerManager : MonoBehaviour {
 	private bool isCustom = false;
 	private Object[] skins;
 	private int usingSkin = 0;
-
+	
 	public string playerName = "Host Player";	//the player name the current player will have in the match
 	public GameObject playerPrefab;
-
+	
 	public List<MyPlayer> PlayerList = new List<MyPlayer>();
 	public List<MapSettings> MapList = new List<MapSettings>();
-
+	
 	public MapSettings currentMap = null;
-
+	
 	public int oldPrefix;
 	public bool isMatchStarted = false;
-
+	
 	public bool allowTeams = false;
-
+	
 	void Awake() {
 		DontDestroyOnLoad(transform.gameObject);
 	}
-
+	
 	// Use this for initialization
 	void Start () {
 		instance = this;
 		playerName = PlayerPrefs.GetString("Player Name");	//get saved player settings for their name
-
+		
 		DirectoryInfo levelDir = new DirectoryInfo("Assets/Resources/Levels");
 		FileInfo[] levelInfo = levelDir.GetFiles("*.*");
-
+		
 		foreach(FileInfo level in levelInfo)
 		{
 			if(level.Name.EndsWith(".xml"))
@@ -50,13 +50,13 @@ public class MultiplayerManager : MonoBehaviour {
 				MapList.Add(newLevelDisplay);
 			}
 		}
-
+		
 		if(MapList.Count > 0)
 			currentMap = MapList[0];
-
+		
 		skins = Resources.LoadAll("Skins");
 	}
-
+	
 	//keep the instance alive
 	void FixedUpdate() {
 		instance = this;
@@ -70,7 +70,7 @@ public class MultiplayerManager : MonoBehaviour {
 		
 		Network.InitializeServer(matchMaxUsers - 1, 2652, false);			//set the max number of players, port number, and something else
 		MasterServer.RegisterHost("Deathmatch", matchName, "No Comment");	//gametype, game name, and comment
-
+		
 		//Network.InitializeSecurity();	//breaks everything till further notice
 	}
 	
@@ -85,46 +85,34 @@ public class MultiplayerManager : MonoBehaviour {
 	void OnPlayerDisconnected(NetworkPlayer id) {
 		GetComponent<NetworkView>().RPC("Client_RemovePlayer", RPCMode.All, id);	//remove disconnected player from server
 	}
-
+	
 	void OnPlayerConnected(NetworkPlayer player) {
 		//the newly connected player gets a list of all the other players
 		foreach(MyPlayer pl in PlayerList) {
-			GetComponent<NetworkView>().RPC("Client_AddPlayerToList", player, pl.playerName, pl.playerNetwork, pl.playerID);
+			GetComponent<NetworkView>().RPC("Client_AddPlayerToList", player, pl.playerName, pl.playerNetwork);
 		}
 		//tell the newly connected player the settings and map to load
 		GetComponent<NetworkView>().RPC("Client_GetMultiplayerMatchSettings", player, currentMap.mapName, "", "");
 	}
-
+	
 	void OnDisconnectedFromServer(NetworkDisconnection info) {
 		PlayerList.Clear();
 	}
-
+	
 	[RPC]
 	void Server_PlayerJoinRequest(string playerName, NetworkPlayer view) {
-		bool goodID = false;
-		int playerID = 0;
-		while (!goodID) {
-			goodID = true;
-			playerID += 1;
-			foreach(MyPlayer pl in PlayerList) {
-				if (playerID == pl.playerID) {
-					goodID = false;
-				}
-			}
-		}
 		//tell everyone on server to add player to their list
-		GetComponent<NetworkView>().RPC("Client_AddPlayerToList", RPCMode.All, playerName, view, playerID);
+		GetComponent<NetworkView>().RPC("Client_AddPlayerToList", RPCMode.All, playerName, view);
 	}
 	
 	[RPC]
 	//adds player to the player list with the input playername and networkplayer
-	void Client_AddPlayerToList(string playerName, NetworkPlayer view, int id) {
+	void Client_AddPlayerToList(string playerName, NetworkPlayer view) {
 		MyPlayer tempPlayer = new MyPlayer();
 		tempPlayer.playerName = playerName;
 		tempPlayer.playerNetwork = view;
 		tempPlayer.skinID = 0;
 		tempPlayer.wins = 0;
-		tempPlayer.playerID = id;
 		PlayerList.Add(tempPlayer);
 	}
 	
@@ -142,12 +130,12 @@ public class MultiplayerManager : MonoBehaviour {
 			PlayerList.Remove(tempPlayer);
 		}
 	}
-
+	
 	[RPC]
 	void Client_GetMultiplayerMatchSettings(string map, string mode, string others) {
 		currentMap = GetMap(map); //can add in mode later if I want to
 	}
-
+	
 	[RPC]
 	void SetSkin(int skinNum, NetworkPlayer view) {
 		foreach(MyPlayer pl in PlayerList) {
@@ -155,11 +143,11 @@ public class MultiplayerManager : MonoBehaviour {
 				pl.skinID = skinNum;
 			}
 		}
-
+		
 		if (view == Network.player)
 			usingSkin = skinNum;
 	}
-
+	
 	[RPC]
 	void AssignWin(NetworkPlayer view) {
 		foreach(MyPlayer pl in PlayerList) {
@@ -169,7 +157,7 @@ public class MultiplayerManager : MonoBehaviour {
 		}
 		Application.LoadLevel("Prep");
 	}
-
+	
 	[RPC]
 	void AssignTeamWin(int team) {
 		foreach(MyPlayer pl in PlayerList) {
@@ -179,17 +167,17 @@ public class MultiplayerManager : MonoBehaviour {
 		}
 		Application.LoadLevel("Prep");
 	}
-
+	
 	[RPC]
 	void AssignDraw() {
 		Application.LoadLevel("Prep");
 	}
-
+	
 	[RPC]
 	void ToPrepRoom() {
 		Application.LoadLevel("Prep");
 	}
-
+	
 	[RPC]
 	void SetCurrentMap(string newMap) {
 		foreach(MapSettings map in MapList) {
@@ -198,22 +186,22 @@ public class MultiplayerManager : MonoBehaviour {
 			}
 		}
 	}
-
+	
 	//can possibly make better by getting rid of get variable. we will see if i need it later
 	public MapSettings GetMap(string name) {
 		MapSettings get = null;
-
+		
 		foreach(MapSettings st in MapList) {
 			if(st.mapName == name) {
 				get = st;
 				return get;
 			}
-
+			
 		}
-
+		
 		return get;
 	}
-
+	
 	[RPC]
 	void Client_LoadMultiplayerMap(string map, int prefix) {
 		Network.SetLevelPrefix(prefix); //make sure you only recieve new RPCs
@@ -221,7 +209,7 @@ public class MultiplayerManager : MonoBehaviour {
 		isCustom = false;
 		Application.LoadLevel("inmultiplayergame");
 	}
-
+	
 	void OnLevelWasLoaded(int level) {
 		if (level == 0) {
 			Destroy(gameObject);
@@ -232,46 +220,47 @@ public class MultiplayerManager : MonoBehaviour {
 			LevelIOManager.ContructLevelInCanvasByName(GameObject.Find("Level"), toLoad, isCustom);
 			spawnPlayer(usingSkin);
 		}
-
+		
 	}
-
+	
 	int FindPlayerNumber() {
 		for (int i = 0; i < PlayerList.Count; ++i) {
 			if(PlayerList[i].playerNetwork == Network.player) {
-				return PlayerList[i].playerID;
+				return i;
 			}
 		}
-
+		
 		return -1;
 	}
-
+	
 	void spawnPlayer(int skinType) {
 		GameObject[] spawnPoints = GameObject.FindGameObjectsWithTag("SpawnPoint");
 		Vector3 spawnlocation;
-
+		
 		int playerNumber = FindPlayerNumber();
-
+		
 		if (playerNumber == -1) {
 			Debug.Log("ERROR! Didn't find player number!");
 			playerNumber = 0;
 		}
-
+		
 		GameObject spawnPrefab = accessSkin(skinType);
 		if (spawnPoints.Length == 0) {
 			spawnlocation = new Vector3(0,0,0);
 		} else {
 			spawnlocation = spawnPoints[playerNumber%spawnPoints.Length].GetComponent<Transform>().position;
 		}
-
-		spawnPrefab.GetComponent<PlayerMovement>().playerNumber = playerNumber;
-		if (allowTeams)
-			spawnPrefab.GetComponent<Team>().teamID = PlayerList[playerNumber].team;
-		else 
-			spawnPrefab.GetComponent<Team>().teamID = -1;
-
+		
 		GameObject myPlayerGO = (GameObject)Network.Instantiate(spawnPrefab, spawnlocation, Quaternion.identity, 0);
+		myPlayerGO.GetComponent<PlayerMovement>().playerNumber = playerNumber;
+		if (allowTeams) {
+			myPlayerGO.GetComponent<Team>().teamID = PlayerList[playerNumber].team;
+		} else {
+			myPlayerGO.GetComponent<Team>().teamID = -1;
+			//Debug.Log("Set my team to " + myPlayerGO.GetComponent<Team>().teamID.ToString());
+		}
 	}
-
+	
 	GameObject accessSkin(int skinID) {
 		int arrayLength = skins.Length;
 		
@@ -283,12 +272,12 @@ public class MultiplayerManager : MonoBehaviour {
 		
 		return playerPrefab;
 	}
-
+	
 	[RPC]
 	void ToggleTeams() {
 		allowTeams = !allowTeams;
 	}
-
+	
 	[RPC]
 	void SetTeam(NetworkPlayer view, int team) {
 		foreach(MyPlayer pl in PlayerList) {
@@ -307,7 +296,6 @@ public class MyPlayer {
 	public int skinID = 0;
 	public int wins = 0;
 	public int team = 0;
-	public int playerID = 0;
 }
 
 [System.Serializable]
