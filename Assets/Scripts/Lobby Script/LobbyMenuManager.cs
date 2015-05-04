@@ -143,7 +143,6 @@ public class LobbyMenuManager : MonoBehaviour {
 	}
 
 	void OnDisconnectedFromServer(NetworkDisconnection info) {
-		MultiplayerManager.instance.PlayerList.Clear();
 		NavigateTo("Main");
 	}
 }

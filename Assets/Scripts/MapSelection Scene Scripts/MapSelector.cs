@@ -115,7 +115,6 @@ public class MapSelector : MonoBehaviour {
 	}
 
 	void OnDisconnectedFromServer(NetworkDisconnection info) {
-		MultiplayerManager.instance.PlayerList.Clear();
 		Application.LoadLevel("Lobby");
 	}
 }

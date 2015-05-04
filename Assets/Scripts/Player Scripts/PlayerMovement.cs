@@ -17,17 +17,17 @@ public class PlayerMovement : MonoBehaviour
 	private Rigidbody2D rb;
 	private short isJumping = 0;
 	private bool facingRight = true;
-
+	
 	public GrappleManager grappleManager;
 	public GameObject kunaiPrefab;
 	public GameObject starPrefab;
-
+	
 	// Use this for initialization
 	void Start () {
 		rb = GetComponent<Rigidbody2D>();
 		ammo = maxAmmo;
 	}
-
+	
 	// Update is called once per frame
 	void Update () {
 		if (GetComponent<NetworkView>().isMine)
@@ -64,7 +64,7 @@ public class PlayerMovement : MonoBehaviour
 		{
 			Vector3 throwVector = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0));
 			throwVector = throwVector - transform.position;
-
+			
 			GetComponent<NetworkView>().RPC("throwStar", RPCMode.All, throwVector);
 		}
 		
@@ -129,16 +129,17 @@ public class PlayerMovement : MonoBehaviour
 	}
 	
 	[RPC]
-	void Die(int killedID, int killerID)
+	void Die()
 	{
 		ammo = maxAmmo;
 		rb.velocity = new Vector3(0,0,0);
 		rb.position = new Vector3(0, 0, 0);
-		Debug.Log(killedID.ToString() + " was killed by " + killerID.ToString() + " and my id is " + playerNumber.ToString());
-		Referee reff = GameObject.Find("Ingame Manager").GetComponent<Referee>();
-		if (reff)
-		{
-			reff.KillPlayer(killerID, killedID);//playerNumber);
+		if(GetComponent<NetworkView>().isMine == true) {
+			Referee reff = GameObject.Find("Ingame Manager").GetComponent<Referee>();
+			if (reff)
+			{
+				reff.GetComponent<NetworkView>().RPC("KillPlayer", RPCMode.All, Network.player);
+			}
 		}
 		//Destroy(gameObject);
 	}
@@ -148,5 +149,5 @@ public class PlayerMovement : MonoBehaviour
 	{
 		isJumping = 0;
 	}
-
+	
 }
