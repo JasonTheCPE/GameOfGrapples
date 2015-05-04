@@ -17,6 +17,8 @@ GameObject:
   - 114: {fileID: 11482514}
   - 114: {fileID: 11421308}
   - 114: {fileID: 11440750}
+  - 114: {fileID: 11475424}
+  - 231: {fileID: 23128584}
   m_Layer: 0
   m_Name: testplayer
   m_TagString: Player
@@ -73,7 +75,7 @@ Rigidbody2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 165502}
-  m_Mass: 1
+  m_Mass: 50
   m_LinearDrag: 4
   m_AngularDrag: .0500000007
   m_GravityScale: 40
@@ -119,7 +121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf29a684d89aafb428f05c91273c20fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  teamID: 0
+  teamID: -1
 --- !u!114 &11440750
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -134,13 +136,30 @@ MonoBehaviour:
   speed: 20
   maxSpeed: 50
   jump: 240
-  maxAmmo: 4
   throwSpeed: 200
-  grappleIsThrown: 0
-  playerNumber: 0
-  ropePrefab: {fileID: 104764, guid: c2835045a44042a4cbda7c221cb5cc4e, type: 2}
+  playerNumber: 1
+  myKunai: {fileID: 0}
+  grappleManager: {fileID: 0}
   kunaiPrefab: {fileID: 100052, guid: d79bed03d5cb27841908ba1918ccf494, type: 2}
   starPrefab: {fileID: 135352, guid: 67784293c8d767d4f9318681bbf4184f, type: 2}
+--- !u!114 &11475424
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 165502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5c5f61e40b4add4e95b6131f130b795, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ropeSegments: 50
+  grappleIsOut: 0
+  beingRetracted: 0
+  ropeSegSize: 0
+  kunai: {fileID: 0}
+  lastRopeSegment: {fileID: 0}
+  ropePrefab: {fileID: 104764, guid: c2835045a44042a4cbda7c221cb5cc4e, type: 2}
 --- !u!114 &11482514
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -165,6 +184,20 @@ NetworkView:
   m_ViewID:
     m_ID: 0
     m_Type: 0
+--- !u!231 &23128584
+SpringJoint2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 165502}
+  m_Enabled: 0
+  m_CollideConnected: 0
+  m_ConnectedRigidBody: {fileID: 0}
+  m_Anchor: {x: 0, y: 0}
+  m_ConnectedAnchor: {x: 0, y: 0}
+  m_Distance: 1
+  m_DampingRatio: 0
+  m_Frequency: 1
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

@@ -12,6 +12,8 @@ GameObject:
   - 50: {fileID: 5057832}
   - 231: {fileID: 23126018}
   - 58: {fileID: 5828546}
+  - 114: {fileID: 11465264}
+  - 114: {fileID: 11419552}
   m_Layer: 0
   m_Name: RopeSegment
   m_TagString: OtherDestructible
@@ -37,7 +39,7 @@ Rigidbody2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 104764}
-  m_Mass: 1
+  m_Mass: 3
   m_LinearDrag: .5
   m_AngularDrag: 5
   m_GravityScale: 5
@@ -59,6 +61,30 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: .319999993
+--- !u!114 &11419552
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 104764}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf29a684d89aafb428f05c91273c20fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  teamID: 0
+--- !u!114 &11465264
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 104764}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 692a58a6d88037742ace9745a0fab272, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  kunai: {fileID: 0}
 --- !u!212 &21208394
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -98,7 +124,7 @@ SpringJoint2D:
   m_ConnectedAnchor: {x: 0, y: 0}
   m_Distance: 5.5
   m_DampingRatio: .949999988
-  m_Frequency: 20
+  m_Frequency: 15
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

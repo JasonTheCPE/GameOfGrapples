@@ -4,7 +4,7 @@ using System.Collections;
 public class Kunai : MonoBehaviour
 {
 	public bool isStuck = false;
-	public bool isPullable = false;
+	public bool ropeIntact = true;
 	public bool beingRetracted = false;
 	public int playerNumber;
 	
