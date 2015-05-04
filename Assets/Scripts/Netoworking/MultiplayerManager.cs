@@ -89,7 +89,7 @@ public class MultiplayerManager : MonoBehaviour {
 	void OnPlayerConnected(NetworkPlayer player) {
 		//the newly connected player gets a list of all the other players
 		foreach(MyPlayer pl in PlayerList) {
-			GetComponent<NetworkView>().RPC("Client_AddPlayerToList", player, pl.playerName, pl.playerNetwork);
+			GetComponent<NetworkView>().RPC("Client_AddPlayerToList", player, pl.playerName, pl.playerNetwork, pl.playerID);
 		}
 		//tell the newly connected player the settings and map to load
 		GetComponent<NetworkView>().RPC("Client_GetMultiplayerMatchSettings", player, currentMap.mapName, "", "");
@@ -101,18 +101,30 @@ public class MultiplayerManager : MonoBehaviour {
 
 	[RPC]
 	void Server_PlayerJoinRequest(string playerName, NetworkPlayer view) {
+		bool goodID = false;
+		int playerID = 0;
+		while (!goodID) {
+			goodID = true;
+			playerID += 1;
+			foreach(MyPlayer pl in PlayerList) {
+				if (playerID == pl.playerID) {
+					goodID = false;
+				}
+			}
+		}
 		//tell everyone on server to add player to their list
-		GetComponent<NetworkView>().RPC("Client_AddPlayerToList", RPCMode.All, playerName, view);
+		GetComponent<NetworkView>().RPC("Client_AddPlayerToList", RPCMode.All, playerName, view, playerID);
 	}
 	
 	[RPC]
 	//adds player to the player list with the input playername and networkplayer
-	void Client_AddPlayerToList(string playerName, NetworkPlayer view) {
+	void Client_AddPlayerToList(string playerName, NetworkPlayer view, int id) {
 		MyPlayer tempPlayer = new MyPlayer();
 		tempPlayer.playerName = playerName;
 		tempPlayer.playerNetwork = view;
 		tempPlayer.skinID = 0;
 		tempPlayer.wins = 0;
+		tempPlayer.playerID = id;
 		PlayerList.Add(tempPlayer);
 	}
 	
@@ -294,6 +306,7 @@ public class MyPlayer {
 	public int skinID = 0;
 	public int wins = 0;
 	public int team = 0;
+	public int playerID = 0;
 }
 
 [System.Serializable]

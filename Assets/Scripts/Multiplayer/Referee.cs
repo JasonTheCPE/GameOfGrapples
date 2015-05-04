@@ -6,14 +6,16 @@ public class Referee : MonoBehaviour {
 
 	private MultiplayerManager mm;
 	public List<ActivePlayer> ingamePlayers;
-	private int[] teams = new int[8] {0,0,0,0,0,0,0,0};
+	public int[] teams = new int[8] {0,0,0,0,0,0,0,0};
+	public float timer = 60; // in seconds
+	public bool isTimed = true;
 
 	// Use this for initialization
 	void Start () {
 		mm = GameObject.Find("Multiplayer Manager").GetComponent<MultiplayerManager>();
 		if(mm) {
 			foreach(MyPlayer mp in mm.PlayerList) {
-				AddPlayer(mp.playerName, mp.playerNetwork, mp.team);
+				AddPlayer(mp.playerName, mp.playerNetwork, mp.team, mp.playerID);
 			}
 		} else {
 			Debug.Log("ERROR! Could not find the multiplayer manager!");
@@ -22,22 +24,36 @@ public class Referee : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+		if (isTimed) {
+			timer -= Time.deltaTime;
+			if (timer <= 0) {
+				timer = 0;
+				Debug.Log("Game over! It's a DRAW! Time Ran Out!");
+				mm.GetComponent<NetworkView>().RPC("AssignDraw", RPCMode.All);
+			}
+		}
 	}
 
 	void OnGUI() {
 		if (GUI.Button(new Rect(Screen.width - 200, Screen.height - 200, 100, 100), "Win")) {
 			MultiplayerManager.instance.GetComponent<NetworkView>().RPC("AssignWin", RPCMode.All, Network.player);
 		}
+		if (isTimed) {
+			GUI.Box(new Rect(10, 10, 50, 20), "" + timer.ToString("0"));
+		}
 	}
 
-	public void KillPlayer(NetworkPlayer view) {
+	public void KillPlayer(int killerID, int killedID) {
 		foreach(ActivePlayer ap in ingamePlayers) {
-			if (ap.playerNetwork == view) {
+			if (ap.playerID == killedID) {
 				ap.isAlive = false;
 				teams[ap.onTeam + 1] -= 1;
+				Debug.Log("Killer: " + killerID.ToString() + "Killing playerid " + killedID.ToString());
 			}
 		}
+
+		//ingamePlayers[killedID].isAlive = false;
+		//teams[ingamePlayers[killedID].onTeam + 1] -= 1;
 
 		if (mm.allowTeams) {
 			int teamsAlive = 0, winningTeam = -1;
@@ -73,11 +89,12 @@ public class Referee : MonoBehaviour {
 		}
 	}
 
-	void AddPlayer(string name, NetworkPlayer view, int teamNumber) {
+	void AddPlayer(string name, NetworkPlayer view, int teamNumber, int playerID) {
 		ActivePlayer tempPlayer = new ActivePlayer();
 		tempPlayer.playerName = name;
 		tempPlayer.playerNetwork = view;
 		tempPlayer.isAlive = true;
+		tempPlayer.playerID = playerID;
 		tempPlayer.onTeam = teamNumber;
 		ingamePlayers.Add(tempPlayer);
 		teams[teamNumber + 1] += 1;
@@ -92,6 +109,7 @@ public class Referee : MonoBehaviour {
 [System.Serializable]
 public class ActivePlayer {
 	public string playerName = "";
+	public int playerID;
 	public NetworkPlayer playerNetwork;
 	public bool isAlive;
 	public int onTeam;

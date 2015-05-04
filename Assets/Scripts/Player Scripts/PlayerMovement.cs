@@ -129,15 +129,16 @@ public class PlayerMovement : MonoBehaviour
 	}
 	
 	[RPC]
-	void Die()
+	void Die(int killedID, int killerID)
 	{
 		ammo = maxAmmo;
 		rb.velocity = new Vector3(0,0,0);
 		rb.position = new Vector3(0, 0, 0);
+		Debug.Log(killedID.ToString() + " was killed by " + killerID.ToString() + " and my id is " + playerNumber.ToString());
 		Referee reff = GameObject.Find("Ingame Manager").GetComponent<Referee>();
 		if (reff)
 		{
-			reff.KillPlayer(Network.player);
+			reff.KillPlayer(killerID, killedID);//playerNumber);
 		}
 		//Destroy(gameObject);
 	}
