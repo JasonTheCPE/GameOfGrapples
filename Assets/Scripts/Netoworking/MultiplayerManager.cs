@@ -238,7 +238,7 @@ public class MultiplayerManager : MonoBehaviour {
 	int FindPlayerNumber() {
 		for (int i = 0; i < PlayerList.Count; ++i) {
 			if(PlayerList[i].playerNetwork == Network.player) {
-				return i;
+				return PlayerList[i].playerID;
 			}
 		}
 
