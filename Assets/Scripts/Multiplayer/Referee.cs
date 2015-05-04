@@ -7,6 +7,8 @@ public class Referee : MonoBehaviour {
 	private MultiplayerManager mm;
 	public List<ActivePlayer> ingamePlayers;
 	private int[] teams = new int[8] {0,0,0,0,0,0,0,0};
+	public float timer = 60; //in seconds
+	public bool isTimed = true;
 	
 	// Use this for initialization
 	void Start () {
@@ -22,15 +24,25 @@ public class Referee : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+		if (isTimed) {
+			timer -= Time.deltaTime;
+			if (timer <= 0) {
+				timer = 0;
+				Debug.Log("Game Over! It's a DRAW! Time Ran Out!");
+				mm.GetComponent<NetworkView>().RPC ("AssignDraw", RPCMode.All);
+			}
+		}
 	}
 	
 	void OnGUI() {
 		/*if (GUI.Button(new Rect(Screen.width - 200, Screen.height - 200, 100, 100), "Win")) {
 			MultiplayerManager.instance.GetComponent<NetworkView>().RPC("AssignWin", RPCMode.All, Network.player);
 		}*/
+		if (isTimed) {		
+			GUI.Box(new Rect(10, 10, 50, 20), "" + timer.ToString("0"));		
+		}	
 	}
-
+	
 	[RPC]
 	public void KillPlayer(NetworkPlayer view) {
 		if(GetComponent<NetworkView>().isMine == true) {

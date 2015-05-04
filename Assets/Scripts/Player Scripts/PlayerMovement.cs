@@ -25,7 +25,6 @@ public class PlayerMovement : MonoBehaviour
 	// Use this for initialization
 	void Start () {
 		rb = GetComponent<Rigidbody2D>();
-		grappleManager = GetComponent<GrappleManager>();
 		ammo = maxAmmo;
 	}
 	
