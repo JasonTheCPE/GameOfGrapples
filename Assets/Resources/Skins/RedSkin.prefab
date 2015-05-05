@@ -144,7 +144,7 @@ MonoBehaviour:
   maxSpeed: 50
   jump: 240
   throwSpeed: 200
-  playerNumber: 1
+  playerNumber: 0
   myKunai: {fileID: 0}
   grappleManager: {fileID: 0}
   kunaiPrefab: {fileID: 100052, guid: d79bed03d5cb27841908ba1918ccf494, type: 2}
