@@ -7,6 +7,7 @@ public class MapSelector : MonoBehaviour {
 	private string currentMenu;
 	private Object[] skins;
 	private Vector2 scrollLobby = Vector2.zero;
+	private int time = 60; 				// in seconds
 	// Use this for initialization
 	void Start () {
 		instance = this;
@@ -52,9 +53,35 @@ public class MapSelector : MonoBehaviour {
 
 		GUI.Box(new Rect(250, 10, 200, 40), MultiplayerManager.instance.currentMap.mapName);
 
+		GUI.Label(new Rect(250, 100, 200, 40), "Set Time");
+		GUI.Label(new Rect(300, 140, 100, 50), time.ToString());
+
 		if (Network.isServer) {
 			if(GUI.Button(new Rect(250, 51, 200, 40), "Change Map")) {
 				NavigateTo("SelMap");
+			}
+
+			if(GUI.Button(new Rect(250, 140, 50, 50), "-")) {
+				if (time > 0) {
+					if (time == 1) {
+						time = 0;
+					} else if (time == 15) {
+						time = 1;
+					} else {
+						time -= 15;
+					}
+				}
+			}
+			if(GUI.Button(new Rect(400, 140, 50, 50), "+")) {
+				if (time < 300) {
+					if (time == 0) {
+						time = 1;
+					} else if (time == 1) {
+						time = 15;
+					} else {
+						time += 15;
+					}
+				}
 			}
 		}
 		
@@ -75,6 +102,7 @@ public class MapSelector : MonoBehaviour {
 			}
 
 			if(GUI.Button(new Rect(Screen.width - 405, Screen.height - 40, 200, 40), "Start Match")) {
+				MultiplayerManager.instance.GetComponent<NetworkView>().RPC("SetTime", RPCMode.All, time);
 				MultiplayerManager.instance.GetComponent<NetworkView>().RPC("Client_LoadMultiplayerMap", 
 					RPCMode.All, MultiplayerManager.instance.currentMap.mapLoadName, MultiplayerManager.instance.oldPrefix + 1);
 				MultiplayerManager.instance.oldPrefix += 1;

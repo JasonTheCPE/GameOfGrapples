@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
 	private int ammo;
 	
 	public int playerNumber;
+	public int health = 1;
 	public GameObject myKunai;
 	
 	private Rigidbody2D rb;

@@ -14,6 +14,7 @@ public class MultiplayerManager : MonoBehaviour {
 	private bool isCustom = false;
 	private Object[] skins;
 	private int usingSkin = 0;
+	private int matchTime = 0;
 	
 	public string playerName = "Host Player";	//the player name the current player will have in the match
 	public GameObject playerPrefab;
@@ -218,6 +219,13 @@ public class MultiplayerManager : MonoBehaviour {
 		} else if (level == 4) {
 			Debug.Log("Loading Level " + toLoad);
 			LevelIOManager.ContructLevelInCanvasByName(GameObject.Find("Level"), toLoad, isCustom);
+
+			if (matchTime == 0) {
+				GameObject.Find("Ingame Manager").GetComponent<Referee>().isTimed = false;
+			} else {
+				GameObject.Find("Ingame Manager").GetComponent<Referee>().isTimed = true;
+			}
+			GameObject.Find("Ingame Manager").GetComponent<Referee>().timer = matchTime;
 			spawnPlayer(usingSkin);
 		}
 		
@@ -259,6 +267,8 @@ public class MultiplayerManager : MonoBehaviour {
 			myPlayerGO.GetComponent<Team>().teamID = -1;
 			//Debug.Log("Set my team to " + myPlayerGO.GetComponent<Team>().teamID.ToString());
 		}
+		myPlayerGO.GetComponent<HoverName>().name = PlayerList[playerNumber].playerName;			//sets the name of the person?
+		myPlayerGO.GetComponent<HoverName>().localName = PlayerList[playerNumber].playerName;
 	}
 	
 	GameObject accessSkin(int skinID) {
@@ -285,6 +295,11 @@ public class MultiplayerManager : MonoBehaviour {
 				pl.team = team;
 			}
 		}
+	}
+
+	[RPC]
+	void SetTime(int time) {
+		matchTime = time;
 	}
 	
 }
