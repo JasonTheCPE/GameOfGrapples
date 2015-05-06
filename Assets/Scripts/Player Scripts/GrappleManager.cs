@@ -4,6 +4,13 @@ using System.Collections;
 public class GrappleManager : MonoBehaviour
 {
 	private const float pullInDistanceMultiplier = 16;
+	private const float outOfRopeKunaiDrag = 0.1f;
+	private const float outOfRopeKunaiMass = 8f;
+	private const float pullInDivisorBase = 1f;
+	private const float pullInDivisorStep = 0.1f;
+	private const float pullInKunaiDrag = 4f;
+	private const float pullInKunaiMass = 0.2f;
+	private const float pullInRopeDrag = 2f;
 
 	public int ropeSegments = 30;
 	public bool grappleIsOut = false;
@@ -49,6 +56,7 @@ public class GrappleManager : MonoBehaviour
 		{
 			kunai.isStuck = false;
 			kunai.beingRetracted = true;
+			kunai.turnTowardsVelocity = false;
 			kunai.GetComponent<Rigidbody2D>().isKinematic = false;
 			//kunai.GetComponentInChildren<KunaiInnerCollide>().gameObject.SetActive(false);
 			//kunai.GetComponentInChildren<KunaiOuterCollide>().gameObject.SetActive(false);
@@ -63,7 +71,7 @@ public class GrappleManager : MonoBehaviour
 		SpringJoint2D joint = GetComponent<SpringJoint2D>();
 		Rigidbody2D next;
 		
-		float divisor = 1f;
+		float divisor = pullInDivisorBase;
 		
 		while(joint != null && joint.connectedBody != null)
 		{
@@ -71,14 +79,14 @@ public class GrappleManager : MonoBehaviour
 			
 			if(next.gameObject == kunai.gameObject)
 			{
-				next.mass = 0.5f;
-				next.drag = 4f;
+				next.mass = pullInKunaiMass;
+				next.drag = pullInKunaiDrag;
 				return;
 			}
 			next.mass /= divisor;
-			next.drag = 2f;
+			next.drag = pullInRopeDrag;
 			joint.frequency /= divisor;
-			divisor += 0.1f;
+			divisor += pullInDivisorStep;
 			
 			joint = joint.connectedBody.GetComponent<SpringJoint2D>();
 		}
@@ -126,20 +134,16 @@ public class GrappleManager : MonoBehaviour
 			playerDisJoint.connectedBody = lastRopeSegment.GetComponent<Rigidbody2D>();
 			playerDisJoint.distance = 0;
 			
-			kunai.GetComponent<Rigidbody2D>().mass = 8f;
+			kunai.GetComponent<Rigidbody2D>().mass = outOfRopeKunaiMass;
+			kunai.turnTowardsVelocity = false;
+			kunai.GetComponent<Rigidbody2D>().drag = outOfRopeKunaiDrag;
 		}
 		
 		
 	}
 	
 	private void PullInRope()
-	{
-		
-		//if(pullProgress % inverseMaxPullRate != 0)
-		//{
-		//	return;
-		//}
-		
+	{	
 		SpringJoint2D playersJoint = GetComponent<SpringJoint2D>();
 		Rigidbody2D grapplePiece = playersJoint.connectedBody;
 		Rigidbody2D toDestroy;

@@ -129,7 +129,7 @@ Rigidbody2D:
   m_GameObject: {fileID: 100052}
   m_Mass: 200
   m_LinearDrag: .0500000007
-  m_AngularDrag: 5
+  m_AngularDrag: 500
   m_GravityScale: 5
   m_FixedAngle: 0
   m_IsKinematic: 0
@@ -183,6 +183,7 @@ MonoBehaviour:
   isStuck: 0
   ropeIntact: 1
   beingRetracted: 0
+  turnTowardsVelocity: 1
   playerNumber: 0
 --- !u!114 &11450020
 MonoBehaviour:

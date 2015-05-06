@@ -389,10 +389,6 @@ Prefab:
       propertyPath: m_ViewID.m_Type
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 5051262, guid: d79bed03d5cb27841908ba1918ccf494, type: 2}
-      propertyPath: m_IsKinematic
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 100052, guid: d79bed03d5cb27841908ba1918ccf494, type: 2}
       propertyPath: m_IsActive
       value: 0

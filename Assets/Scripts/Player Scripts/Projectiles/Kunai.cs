@@ -6,6 +6,7 @@ public class Kunai : MonoBehaviour
 	public bool isStuck = false;
 	public bool ropeIntact = true;
 	public bool beingRetracted = false;
+	public bool turnTowardsVelocity = true;
 	public int playerNumber;
 	
 	private Collider2D stickInWallCollider;
@@ -20,7 +21,7 @@ public class Kunai : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-		if(!beingRetracted && !isStuck)
+		if(turnTowardsVelocity)
 		{
 			Vector2 dir = GetComponent<Rigidbody2D>().velocity;
 			float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90f;

@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class Shuriken : MonoBehaviour
@@ -29,7 +29,8 @@ public class Shuriken : MonoBehaviour
 		{
 			isActive = false;
 			GetComponent<Rigidbody2D>().velocity = new Vector3(0,0,0);
-		} else if (other.tag == "Player")
+		}
+		else if (other.tag == "Player")// || other.tag == "OtherDestructible")
 		{
 			if (isActive)
 			{
