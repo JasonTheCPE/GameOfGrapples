@@ -57,7 +57,6 @@ public class Shuriken : MonoBehaviour
 	[RPC]
 	void SelfDestruct()
 	{
-		//if(GetComponent<NetworkView>().isMine == true) //TODO test this uncommented
-			Destroy(gameObject);
+		Destroy(gameObject);
 	}
 }

@@ -27,7 +27,8 @@ public class GrappleManager : MonoBehaviour
 	{
 		if(ropeSegments == 0)
 		{
-			Destroy(kunai.gameObject);
+			kunai.GetComponent<NetworkView>().RPC("SelfDestruct", RPCMode.AllBuffered);
+			//Destroy(kunai.gameObject);
 			return;
 		}
 	
@@ -170,7 +171,8 @@ public class GrappleManager : MonoBehaviour
 		{
 			grapplePiece = grapplePiece.GetComponent<SpringJoint2D>().connectedBody;
 		}
-		Destroy(toDestroy.gameObject);
+		toDestroy.GetComponent<NetworkView>().RPC("SelfDestruct", RPCMode.AllBuffered);
+		//Destroy(toDestroy.gameObject);
 		
 		if(grapplePiece != null)
 		{

@@ -15,6 +15,7 @@ GameObject:
   - 58: {fileID: 5828546}
   - 114: {fileID: 11465264}
   - 114: {fileID: 11419552}
+  - 148: {fileID: 14885602}
   m_Layer: 0
   m_Name: RopeSegment
   m_TagString: OtherDestructible
@@ -86,6 +87,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   kunai: {fileID: 0}
+--- !u!148 &14885602
+NetworkView:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 104764}
+  m_Enabled: 1
+  m_StateSynchronization: 1
+  m_Observed: {fileID: 461984}
+  m_ViewID:
+    m_ID: 0
+    m_Type: 0
 --- !u!212 &21208394
 SpriteRenderer:
   m_ObjectHideFlags: 1

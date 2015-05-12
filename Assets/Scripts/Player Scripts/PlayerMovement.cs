@@ -129,6 +129,11 @@ public class PlayerMovement : MonoBehaviour
 	{
 		++ammo;
 	}
+
+	[RPC]
+	void SelfDestruct() {
+		Die();
+	}
 	
 	[RPC]
 	void Die()

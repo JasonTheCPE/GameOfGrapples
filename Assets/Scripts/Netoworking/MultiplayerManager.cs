@@ -227,6 +227,10 @@ public class MultiplayerManager : MonoBehaviour {
 			}
 			GameObject.Find("Ingame Manager").GetComponent<Referee>().timer = matchTime;
 			spawnPlayer(usingSkin);
+		} else if (level == 5) {
+			if (Network.isServer) {
+				Network.maxConnections = matchMaxUsers - 1;
+			}
 		}
 		
 	}

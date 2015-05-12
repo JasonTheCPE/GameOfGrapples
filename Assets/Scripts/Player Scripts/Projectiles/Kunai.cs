@@ -28,4 +28,9 @@ public class Kunai : MonoBehaviour
 			transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 		}
 	}
+
+	[RPC]
+	void SelfDestruct() {
+		Destroy(gameObject);
+	}
 }

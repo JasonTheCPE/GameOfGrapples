@@ -10,7 +10,13 @@ public class RopeDestruction : MonoBehaviour
 		if(other.tag == "Weapon" && other.gameObject != kunai.gameObject)
 		{
 			kunai.ropeIntact = false;
-			Destroy(gameObject);
+			GetComponent<NetworkView>().RPC("SelfDestruct", RPCMode.AllBuffered);
 		}
+	}
+
+	[RPC]
+	void SelfDestruct() 
+	{ 
+		Destroy(gameObject);
 	}
 }

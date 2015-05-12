@@ -107,7 +107,7 @@ public class MapSelector : MonoBehaviour {
 					RPCMode.All, MultiplayerManager.instance.currentMap.mapLoadName, MultiplayerManager.instance.oldPrefix + 1);
 				MultiplayerManager.instance.oldPrefix += 1;
 				MultiplayerManager.instance.isMatchStarted = true;
-				//MultiplayerManager.instance.GetComponent<Network>().maxConnections = -1; // TODO Stop new players from joining while in game
+				Network.maxConnections = -1; // Experiment
 			}
 		}
 
