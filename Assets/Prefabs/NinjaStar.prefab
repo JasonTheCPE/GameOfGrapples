@@ -13,8 +13,8 @@ GameObject:
   - 50: {fileID: 5097066}
   - 61: {fileID: 6136354}
   - 148: {fileID: 14883116}
-  - 114: {fileID: 11478936}
   - 114: {fileID: 11402764}
+  - 114: {fileID: 11455176}
   m_Layer: 0
   m_Name: NinjaStar
   m_TagString: Weapon
@@ -105,8 +105,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isActive: 1
-  playerNumber: 0
---- !u!114 &11478936
+--- !u!114 &11455176
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -114,10 +113,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 135352}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf29a684d89aafb428f05c91273c20fc, type: 3}
+  m_Script: {fileID: 11500000, guid: 38b38e320e17c7840b3528b557d8d30c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   teamID: 0
+  playerNumber: 0
+  skinID: 0
 --- !u!148 &14883116
 NetworkView:
   m_ObjectHideFlags: 1

@@ -56,7 +56,7 @@ public class PlayerMovement : MonoBehaviour
 		//Debug.Log("A trigger!");
 		if((other.tag == "Tiles" || other.tag == "Player") && isJumping > 0)
 		{
-			GetComponent<NetworkView>().RPC("Land", RPCMode.All);
+			Land();
 		}
 	}
 
@@ -81,7 +81,6 @@ public class PlayerMovement : MonoBehaviour
 		//Destroy(gameObject);
 	}
 	
-	[RPC]
 	void Land()
 	{
 		isJumping = 0;

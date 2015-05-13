@@ -28,7 +28,7 @@ public class MultiplayerManager : MonoBehaviour {
 	public bool isMatchStarted = false;
 	
 	public bool allowTeams = false;
-	
+
 	void Awake() {
 		DontDestroyOnLoad(transform.gameObject);
 	}
