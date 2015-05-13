@@ -5,7 +5,6 @@ public class Shuriken : MonoBehaviour
 {
 	public bool isActive = true;
 	public const float spinAmount = 16.0f;
-	public int playerNumber;
 
 	// Use this for initialization
 	void Start ()
@@ -34,13 +33,14 @@ public class Shuriken : MonoBehaviour
 		{
 			if (isActive)
 			{
-				int myTeam = GetComponent<Team>().teamID;
-				int otherTeam = other.gameObject.GetComponent<Team>().teamID;
-				int otherPlayerNumber = other.gameObject.GetComponent<PlayerMovement>().playerNumber;
+				int myTeam = GetComponent<ID>().teamID;
+				int myNumber = GetComponent<ID>().playerNumber;
+				int otherTeam = other.gameObject.GetComponent<ID>().teamID;
+				int otherPlayerNumber = other.gameObject.GetComponent<ID>().playerNumber;
 				
-				if (playerNumber != otherPlayerNumber && (myTeam == -1 || myTeam != otherTeam))
+				if (myNumber != otherPlayerNumber && (myTeam == -1 || myTeam != otherTeam))
 				{
-					Debug.Log("Shuriken's playerID: " + playerNumber + " killed " + otherPlayerNumber);
+					Debug.Log("Shuriken's playerID: " + myNumber + " killed " + otherPlayerNumber);
 					other.gameObject.GetComponent<NetworkView>().RPC("Die", RPCMode.All);
 					GetComponent<NetworkView>().RPC("SelfDestruct", RPCMode.AllBuffered);
 				}

@@ -264,12 +264,11 @@ public class MultiplayerManager : MonoBehaviour {
 		}
 		
 		GameObject myPlayerGO = (GameObject)Network.Instantiate(spawnPrefab, spawnlocation, Quaternion.identity, 0);
-		myPlayerGO.GetComponent<PlayerMovement>().playerNumber = playerNumber;
+		myPlayerGO.GetComponent<ID>().playerNumber = playerNumber;
 		if (allowTeams) {
-			myPlayerGO.GetComponent<Team>().teamID = PlayerList[playerNumber].team;
+			myPlayerGO.GetComponent<ID>().teamID = PlayerList[playerNumber].team;
 		} else {
-			myPlayerGO.GetComponent<Team>().teamID = -1;
-			//Debug.Log("Set my team to " + myPlayerGO.GetComponent<Team>().teamID.ToString());
+			myPlayerGO.GetComponent<ID>().teamID = -1;
 		}
 		myPlayerGO.GetComponent<HoverName>().name = PlayerList[playerNumber].playerName;			//sets the name of the person?
 		myPlayerGO.GetComponent<HoverName>().localName = PlayerList[playerNumber].playerName;
@@ -280,7 +279,7 @@ public class MultiplayerManager : MonoBehaviour {
 		
 		for (int i = 0; i < arrayLength; i++) {
 			GameObject caste = (GameObject)skins[i];
-			if (skinID == caste.GetComponent<SkinNum>().skinID) 
+			if (skinID == caste.GetComponent<ID>().skinID) 
 				return caste;
 		}
 		

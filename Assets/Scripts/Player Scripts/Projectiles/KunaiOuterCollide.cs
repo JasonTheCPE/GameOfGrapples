@@ -13,9 +13,9 @@ public class KunaiOuterCollide : MonoBehaviour
 			}
 			if(other.tag == "Player")
 			{
-				int myTeam = GetComponentInParent<Team>().teamID;
-				int otherTeam = other.gameObject.GetComponent<Team>().teamID;
-				int otherPlayerNumber = other.gameObject.GetComponent<PlayerMovement>().playerNumber;
+				int myTeam = GetComponentInParent<ID>().teamID;
+				int otherTeam = other.gameObject.GetComponent<ID>().teamID;
+				int otherPlayerNumber = other.gameObject.GetComponent<ID>().playerNumber;
 				int playerNumber = GetComponentInParent<Kunai>().playerNumber;
 				
 				if (playerNumber != otherPlayerNumber && (myTeam == -1 || myTeam != otherTeam))

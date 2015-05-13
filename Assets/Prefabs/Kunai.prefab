@@ -11,9 +11,8 @@ GameObject:
   - 212: {fileID: 21224568}
   - 50: {fileID: 5051262}
   - 148: {fileID: 14867366}
-  - 114: {fileID: 11491836}
   - 114: {fileID: 11424174}
-  - 114: {fileID: 11466376}
+  - 114: {fileID: 11423376}
   m_Layer: 0
   m_Name: Kunai
   m_TagString: Weapon
@@ -169,6 +168,20 @@ EdgeCollider2D:
   m_Points:
   - {x: -2.62063821e-07, y: -.00770778954}
   - {x: 3.31495869e-07, y: -.230001107}
+--- !u!114 &11423376
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38b38e320e17c7840b3528b557d8d30c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  teamID: 0
+  playerNumber: 0
+  skinID: 0
 --- !u!114 &11424174
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -207,30 +220,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b74b351acd0b8647a607d52a558a89a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &11466376
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100052}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf29a684d89aafb428f05c91273c20fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  teamID: 0
---- !u!114 &11491836
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100052}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf29a684d89aafb428f05c91273c20fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  teamID: 0
 --- !u!148 &14867366
 NetworkView:
   m_ObjectHideFlags: 1

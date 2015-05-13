@@ -12,8 +12,8 @@ GameObject:
   - 60: {fileID: 6090798}
   - 50: {fileID: 5085138}
   - 148: {fileID: 14820646}
-  - 114: {fileID: 11431098}
   - 114: {fileID: 11408222}
+  - 114: {fileID: 11486464}
   m_Layer: 0
   m_Name: Shuriken
   m_TagString: Weapon
@@ -82,7 +82,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isActive: 1
   playerNumber: 0
---- !u!114 &11431098
+--- !u!114 &11486464
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -90,10 +90,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 143626}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf29a684d89aafb428f05c91273c20fc, type: 3}
+  m_Script: {fileID: 11500000, guid: 38b38e320e17c7840b3528b557d8d30c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   teamID: 0
+  playerNumber: 0
+  skinID: 0
 --- !u!148 &14820646
 NetworkView:
   m_ObjectHideFlags: 1

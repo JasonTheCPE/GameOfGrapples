@@ -14,13 +14,13 @@ GameObject:
   - 50: {fileID: 5053186}
   - 61: {fileID: 6124600}
   - 148: {fileID: 14805314}
-  - 114: {fileID: 11480518}
-  - 114: {fileID: 11471210}
   - 114: {fileID: 11422014}
   - 114: {fileID: 11402890}
   - 231: {fileID: 23163524}
   - 232: {fileID: 23218130}
   - 114: {fileID: 11483864}
+  - 114: {fileID: 11427184}
+  - 114: {fileID: 11435732}
   m_Layer: 0
   m_Name: RedSkin
   m_TagString: Player
@@ -144,14 +144,25 @@ MonoBehaviour:
   speed: 20
   maxSpeed: 50
   jump: 240
-  throwSpeed: 200
-  playerNumber: 0
   health: 1
+--- !u!114 &11427184
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 142992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7252f6d55a51b554c8cde2bd9402a615, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  throwSpeed: 200
+  ammo: 0
   myKunai: {fileID: 0}
   grappleManager: {fileID: 0}
   kunaiPrefab: {fileID: 100052, guid: d79bed03d5cb27841908ba1918ccf494, type: 2}
   starPrefab: {fileID: 143626, guid: 7e7372d0421ddfe4dbdb08a892a2fcae, type: 2}
---- !u!114 &11471210
+--- !u!114 &11435732
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -159,21 +170,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 142992}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf29a684d89aafb428f05c91273c20fc, type: 3}
+  m_Script: {fileID: 11500000, guid: 38b38e320e17c7840b3528b557d8d30c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  teamID: -1
---- !u!114 &11480518
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 142992}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 476741df08d05844699f105fdd93cb19, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  teamID: 0
+  playerNumber: 0
   skinID: 1
 --- !u!114 &11483864
 MonoBehaviour:

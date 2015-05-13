@@ -287,7 +287,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 5
 --- !u!1001 &861814483
 Prefab:
   m_ObjectHideFlags: 0
@@ -433,7 +433,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 460050, guid: 62cd578f709c62a4799d2deb2c181a06, type: 2}
       propertyPath: m_RootOrder
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 14895262, guid: 62cd578f709c62a4799d2deb2c181a06, type: 2}
       propertyPath: m_ViewID.m_ID
@@ -479,7 +479,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerName: Host Player
-  playerPrefab: {fileID: 0}
+  playerPrefab: {fileID: 142992, guid: 7bae43324cbbba240b4a4efcc89ecef4, type: 2}
   PlayerList: []
   MapList: []
   currentMap:
@@ -513,6 +513,33 @@ NetworkView:
   m_ViewID:
     m_ID: 1
     m_Type: 1
+--- !u!1 &1916616429
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 861814483}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1916616430}
+  m_Layer: 0
+  m_Name: Missing Prefab
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1916616430
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 861814483}
+  m_GameObject: {fileID: 1916616429}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
 --- !u!1001 &2023410986
 Prefab:
   m_ObjectHideFlags: 0
@@ -550,7 +577,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 459326, guid: 95504e01f896c38439ce9a5c8d0dfc08, type: 2}
       propertyPath: m_RootOrder
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 14805314, guid: 95504e01f896c38439ce9a5c8d0dfc08, type: 2}
       propertyPath: m_ViewID.m_ID

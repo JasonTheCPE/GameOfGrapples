@@ -1,26 +1,26 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &165502
+--- !u!1 &142992
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 489792}
-  - 33: {fileID: 3383024}
-  - 23: {fileID: 2314694}
-  - 61: {fileID: 6190216}
-  - 50: {fileID: 5035010}
-  - 61: {fileID: 6182954}
-  - 148: {fileID: 14857256}
-  - 114: {fileID: 11482514}
-  - 114: {fileID: 11421308}
-  - 114: {fileID: 11440750}
-  - 114: {fileID: 11475424}
-  - 231: {fileID: 23128584}
-  - 232: {fileID: 23254554}
-  - 114: {fileID: 11460700}
+  - 4: {fileID: 459326}
+  - 33: {fileID: 3353042}
+  - 23: {fileID: 2358766}
+  - 61: {fileID: 6180956}
+  - 50: {fileID: 5053186}
+  - 61: {fileID: 6124600}
+  - 148: {fileID: 14805314}
+  - 114: {fileID: 11422014}
+  - 114: {fileID: 11402890}
+  - 231: {fileID: 23163524}
+  - 232: {fileID: 23218130}
+  - 114: {fileID: 11483864}
+  - 114: {fileID: 11440456}
+  - 114: {fileID: 11430646}
   m_Layer: 0
   m_Name: testplayer
   m_TagString: Player
@@ -28,24 +28,24 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &489792
+--- !u!4 &459326
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 165502}
+  m_GameObject: {fileID: 142992}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 10, y: 10, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!23 &2314694
+--- !u!23 &2358766
 MeshRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 165502}
+  m_GameObject: {fileID: 142992}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -64,34 +64,34 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
---- !u!33 &3383024
+--- !u!33 &3353042
 MeshFilter:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 165502}
+  m_GameObject: {fileID: 142992}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
---- !u!50 &5035010
+--- !u!50 &5053186
 Rigidbody2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 165502}
+  m_GameObject: {fileID: 142992}
   m_Mass: 50
   m_LinearDrag: 4
   m_AngularDrag: .0500000007
   m_GravityScale: 40
   m_FixedAngle: 0
   m_IsKinematic: 0
-  m_Interpolate: 1
+  m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
---- !u!61 &6182954
+--- !u!61 &6124600
 BoxCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 165502}
+  m_GameObject: {fileID: 142992}
   m_Enabled: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
@@ -99,12 +99,12 @@ BoxCollider2D:
   m_Offset: {x: 0, y: -.109999999}
   serializedVersion: 2
   m_Size: {x: 1.10000002, y: 1.79999995}
---- !u!61 &6190216
+--- !u!61 &6180956
 BoxCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 165502}
+  m_GameObject: {fileID: 142992}
   m_Enabled: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -112,24 +112,30 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Size: {x: 1, y: 2}
---- !u!114 &11421308
+--- !u!114 &11402890
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 165502}
+  m_GameObject: {fileID: 142992}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf29a684d89aafb428f05c91273c20fc, type: 3}
+  m_Script: {fileID: 11500000, guid: b5c5f61e40b4add4e95b6131f130b795, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  teamID: -1
---- !u!114 &11440750
+  ropeSegments: 50
+  grappleIsOut: 0
+  beingRetracted: 0
+  ropeSegSize: 0
+  kunai: {fileID: 0}
+  lastRopeSegment: {fileID: 0}
+  ropePrefab: {fileID: 104764, guid: c2835045a44042a4cbda7c221cb5cc4e, type: 2}
+--- !u!114 &11422014
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 165502}
+  m_GameObject: {fileID: 142992}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fd915cd374004a740b1fd5c41444649e, type: 3}
@@ -138,19 +144,44 @@ MonoBehaviour:
   speed: 20
   maxSpeed: 50
   jump: 240
-  throwSpeed: 200
-  playerNumber: 0
   health: 1
-  myKunai: {fileID: 0}
-  grappleManager: {fileID: 0}
-  kunaiPrefab: {fileID: 100052, guid: d79bed03d5cb27841908ba1918ccf494, type: 2}
-  starPrefab: {fileID: 135352, guid: 67784293c8d767d4f9318681bbf4184f, type: 2}
---- !u!114 &11460700
+--- !u!114 &11430646
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 165502}
+  m_GameObject: {fileID: 142992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38b38e320e17c7840b3528b557d8d30c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  teamID: 0
+  playerNumber: 0
+  skinID: 0
+--- !u!114 &11440456
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 142992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7252f6d55a51b554c8cde2bd9402a615, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  throwSpeed: 200
+  ammo: 0
+  myKunai: {fileID: 0}
+  grappleManager: {fileID: 0}
+  kunaiPrefab: {fileID: 100052, guid: d79bed03d5cb27841908ba1918ccf494, type: 2}
+  starPrefab: {fileID: 143626, guid: 7e7372d0421ddfe4dbdb08a892a2fcae, type: 2}
+--- !u!114 &11483864
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 142992}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3bd681c4d02761c4b9109d446e46f5f2, type: 3}
@@ -216,54 +247,24 @@ MonoBehaviour:
     m_FixedHeight: 0
     m_StretchWidth: 1
     m_StretchHeight: 0
---- !u!114 &11475424
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 165502}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5c5f61e40b4add4e95b6131f130b795, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ropeSegments: 50
-  grappleIsOut: 0
-  beingRetracted: 0
-  ropeSegSize: 0
-  kunai: {fileID: 0}
-  lastRopeSegment: {fileID: 0}
-  ropePrefab: {fileID: 104764, guid: c2835045a44042a4cbda7c221cb5cc4e, type: 2}
---- !u!114 &11482514
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 165502}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 476741df08d05844699f105fdd93cb19, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  skinID: 0
---- !u!148 &14857256
+--- !u!148 &14805314
 NetworkView:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 165502}
+  m_GameObject: {fileID: 142992}
   m_Enabled: 1
-  m_StateSynchronization: 2
-  m_Observed: {fileID: 489792}
+  m_StateSynchronization: 1
+  m_Observed: {fileID: 459326}
   m_ViewID:
     m_ID: 0
     m_Type: 0
---- !u!231 &23128584
+--- !u!231 &23163524
 SpringJoint2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 165502}
+  m_GameObject: {fileID: 142992}
   m_Enabled: 0
   m_CollideConnected: 0
   m_ConnectedRigidBody: {fileID: 0}
@@ -272,12 +273,12 @@ SpringJoint2D:
   m_Distance: 1
   m_DampingRatio: 0
   m_Frequency: 1
---- !u!232 &23254554
+--- !u!232 &23218130
 DistanceJoint2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 165502}
+  m_GameObject: {fileID: 142992}
   m_Enabled: 0
   m_CollideConnected: 0
   m_ConnectedRigidBody: {fileID: 0}
@@ -294,5 +295,5 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 165502}
+  m_RootGameObject: {fileID: 142992}
   m_IsPrefabParent: 1
