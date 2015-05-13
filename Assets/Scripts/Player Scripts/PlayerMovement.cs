@@ -66,7 +66,7 @@ public class PlayerMovement : MonoBehaviour
 	}
 	
 	[RPC]
-	void Die()
+	public void Die()
 	{
 		GetComponent<Throwing>().refill();
 		rb.velocity = new Vector3(0,0,0);

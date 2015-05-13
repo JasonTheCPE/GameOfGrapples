@@ -23,8 +23,8 @@ public class Throwing : MonoBehaviour {
 		{
 			Vector3 throwVector = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0));
 			throwVector = throwVector - transform.position;
-			
-			GetComponent<NetworkView>().RPC("throwStar", RPCMode.All, throwVector);
+
+			throwStar(throwVector);
 		}
 		
 		if(Input.GetButtonDown("Fire2"))
@@ -44,7 +44,6 @@ public class Throwing : MonoBehaviour {
 		}
 	}
 
-	[RPC]
 	void throwStar (Vector3 dir) {//TODO - optimize: Vector3 (12 bytes) -> float, float (8 bytes)
 		--ammo;
 		if (GetComponent<NetworkView>().isMine)

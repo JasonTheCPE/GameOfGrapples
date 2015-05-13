@@ -479,7 +479,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerName: Host Player
-  playerPrefab: {fileID: 142992, guid: 7bae43324cbbba240b4a4efcc89ecef4, type: 2}
+  playerPrefab: {fileID: 142992, guid: 50ba78645014dff4e9b4e5270f2fcf0c, type: 2}
   PlayerList: []
   MapList: []
   currentMap:

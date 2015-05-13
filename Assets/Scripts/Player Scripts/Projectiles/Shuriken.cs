@@ -42,19 +42,17 @@ public class Shuriken : MonoBehaviour
 				{
 					Debug.Log("Shuriken's playerID: " + myNumber + " killed " + otherPlayerNumber);
 					other.gameObject.GetComponent<NetworkView>().RPC("Die", RPCMode.All);
-					GetComponent<NetworkView>().RPC("SelfDestruct", RPCMode.AllBuffered);
+					SelfDestruct();
 				}
 			}
 			else
 			{
 				other.gameObject.GetComponent<NetworkView>().RPC("pickupStar", RPCMode.All);
-				GetComponent<NetworkView>().RPC("SelfDestruct", RPCMode.AllBuffered);
+				SelfDestruct();
 			}
 		}
 	}
 
-	//This needs to be RPC
-	[RPC]
 	void SelfDestruct()
 	{
 		Destroy(gameObject);

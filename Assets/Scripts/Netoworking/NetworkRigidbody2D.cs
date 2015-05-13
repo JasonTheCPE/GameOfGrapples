@@ -128,11 +128,10 @@ public class NetworkRigidbody2D : MonoBehaviour
 			float extrapolationLength = (float)(interpolationTime - latest.timestamp);
 			// Don't extrapolation for more than 500 ms, you would need to do that carefully
 			if (extrapolationLength < m_ExtrapolationLimit) {
-				float axisLength = extrapolationLength * latest.angularVelocity * Mathf.Rad2Deg;
-				float angularRotation = latest.angularVelocity;
+				//float angularRotation = extrapolationLength*latest.angularVelocity*Mathf.Rad2Deg;
 				
 				GetComponent<Rigidbody2D>().position = latest.pos + latest.velocity * extrapolationLength;
-				GetComponent<Rigidbody2D>().rotation = angularRotation * latest.rot;
+				GetComponent<Rigidbody2D>().rotation = latest.rot;
 				GetComponent<Rigidbody2D>().velocity = latest.velocity;
 				GetComponent<Rigidbody2D>().angularVelocity = latest.angularVelocity;
 			}
