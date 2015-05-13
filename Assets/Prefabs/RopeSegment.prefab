@@ -16,6 +16,8 @@ GameObject:
   - 114: {fileID: 11465264}
   - 148: {fileID: 14885602}
   - 114: {fileID: 11492308}
+  - 114: {fileID: 11462906}
+  - 114: {fileID: 11444456}
   m_Layer: 0
   m_Name: RopeSegment
   m_TagString: OtherDestructible
@@ -63,6 +65,30 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: .319999993
+--- !u!114 &11444456
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 104764}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3149fee4446783458e3d0c4edaa0cdc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &11462906
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 104764}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55460d608ff384b40bccde44d5d1f774, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_InterpolationBackTime: .10000000000000001
+  m_ExtrapolationLimit: .5
 --- !u!114 &11465264
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -34,7 +34,7 @@ public class Throwing : MonoBehaviour {
 				Vector3 throwVector = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0));
 				throwVector = throwVector - transform.position;
 				throwVector.Normalize();
-				GetComponent<NetworkView>().RPC("throwGrapple", RPCMode.All, throwVector.x, throwVector.y);
+				throwGrapple(throwVector.x, throwVector.y);
 				grappleManager.InitializeGrapple(myKunai.GetComponent<Kunai>());
 			}
 			else
@@ -56,7 +56,6 @@ public class Throwing : MonoBehaviour {
 		}
 	}
 
-	[RPC]
 	void throwGrapple (float xDir, float yDir)
 	{
 		if (GetComponent<NetworkView>().isMine)
