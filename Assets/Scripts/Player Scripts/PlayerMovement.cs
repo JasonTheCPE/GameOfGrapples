@@ -64,7 +64,7 @@ public class PlayerMovement : MonoBehaviour
 	void SelfDestruct() {
 		Die();
 	}
-	
+
 	[RPC]
 	public void Die()
 	{
