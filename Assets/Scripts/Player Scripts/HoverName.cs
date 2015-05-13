@@ -9,6 +9,7 @@ public class HoverName : MonoBehaviour {
 	void Start () {
 		if (GetComponent<NetworkView>().isMine) {
 			GetComponent<NetworkView>().RPC("SetName", RPCMode.Others, localName);
+			namePlate.normal.textColor = Color.cyan;
 		}
 	}
 	
@@ -18,7 +19,7 @@ public class HoverName : MonoBehaviour {
 
 	void OnGUI() {
 		// Place the name plate where the gameObject (player prefab) is
-		namePlatePos = Camera.main.WorldToScreenPoint(gameObject.transform.position);  
+		namePlatePos = Camera.main.WorldToScreenPoint(gameObject.transform.position);
 		GUI.Label(new Rect((namePlatePos.x - 25), (Screen.height - namePlatePos.y - 4*gameObject.transform.localScale.y), 100, 50), localName, namePlate);    
 	}
 
