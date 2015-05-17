@@ -6,9 +6,7 @@ public class PlayerMovement : MonoBehaviour
 	public float speed = 20;
 	public float maxSpeed = 50.0f;
 	public float jump = 240;
-	
-	public int health = 1;
-	
+
 	private Rigidbody2D rb;
 	private short isJumping = 0;
 	private bool facingRight = true;
@@ -66,18 +64,10 @@ public class PlayerMovement : MonoBehaviour
 	}
 
 	[RPC]
-	public void Die()
-	{
+	public void Die() {
 		GetComponent<Throwing>().refill();
 		rb.velocity = new Vector3(0,0,0);
 		rb.position = new Vector3(0, 0, 0);
-		if(GetComponent<NetworkView>().isMine == true) {
-			Referee reff = GameObject.Find("Ingame Manager").GetComponent<Referee>();
-			if (reff)
-			{
-				reff.GetComponent<NetworkView>().RPC("KillPlayer", RPCMode.All, Network.player);
-			}
-		}
 		//Destroy(gameObject);
 	}
 	

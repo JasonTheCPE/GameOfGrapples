@@ -8,6 +8,7 @@ public class MapSelector : MonoBehaviour {
 	private Object[] skins;
 	private Vector2 scrollLobby = Vector2.zero;
 	private int time = 60; 				// in seconds
+	private int startHealth = 1;
 	// Use this for initialization
 	void Start () {
 		instance = this;
@@ -18,6 +19,9 @@ public class MapSelector : MonoBehaviour {
 	//keep the instance alive
 	void FixedUpdate() {
 		instance = this;
+
+		time = MultiplayerManager.instance.matchTime;
+		startHealth = MultiplayerManager.instance.matchHP;
 	}
 
 	public void NavigateTo(string nextMenu) {
@@ -56,6 +60,9 @@ public class MapSelector : MonoBehaviour {
 		GUI.Label(new Rect(250, 100, 200, 40), "Set Time");
 		GUI.Label(new Rect(300, 140, 100, 50), time.ToString());
 
+		GUI.Label(new Rect(250, 200, 200, 40), "Set Health");
+		GUI.Label(new Rect(300, 240, 100, 50), startHealth.ToString());
+
 		if (Network.isServer) {
 			if(GUI.Button(new Rect(250, 51, 200, 40), "Change Map")) {
 				NavigateTo("SelMap");
@@ -71,6 +78,7 @@ public class MapSelector : MonoBehaviour {
 						time -= 15;
 					}
 				}
+				MultiplayerManager.instance.GetComponent<NetworkView>().RPC("SetTime", RPCMode.All, time);
 			}
 			if(GUI.Button(new Rect(400, 140, 50, 50), "+")) {
 				if (time < 300) {
@@ -82,6 +90,20 @@ public class MapSelector : MonoBehaviour {
 						time += 15;
 					}
 				}
+				MultiplayerManager.instance.GetComponent<NetworkView>().RPC("SetTime", RPCMode.All, time);
+			}
+
+			if(GUI.Button(new Rect(250, 240, 50, 50), "-")) {
+				if (startHealth > 1) {
+					--startHealth;
+				}
+				MultiplayerManager.instance.GetComponent<NetworkView>().RPC("SetHealth", RPCMode.All, startHealth);
+			}
+			if(GUI.Button(new Rect(400, 240, 50, 50), "+")) {
+				if (startHealth < 10) {
+					++startHealth;
+				}
+				MultiplayerManager.instance.GetComponent<NetworkView>().RPC("SetHealth", RPCMode.All, startHealth);
 			}
 		}
 		
@@ -103,6 +125,7 @@ public class MapSelector : MonoBehaviour {
 
 			if(GUI.Button(new Rect(Screen.width - 405, Screen.height - 40, 200, 40), "Start Match")) {
 				MultiplayerManager.instance.GetComponent<NetworkView>().RPC("SetTime", RPCMode.All, time);
+				MultiplayerManager.instance.GetComponent<NetworkView>().RPC("SetHealth", RPCMode.All, startHealth);
 				MultiplayerManager.instance.GetComponent<NetworkView>().RPC("Client_LoadMultiplayerMap", 
 					RPCMode.All, MultiplayerManager.instance.currentMap.mapLoadName, MultiplayerManager.instance.oldPrefix + 1);
 				MultiplayerManager.instance.oldPrefix += 1;

@@ -21,6 +21,7 @@ GameObject:
   - 114: {fileID: 11408714}
   - 114: {fileID: 11450580}
   - 114: {fileID: 11499318}
+  - 114: {fileID: 11446490}
   m_Layer: 0
   m_Name: BlueSkin
   m_TagString: Player
@@ -201,6 +202,19 @@ MonoBehaviour:
   kunai: {fileID: 0}
   lastRopeSegment: {fileID: 0}
   ropePrefab: {fileID: 104764, guid: c2835045a44042a4cbda7c221cb5cc4e, type: 2}
+--- !u!114 &11446490
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 180124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 697a9dcb0a4e122488d31a45dff23079, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxHealth: 1
+  health: 1
 --- !u!114 &11450580
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -232,7 +246,6 @@ MonoBehaviour:
   speed: 20
   maxSpeed: 50
   jump: 240
-  health: 1
 --- !u!114 &11499318
 MonoBehaviour:
   m_ObjectHideFlags: 1

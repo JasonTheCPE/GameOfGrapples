@@ -6,6 +6,7 @@ public class Referee : MonoBehaviour {
 	
 	private MultiplayerManager mm;
 	public List<ActivePlayer> ingamePlayers;
+	public int startHealth = 1;
 	private int[] teams = new int[8] {0,0,0,0,0,0,0,0};
 	public float timer = 60; //in seconds
 	public bool isTimed = true;
@@ -48,8 +49,11 @@ public class Referee : MonoBehaviour {
 		if(GetComponent<NetworkView>().isMine == true) {
 			foreach(ActivePlayer ap in ingamePlayers) {
 				if (ap.playerNetwork == view) {
-					ap.isAlive = false;
-					teams[ap.onTeam] -= 1;
+					--ap.health;
+					if (ap.health == 0) {
+						ap.isAlive = false;
+						teams[ap.onTeam] -= 1;
+					} //MERP
 				}
 			}
 			
@@ -96,6 +100,7 @@ public class Referee : MonoBehaviour {
 		tempPlayer.onTeam = teamNumber;
 		ingamePlayers.Add(tempPlayer);
 		teams[teamNumber] += 1;
+		tempPlayer.health = startHealth;
 	}
 	
 	void OnDisconnectedFromServer(NetworkDisconnection info) {
@@ -109,4 +114,5 @@ public class ActivePlayer {
 	public NetworkPlayer playerNetwork;
 	public bool isAlive;
 	public int onTeam;
+	public int health;
 }

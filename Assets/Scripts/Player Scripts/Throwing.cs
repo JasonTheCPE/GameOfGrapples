@@ -71,7 +71,7 @@ public class Throwing : MonoBehaviour {
 	}
 
 	[RPC]
-	void pickupStar ()
+	public void pickupStar ()
 	{
 		++ammo;
 	}
