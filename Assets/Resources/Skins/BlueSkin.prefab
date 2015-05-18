@@ -226,6 +226,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7252f6d55a51b554c8cde2bd9402a615, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxAmmo: 4
   throwSpeed: 200
   ammo: 0
   myKunai: {fileID: 0}
@@ -260,6 +261,7 @@ MonoBehaviour:
   teamID: 0
   playerNumber: 0
   skinID: 2
+  skinName: Blue Capsule
 --- !u!148 &14895262
 NetworkView:
   m_ObjectHideFlags: 1

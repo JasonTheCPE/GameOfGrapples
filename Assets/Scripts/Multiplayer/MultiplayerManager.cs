@@ -284,8 +284,11 @@ public class MultiplayerManager : MonoBehaviour {
 		
 		for (int i = 0; i < arrayLength; i++) {
 			GameObject caste = (GameObject)skins[i];
-			if (skinID == caste.GetComponent<ID>().skinID) 
+			if (skinID == caste.GetComponent<ID>().skinID)
+			{
+				Debug.Log(caste);
 				return caste;
+			}
 		}
 		
 		return playerPrefab;

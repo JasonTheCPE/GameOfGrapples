@@ -35,6 +35,8 @@ GameObject:
   - 114: {fileID: 11458364}
   - 114: {fileID: 11451608}
   - 95: {fileID: 9586104}
+  - 232: {fileID: 23293386}
+  - 231: {fileID: 23118746}
   m_Layer: 0
   m_Name: BlackNinja
   m_TagString: Player
@@ -390,7 +392,7 @@ Rigidbody2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 105110}
-  m_Mass: 20
+  m_Mass: 40
   m_LinearDrag: 4
   m_AngularDrag: .0500000007
   m_GravityScale: 30
@@ -726,6 +728,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7252f6d55a51b554c8cde2bd9402a615, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxAmmo: 4
   throwSpeed: 200
   ammo: 0
   myKunai: {fileID: 0}
@@ -768,6 +771,7 @@ MonoBehaviour:
   teamID: 0
   playerNumber: 0
   skinID: 11
+  skinName: Black Ninja
 --- !u!148 &14858270
 NetworkView:
   m_ObjectHideFlags: 1
@@ -936,6 +940,20 @@ SpriteRenderer:
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300002, guid: 00a6b3849219cb740bf64d0c0285322e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
+--- !u!231 &23118746
+SpringJoint2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 105110}
+  m_Enabled: 1
+  m_CollideConnected: 0
+  m_ConnectedRigidBody: {fileID: 0}
+  m_Anchor: {x: 0, y: 0}
+  m_ConnectedAnchor: {x: 0, y: 0}
+  m_Distance: 1
+  m_DampingRatio: 0
+  m_Frequency: 1
 --- !u!231 &23196860
 SpringJoint2D:
   m_ObjectHideFlags: 1
@@ -956,6 +974,19 @@ DistanceJoint2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 104810}
+  m_Enabled: 1
+  m_CollideConnected: 0
+  m_ConnectedRigidBody: {fileID: 0}
+  m_Anchor: {x: 0, y: 0}
+  m_ConnectedAnchor: {x: 0, y: 0}
+  m_Distance: 1
+  m_MaxDistanceOnly: 0
+--- !u!232 &23293386
+DistanceJoint2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 105110}
   m_Enabled: 1
   m_CollideConnected: 0
   m_ConnectedRigidBody: {fileID: 0}
