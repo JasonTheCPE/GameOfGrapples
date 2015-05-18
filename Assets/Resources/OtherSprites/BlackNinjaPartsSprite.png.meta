@@ -1,9 +1,15 @@
 fileFormatVersion: 2
 guid: 00a6b3849219cb740bf64d0c0285322e
-timeCreated: 1431380324
+timeCreated: 1431806029
 licenseType: Free
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: BlackNinjaPartsSprite_0
+    21300002: BlackNinjaPartsSprite_1
+    21300004: BlackNinjaPartsSprite_2
+    21300006: BlackNinjaPartsSprite_3
+    21300008: BlackNinjaPartsSprite_4
+    21300010: BlackNinjaPartsSprite_5
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -30,14 +36,14 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     filterMode: -1
-    aniso: -1
+    aniso: 16
     mipBias: -1
     wrapMode: 1
   nPOTScale: 0
   lightmap: 0
   rGBM: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -48,7 +54,67 @@ TextureImporter:
   textureType: 8
   buildTargetSettings: []
   spriteSheet:
-    sprites: []
+    sprites:
+    - name: BlackNinjaPartsSprite_0
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 128
+        width: 96
+        height: 128
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: BlackNinjaPartsSprite_1
+      rect:
+        serializedVersion: 2
+        x: 175
+        y: 153
+        width: 34
+        height: 79
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: BlackNinjaPartsSprite_2
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 153
+        width: 34
+        height: 79
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: BlackNinjaPartsSprite_3
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 34
+        width: 32
+        height: 66
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: BlackNinjaPartsSprite_4
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 34
+        width: 32
+        height: 66
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: BlackNinjaPartsSprite_5
+      rect:
+        serializedVersion: 2
+        x: 290
+        y: 60
+        width: 61
+        height: 14
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: 
   userData: 
   assetBundleName: 

@@ -12,7 +12,7 @@ public class GrappleManager : MonoBehaviour
 	private const float pullInKunaiMass = 0.2f;
 	private const float pullInRopeDrag = 2f;
 
-	public int ropeSegments = 30;
+	public int ropeSegments = 50;
 	public bool grappleIsOut = false;
 	public bool beingRetracted = false;
 	
