@@ -274,7 +274,7 @@ MonoBehaviour:
   matchHP: 1
   matchAmmo: 4
   playerName: Host Player
-  playerPrefab: {fileID: 142992, guid: 50ba78645014dff4e9b4e5270f2fcf0c, type: 2}
+  playerPrefab: {fileID: 105110, guid: 0e57c46015d48064e85dd13d480f6e12, type: 2}
   PlayerList: []
   MapList: []
   currentMap:
