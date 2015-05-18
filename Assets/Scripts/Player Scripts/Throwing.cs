@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class Throwing : MonoBehaviour {
-	public const int maxAmmo = 4;
+	public int maxAmmo = 4;
 	public int throwSpeed = 200;
 	public int ammo;
 	public GameObject myKunai;
@@ -14,6 +14,11 @@ public class Throwing : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		grappleManager = GetComponent<GrappleManager>();
+		ammo = maxAmmo;
+	}
+
+	public void InitShurikens(int Max) {
+		maxAmmo = Max;
 		ammo = maxAmmo;
 	}
 	
@@ -44,7 +49,7 @@ public class Throwing : MonoBehaviour {
 		}
 	}
 
-	void throwStar (Vector3 dir) {//TODO - optimize: Vector3 (12 bytes) -> float, float (8 bytes)
+	void throwStar (Vector3 dir) {
 		--ammo;
 		if (GetComponent<NetworkView>().isMine)
 		{

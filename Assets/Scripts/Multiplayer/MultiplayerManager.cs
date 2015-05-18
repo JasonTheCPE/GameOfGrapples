@@ -15,7 +15,7 @@ public class MultiplayerManager : MonoBehaviour {
 	private Object[] skins;
 	private int usingSkin = 0;
 
-	public int matchTime = 60, matchHP = 1;
+	public int matchTime = 60, matchHP = 1, matchAmmo = 4;
 	
 	public string playerName = "Host Player";	//the player name the current player will have in the match
 	public GameObject playerPrefab;
@@ -276,6 +276,7 @@ public class MultiplayerManager : MonoBehaviour {
 		myPlayerGO.GetComponent<HoverName>().localName = PlayerList[playerNumber].playerName;
 
 		myPlayerGO.GetComponent<Health>().InitHealth(matchHP);
+		myPlayerGO.GetComponent<Throwing>().InitShurikens(matchAmmo);
 	}
 	
 	GameObject accessSkin(int skinID) {
@@ -312,6 +313,11 @@ public class MultiplayerManager : MonoBehaviour {
 	[RPC]
 	void SetHealth(int hp) {
 		matchHP = hp;
+	}
+
+	[RPC]
+	void SetAmmo(int am) {
+		matchAmmo = am;
 	}
 	
 }

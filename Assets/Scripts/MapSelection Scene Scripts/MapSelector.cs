@@ -9,6 +9,8 @@ public class MapSelector : MonoBehaviour {
 	private Vector2 scrollLobby = Vector2.zero;
 	private int time = 60; 				// in seconds
 	private int startHealth = 1;
+	private int ammo = 4;
+	private bool AllReady = false;
 	// Use this for initialization
 	void Start () {
 		instance = this;
@@ -22,6 +24,20 @@ public class MapSelector : MonoBehaviour {
 
 		time = MultiplayerManager.instance.matchTime;
 		startHealth = MultiplayerManager.instance.matchHP;
+		ammo = MultiplayerManager.instance.matchAmmo;
+
+		int prevTeam = MultiplayerManager.instance.PlayerList[0].team;
+		bool TeamVariety = false;
+		bool AllLockedIn = false;
+		foreach(MyPlayer pl in MultiplayerManager.instance.PlayerList) {
+			if (pl.team != prevTeam || !MultiplayerManager.instance.allowTeams) {
+				TeamVariety = true;
+			}
+		}
+
+		//if (TeamVariety && AllLockedIn) {
+			AllReady = true;
+		//}
 	}
 
 	public void NavigateTo(string nextMenu) {
@@ -58,17 +74,24 @@ public class MapSelector : MonoBehaviour {
 		GUI.Box(new Rect(250, 10, 200, 40), MultiplayerManager.instance.currentMap.mapName);
 
 		GUI.Label(new Rect(250, 100, 200, 40), "Set Time");
-		GUI.Label(new Rect(300, 140, 100, 50), time.ToString());
+		GUI.Label(new Rect(290, 123, 100, 50), time.ToString());
 
-		GUI.Label(new Rect(250, 200, 200, 40), "Set Health");
-		GUI.Label(new Rect(300, 240, 100, 50), startHealth.ToString());
+		GUI.Label(new Rect(250, 160, 200, 40), "Set Health");
+		GUI.Label(new Rect(295, 183, 100, 50), startHealth.ToString());
+
+		GUI.Label(new Rect(250, 220, 200, 40), "Set Ammo");
+		if (ammo == 11) {
+			GUI.Label(new Rect(295, 243, 100, 50), "Unl.");
+		} else {
+			GUI.Label(new Rect(295, 243, 100, 50), ammo.ToString());
+		}
 
 		if (Network.isServer) {
 			if(GUI.Button(new Rect(250, 51, 200, 40), "Change Map")) {
 				NavigateTo("SelMap");
 			}
 
-			if(GUI.Button(new Rect(250, 140, 50, 50), "-")) {
+			if(GUI.Button(new Rect(250, 120, 30, 30), "-")) {
 				if (time > 0) {
 					if (time == 1) {
 						time = 0;
@@ -80,7 +103,7 @@ public class MapSelector : MonoBehaviour {
 				}
 				MultiplayerManager.instance.GetComponent<NetworkView>().RPC("SetTime", RPCMode.All, time);
 			}
-			if(GUI.Button(new Rect(400, 140, 50, 50), "+")) {
+			if(GUI.Button(new Rect(322, 120, 30, 30), "+")) {
 				if (time < 300) {
 					if (time == 0) {
 						time = 1;
@@ -93,17 +116,30 @@ public class MapSelector : MonoBehaviour {
 				MultiplayerManager.instance.GetComponent<NetworkView>().RPC("SetTime", RPCMode.All, time);
 			}
 
-			if(GUI.Button(new Rect(250, 240, 50, 50), "-")) {
+			if(GUI.Button(new Rect(250, 180, 30, 30), "-")) {
 				if (startHealth > 1) {
 					--startHealth;
 				}
 				MultiplayerManager.instance.GetComponent<NetworkView>().RPC("SetHealth", RPCMode.All, startHealth);
 			}
-			if(GUI.Button(new Rect(400, 240, 50, 50), "+")) {
+			if(GUI.Button(new Rect(322, 180, 30, 30), "+")) {
 				if (startHealth < 10) {
 					++startHealth;
 				}
 				MultiplayerManager.instance.GetComponent<NetworkView>().RPC("SetHealth", RPCMode.All, startHealth);
+			}
+
+			if(GUI.Button(new Rect(250, 243, 30, 30), "-")) {
+				if (ammo > 1) {
+					--ammo;
+				}
+				MultiplayerManager.instance.GetComponent<NetworkView>().RPC("SetAmmo", RPCMode.All, ammo);
+			}
+			if(GUI.Button(new Rect(322, 243, 30, 30), "+")) {
+				if (ammo < 11) {
+					++ammo;
+				}
+				MultiplayerManager.instance.GetComponent<NetworkView>().RPC("SetAmmo", RPCMode.All, ammo);
 			}
 		}
 		
@@ -123,14 +159,16 @@ public class MapSelector : MonoBehaviour {
 				MultiplayerManager.instance.GetComponent<NetworkView>().RPC("ToggleTeams", RPCMode.All);
 			}
 
-			if(GUI.Button(new Rect(Screen.width - 405, Screen.height - 40, 200, 40), "Start Match")) {
-				MultiplayerManager.instance.GetComponent<NetworkView>().RPC("SetTime", RPCMode.All, time);
-				MultiplayerManager.instance.GetComponent<NetworkView>().RPC("SetHealth", RPCMode.All, startHealth);
-				MultiplayerManager.instance.GetComponent<NetworkView>().RPC("Client_LoadMultiplayerMap", 
-					RPCMode.All, MultiplayerManager.instance.currentMap.mapLoadName, MultiplayerManager.instance.oldPrefix + 1);
-				MultiplayerManager.instance.oldPrefix += 1;
-				MultiplayerManager.instance.isMatchStarted = true;
-				Network.maxConnections = -1; // Experiment
+			if (AllReady) {
+				if(GUI.Button(new Rect(Screen.width - 405, Screen.height - 40, 200, 40), "Start Match")) {
+					MultiplayerManager.instance.GetComponent<NetworkView>().RPC("SetTime", RPCMode.All, time);
+					MultiplayerManager.instance.GetComponent<NetworkView>().RPC("SetHealth", RPCMode.All, startHealth);
+					MultiplayerManager.instance.GetComponent<NetworkView>().RPC("Client_LoadMultiplayerMap", 
+						RPCMode.All, MultiplayerManager.instance.currentMap.mapLoadName, MultiplayerManager.instance.oldPrefix + 1);
+					MultiplayerManager.instance.oldPrefix += 1;
+					MultiplayerManager.instance.isMatchStarted = true;
+					Network.maxConnections = -1; // Experiment
+				}
 			}
 		}
 
