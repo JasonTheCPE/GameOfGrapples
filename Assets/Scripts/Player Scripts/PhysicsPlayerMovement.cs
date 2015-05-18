@@ -45,7 +45,7 @@ public class PhysicsPlayerMovement : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-		//if (GetComponent<NetworkView>().isMine)
+		if (GetComponent<NetworkView>().isMine)
 		{
 			float movement = Input.GetAxis("Horizontal");
 			
@@ -108,10 +108,10 @@ public class PhysicsPlayerMovement : MonoBehaviour
 			TryClingToWall();
 			TriggerAnimationTransition();
 		}
-//		else
-//		{
-//			enabled = false;
-//		}
+		else
+		{
+			enabled = false;
+		}
 	}
 	
 	[RPC]
