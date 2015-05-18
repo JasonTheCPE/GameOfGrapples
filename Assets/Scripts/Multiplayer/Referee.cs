@@ -42,11 +42,17 @@ public class Referee : MonoBehaviour {
 		if (isTimed) {		
 			GUI.Box(new Rect(10, 10, 50, 20), "" + timer.ToString("0"));		
 		}	
+
+		int i = 0;
+		foreach (ActivePlayer ap in ingamePlayers) {
+			++i;
+			GUI.Box(new Rect(10, 20 + 30*i, 100, 30), (ap.playerName + " " + ap.health));
+		}
 	}
 	
 	[RPC]
 	public void KillPlayer(NetworkPlayer view) {
-		if(GetComponent<NetworkView>().isMine == true) {
+		//if(GetComponent<NetworkView>().isMine == true) {
 			foreach(ActivePlayer ap in ingamePlayers) {
 				if (ap.playerNetwork == view) {
 					--ap.health;
@@ -89,7 +95,7 @@ public class Referee : MonoBehaviour {
 					mm.GetComponent<NetworkView>().RPC("AssignDraw", RPCMode.All);
 				}
 			}
-		}
+		//}
 	}
 	
 	void AddPlayer(string name, NetworkPlayer view, int teamNumber) {
