@@ -21,7 +21,7 @@ public class KunaiOuterCollide : MonoBehaviour
 				if (playerNumber != otherPlayerNumber && (myTeam == -1 || myTeam != otherTeam))
 				{
 					Debug.Log("Kunai from playerID: " + playerNumber + " killed " + otherPlayerNumber);
-					other.gameObject.GetComponent<NetworkView>().RPC("Die", RPCMode.All);
+					other.gameObject.GetComponent<NetworkView>().RPC("GetHurt", RPCMode.All);
 				}
 			}
 			else if(other.tag == "OtherDestructible")

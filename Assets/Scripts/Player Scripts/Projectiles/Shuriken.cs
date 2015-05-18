@@ -41,8 +41,8 @@ public class Shuriken : MonoBehaviour
 				if (myNumber != otherPlayerNumber && (myTeam == -1 || myTeam != otherTeam))
 				{
 					Debug.Log("Shuriken's playerID: " + myNumber + " killed " + otherPlayerNumber);
-					other.gameObject.GetComponent<NetworkView>().RPC("Die", RPCMode.All);
-					SelfDestruct();
+					other.gameObject.GetComponent<NetworkView>().RPC("GetHurt", RPCMode.All);
+					GetComponent<NetworkView>().RPC("SelfDestruct", RPCMode.All);
 				}
 			}
 			else
@@ -53,6 +53,7 @@ public class Shuriken : MonoBehaviour
 		}
 	}
 
+	[RPC]
 	void SelfDestruct()
 	{
 		Destroy(gameObject);

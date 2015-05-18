@@ -3,7 +3,6 @@ using System.Collections;
 
 public class NetworkRigidbody2D : MonoBehaviour
 {
-	
 	public double m_InterpolationBackTime = 0.1;
 	public double m_ExtrapolationLimit = 0.5;
 	
@@ -30,12 +29,16 @@ public class NetworkRigidbody2D : MonoBehaviour
 	
 	void OnSerializeNetworkView (BitStream stream, NetworkMessageInfo info)
 	{
+		Vector3 pos;
+		float rot;
+		Vector3 velocity;
+		float angularVelocity;
 		// Send data to server
 		if (stream.isWriting) {
-			Vector3 pos = GetComponent<Rigidbody2D>().position;
-			float rot = GetComponent<Rigidbody2D>().rotation;
-			Vector3 velocity = GetComponent<Rigidbody2D>().velocity;
-			float angularVelocity = GetComponent<Rigidbody2D>().angularVelocity;
+			pos = GetComponent<Rigidbody2D>().position;
+			rot = GetComponent<Rigidbody2D>().rotation;
+			velocity = GetComponent<Rigidbody2D>().velocity;
+			angularVelocity = GetComponent<Rigidbody2D>().angularVelocity;
 			
 			stream.Serialize (ref pos);
 			stream.Serialize (ref velocity);
@@ -43,10 +46,10 @@ public class NetworkRigidbody2D : MonoBehaviour
 			stream.Serialize (ref angularVelocity);
 			// Read data from remote client
 		} else {
-			Vector3 pos = Vector3.zero;
-			Vector3 velocity = Vector3.zero;
-			float rot = 0;
-			float angularVelocity = 0;
+			pos = Vector3.zero;
+			velocity = Vector3.zero;
+			rot = 0;
+			angularVelocity = 0;
 			stream.Serialize (ref pos);
 			stream.Serialize (ref velocity);
 			stream.Serialize (ref rot);
@@ -112,12 +115,11 @@ public class NetworkRigidbody2D : MonoBehaviour
 					
 					// if t=0 => lhs is used directly
 					transform.localPosition = Vector3.Lerp (lhs.pos, rhs.pos, t);
-					Quaternion temp1 = Quaternion.identity;
-					temp1 = Quaternion.AngleAxis(lhs.rot, Vector3.up);
-					Quaternion temp2 = Quaternion.identity;
-					temp2 = Quaternion.AngleAxis(rhs.rot, Vector3.up);
+					//Debug.Log(rhs.rot.ToString() + "  |  " + lhs.rot.ToString() + "  |  " + t.ToString());
+					transform.localRotation = Quaternion.Euler(0, 0, (lhs.rot*t + rhs.rot*(1-t))* Mathf.Rad2Deg*0);
 
-					transform.localRotation = Quaternion.Slerp (temp1, temp2, t);
+					//Debug.Log("The average thing  is: " + (lhs.rot*t + rhs.rot*(1-t)).ToString());
+					//Debug.Log("The transformation is: " + transform.localRotation.ToString());
 					return;
 				}
 			}
@@ -128,12 +130,15 @@ public class NetworkRigidbody2D : MonoBehaviour
 			float extrapolationLength = (float)(interpolationTime - latest.timestamp);
 			// Don't extrapolation for more than 500 ms, you would need to do that carefully
 			if (extrapolationLength < m_ExtrapolationLimit) {
-				//float angularRotation = extrapolationLength*latest.angularVelocity*Mathf.Rad2Deg;
-				
+				//MERP not sure if I calculate angular rotation right
+				//float axisLength = extrapolationLength * latest.angularVelocity.magnitude * Mathf.Rad2Deg;
+				//Quaternion angularRotation = Quaternion.AngleAxis (axisLength, latest.angularVelocity);
+				float angularRotation = extrapolationLength*latest.angularVelocity;
+
 				GetComponent<Rigidbody2D>().position = latest.pos + latest.velocity * extrapolationLength;
-				GetComponent<Rigidbody2D>().rotation = latest.rot;
+				GetComponent<Rigidbody2D>().rotation = angularRotation + latest.rot; // MERP not sure if this is right
 				GetComponent<Rigidbody2D>().velocity = latest.velocity;
-				GetComponent<Rigidbody2D>().angularVelocity = latest.angularVelocity;
+				GetComponent<Rigidbody2D>().angularVelocity = 0;//latest.angularVelocity;
 			}
 		}
 	}

@@ -270,6 +270,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6ee2e04c58e07a48bb75b901b5cf2e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  matchTime: 60
+  matchHP: 1
   playerName: Host Player
   playerPrefab: {fileID: 142992, guid: 50ba78645014dff4e9b4e5270f2fcf0c, type: 2}
   PlayerList: []

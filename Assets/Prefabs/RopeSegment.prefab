@@ -18,6 +18,7 @@ GameObject:
   - 114: {fileID: 11492308}
   - 114: {fileID: 11462906}
   - 114: {fileID: 11444456}
+  - 114: {fileID: 11460678}
   m_Layer: 0
   m_Name: RopeSegment
   m_TagString: OtherDestructible
@@ -76,6 +77,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3149fee4446783458e3d0c4edaa0cdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &11460678
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 104764}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a762aecc7cdfba42b73e232fa1da375, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11462906
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -123,7 +135,7 @@ NetworkView:
   m_GameObject: {fileID: 104764}
   m_Enabled: 1
   m_StateSynchronization: 1
-  m_Observed: {fileID: 461984}
+  m_Observed: {fileID: 11462906}
   m_ViewID:
     m_ID: 0
     m_Type: 0

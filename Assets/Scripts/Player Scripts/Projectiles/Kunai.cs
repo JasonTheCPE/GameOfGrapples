@@ -33,4 +33,11 @@ public class Kunai : MonoBehaviour
 	void SelfDestruct() {
 		Destroy(gameObject);
 	}
+
+	[RPC]
+	public void GetStuck() {
+		GetComponentInParent<Kunai>().isStuck = true;
+		GetComponentInParent<Kunai>().turnTowardsVelocity = false;
+		GetComponentInParent<Rigidbody2D>().isKinematic = true;
+	}
 }

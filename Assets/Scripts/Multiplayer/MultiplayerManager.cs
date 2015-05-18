@@ -14,7 +14,8 @@ public class MultiplayerManager : MonoBehaviour {
 	private bool isCustom = false;
 	private Object[] skins;
 	private int usingSkin = 0;
-	private int matchTime = 0;
+
+	public int matchTime = 60, matchHP = 1;
 	
 	public string playerName = "Host Player";	//the player name the current player will have in the match
 	public GameObject playerPrefab;
@@ -226,6 +227,7 @@ public class MultiplayerManager : MonoBehaviour {
 				GameObject.Find("Ingame Manager").GetComponent<Referee>().isTimed = true;
 			}
 			GameObject.Find("Ingame Manager").GetComponent<Referee>().timer = matchTime;
+			GameObject.Find("Ingame Manager").GetComponent<Referee>().startHealth = matchHP;
 			spawnPlayer(usingSkin);
 		} else if (level == 5) {
 			if (Network.isServer) {
@@ -272,6 +274,8 @@ public class MultiplayerManager : MonoBehaviour {
 		}
 		myPlayerGO.GetComponent<HoverName>().name = PlayerList[playerNumber].playerName;			//sets the name of the person?
 		myPlayerGO.GetComponent<HoverName>().localName = PlayerList[playerNumber].playerName;
+
+		myPlayerGO.GetComponent<Health>().InitHealth(matchHP);
 	}
 	
 	GameObject accessSkin(int skinID) {
@@ -303,6 +307,11 @@ public class MultiplayerManager : MonoBehaviour {
 	[RPC]
 	void SetTime(int time) {
 		matchTime = time;
+	}
+
+	[RPC]
+	void SetHealth(int hp) {
+		matchHP = hp;
 	}
 	
 }
