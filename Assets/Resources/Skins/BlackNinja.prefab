@@ -37,6 +37,9 @@ GameObject:
   - 95: {fileID: 9586104}
   - 232: {fileID: 23293386}
   - 231: {fileID: 23118746}
+  - 114: {fileID: 11405256}
+  - 114: {fileID: 11463300}
+  - 61: {fileID: 6135004}
   m_Layer: 0
   m_Name: BlackNinja
   m_TagString: Player
@@ -427,6 +430,19 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Size: {x: .959999979, y: 1.27999997}
+--- !u!61 &6135004
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 105110}
+  m_Enabled: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: -.209999993}
+  serializedVersion: 2
+  m_Size: {x: .970000029, y: 1.63}
 --- !u!61 &6146052
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -538,6 +554,17 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &11405256
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 105110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3149fee4446783458e3d0c4edaa0cdc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11427576
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -717,6 +744,19 @@ MonoBehaviour:
     m_FixedHeight: 0
     m_StretchWidth: 1
     m_StretchHeight: 0
+--- !u!114 &11463300
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 105110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55460d608ff384b40bccde44d5d1f774, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_InterpolationBackTime: .10000000000000001
+  m_ExtrapolationLimit: .5
 --- !u!114 &11483136
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -780,7 +820,7 @@ NetworkView:
   m_GameObject: {fileID: 105110}
   m_Enabled: 1
   m_StateSynchronization: 1
-  m_Observed: {fileID: 423460}
+  m_Observed: {fileID: 11463300}
   m_ViewID:
     m_ID: 0
     m_Type: 0

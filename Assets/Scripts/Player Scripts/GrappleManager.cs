@@ -196,6 +196,10 @@ public class GrappleManager : MonoBehaviour
 				if(kunai.ropeIntact)
 				{
 					AddToRope();
+					if(kunai.isStuck)
+					{
+						GetComponent<
+					}
 				}
 				else
 				{

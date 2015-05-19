@@ -142,6 +142,12 @@ public class PhysicsPlayerMovement : MonoBehaviour
 		jumpsUsed = 0;
 		isOnGround = true;
 	}
+
+	public void LandedHook() {
+		if (jumpsUsed > 0) {
+			jumpsUsed = 1;
+		}
+	}
 	
 	public void LeftGround()
 	{
