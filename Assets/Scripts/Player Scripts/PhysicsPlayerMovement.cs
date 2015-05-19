@@ -20,7 +20,6 @@ public class PhysicsPlayerMovement : MonoBehaviour
 	private float playerWeight;
 	
 	private bool facingRight = true;
-	private bool landed = true;
 	private float minSidewaysMoveAnimationSpeed = 0.5f;
 	private Animator animator;
 	private playerState lastState;

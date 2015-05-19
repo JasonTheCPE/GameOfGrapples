@@ -395,7 +395,7 @@ Rigidbody2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 105110}
-  m_Mass: 40
+  m_Mass: 30
   m_LinearDrag: 4
   m_AngularDrag: .0500000007
   m_GravityScale: 30
@@ -612,6 +612,8 @@ MonoBehaviour:
   ropeSegments: 50
   grappleIsOut: 0
   beingRetracted: 0
+  grappleMassReduced: 0
+  ropeConnectedToPlayer: 0
   ropeSegSize: 0
   kunai: {fileID: 0}
   lastRopeSegment: {fileID: 0}
