@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class PhysicsPlayerMovement : MonoBehaviour
@@ -84,14 +84,10 @@ public class PhysicsPlayerMovement : MonoBehaviour
 					++jumpsUsed;
 				}
 			}
-			
-			if(facingRight && transform.localScale.x < 0)
+
+			if((!facingRight && transform.localScale.x > 0) || (facingRight && transform.localScale.x < 0))
 			{
-				transform.localScale += new Vector3(-transform.localScale.x * 2, 0, 0);
-			}
-			else if(!facingRight && transform.localScale.x > 0)
-			{
-				transform.localScale += new Vector3(-transform.localScale.x * 2, 0, 0);
+				GetComponent<NetworkView>().RPC("SwitchDirection", RPCMode.All);
 			}
 			
 			//Animator state checks
@@ -199,9 +195,19 @@ public class PhysicsPlayerMovement : MonoBehaviour
 		}
 		if(thisState != lastState)
 		{
+			//LaunchAnimation(thisState);
+			GetComponent<NetworkView>().RPC("LaunchAnimation", RPCMode.All, (int)thisState);
 			lastState = thisState;
-			animator.SetInteger("nextStateNum", (int) thisState);
-			animator.SetTrigger("nextStateTrigger");
 		}
+	}
+
+	[RPC]
+	public void SwitchDirection () {
+		transform.localScale += new Vector3(-transform.localScale.x * 2, 0, 0);
+	}
+	[RPC]
+	public void LaunchAnimation(int thisState) {
+		animator.SetInteger("nextStateNum", thisState);
+		animator.SetTrigger("nextStateTrigger");
 	}
 }
