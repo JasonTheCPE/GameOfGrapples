@@ -152,21 +152,25 @@ public class MultiplayerManager : MonoBehaviour {
 	
 	[RPC]
 	void AssignWin(NetworkPlayer view) {
+		//if (GetComponent<NetworkView>().isMine) {
 		foreach(MyPlayer pl in PlayerList) {
 			if(pl.playerNetwork == view) {
 				++pl.wins;
 			}
 		}
+		//}
 		Application.LoadLevel("Prep");
 	}
 	
 	[RPC]
 	void AssignTeamWin(int team) {
+		//if (GetComponent<NetworkView>().isMine) {
 		foreach(MyPlayer pl in PlayerList) {
 			if(pl.team == team) {
 				++pl.wins;
 			}
 		}
+		//}
 		Application.LoadLevel("Prep");
 	}
 	
