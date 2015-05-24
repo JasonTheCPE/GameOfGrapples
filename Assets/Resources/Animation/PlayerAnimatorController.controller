@@ -13,13 +13,13 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: nextStateNum
     m_Type: 3
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base
@@ -32,7 +32,7 @@ AnimatorController:
     m_DefaultWeight: 0
     m_IKPass: 0
     m_SyncedLayerAffectsTiming: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_MultiThreadedStateMachine: 1
 --- !u!1101 &110103694
 AnimatorStateTransition:
@@ -164,6 +164,57 @@ AnimatorStateTransition:
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
+--- !u!1102 &110218596
+AnimatorState:
+  serializedVersion: 5
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: PlayerThrowDownwards
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours: []
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_Motion: {fileID: 7400000, guid: 9ba63eadf1695324ca79c0919035875e, type: 2}
+  m_Tag: 
+--- !u!1102 &110219338
+AnimatorState:
+  serializedVersion: 5
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: PlayerVictory
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours: []
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_Motion: {fileID: 7400000, guid: 1a807868c2a47eb4c903b1e5b84d231c, type: 2}
+  m_Tag: 
+--- !u!1102 &110231178
+AnimatorState:
+  serializedVersion: 5
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: PlayerHangingFromRopeMoving
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours: []
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_Motion: {fileID: 7400000, guid: ad3f85d12ba99a24c93e56f00f196b93, type: 2}
+  m_Tag: 
 --- !u!1102 &110232482
 AnimatorState:
   serializedVersion: 5
@@ -198,6 +249,40 @@ AnimatorState:
   m_Mirror: 0
   m_Motion: {fileID: 7400000, guid: 93c1c09266162f34f9f6082cd3c292f6, type: 2}
   m_Tag: 
+--- !u!1102 &110247814
+AnimatorState:
+  serializedVersion: 5
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: PlayerDefeat
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours: []
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_Motion: {fileID: 7400000, guid: b30b5f765b2f3584f97bc929e9248f36, type: 2}
+  m_Tag: 
+--- !u!1102 &110262120
+AnimatorState:
+  serializedVersion: 5
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: PlayerHangingFromRope
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours: []
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_Motion: {fileID: 7400000, guid: 159c62f8e57278042ad3275ed3d2942b, type: 2}
+  m_Tag: 
 --- !u!1102 &110268888
 AnimatorState:
   serializedVersion: 5
@@ -215,6 +300,23 @@ AnimatorState:
   m_Mirror: 0
   m_Motion: {fileID: 7400000, guid: 7289cff6fbcf5e34299bfd2683532dfe, type: 2}
   m_Tag: 
+--- !u!1102 &110269000
+AnimatorState:
+  serializedVersion: 5
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: PlayerThrowUpwards
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours: []
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_Motion: {fileID: 7400000, guid: 692dc636110923546908bba2463691db, type: 2}
+  m_Tag: 
 --- !u!1102 &110282760
 AnimatorState:
   serializedVersion: 5
@@ -231,6 +333,23 @@ AnimatorState:
   m_WriteDefaultValues: 1
   m_Mirror: 0
   m_Motion: {fileID: 7400000, guid: 6f457384de06f464b928c711fa0723c9, type: 2}
+  m_Tag: 
+--- !u!1102 &110289260
+AnimatorState:
+  serializedVersion: 5
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: PlayerDodgeRoll
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours: []
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_Motion: {fileID: 7400000, guid: 032965f6612306d489ad01c783cd7d96, type: 2}
   m_Tag: 
 --- !u!1102 &110289420
 AnimatorState:
@@ -272,6 +391,27 @@ AnimatorStateMachine:
   - serializedVersion: 1
     m_State: {fileID: 110232482}
     m_Position: {x: 264, y: -192, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: 110269000}
+    m_Position: {x: 299, y: -127, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: 110218596}
+    m_Position: {x: 334, y: -62, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: 110262120}
+    m_Position: {x: 369, y: 3, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: 110231178}
+    m_Position: {x: 404, y: 68, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: 110289260}
+    m_Position: {x: 439, y: 133, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: 110219338}
+    m_Position: {x: 474, y: 198, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: 110247814}
+    m_Position: {x: 509, y: 263, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions:
   - {fileID: 110182444}
