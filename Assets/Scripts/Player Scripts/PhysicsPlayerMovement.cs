@@ -32,6 +32,7 @@ public class PhysicsPlayerMovement : MonoBehaviour
 	public bool movementAttempted = false;
 	public bool isOnGround = false;
 	public bool isMoving = false;
+	public bool playerControllable = true;
 	
 	// Use this for initialization
 	void Start ()
@@ -47,7 +48,7 @@ public class PhysicsPlayerMovement : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-		if (GetComponent<NetworkView>().isMine)
+		if (GetComponent<NetworkView>().isMine && playerControllable)
 		{
 			float movement = Input.GetAxis("Horizontal");
 			
@@ -212,18 +213,21 @@ public class PhysicsPlayerMovement : MonoBehaviour
 	
 	public void BeVictorious()
 	{
+		playerControllable = false;
 		lastState = playerState.PlayerVictory;
 		GetComponent<NetworkView>().RPC("LaunchAnimation", RPCMode.All, (int) playerState.PlayerVictory);
 	}
 	
 	public void BeDefeated()
 	{
+		playerControllable = false;
 		lastState = playerState.PlayerDefeat;
 		GetComponent<NetworkView>().RPC("LaunchAnimation", RPCMode.All, (int) playerState.PlayerDefeat);
 	}
 	
 	public void BeDead()
 	{
+		playerControllable = false;
 		lastState = playerState.PlayerDeath;
 		GetComponent<NetworkView>().RPC("LaunchAnimation", RPCMode.All, (int) playerState.PlayerDeath);
 	}
