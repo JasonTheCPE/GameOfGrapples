@@ -334,6 +334,15 @@ public class MultiplayerManager : MonoBehaviour {
 		matchAmmo = am;
 	}
 
+	[RPC]
+	void PostGameLockIn(NetworkPlayer player) {
+		GameObject.Find("NinjaPlacer").GetComponent<PostGame>().LockIn(player);
+	}
+
+	public NetworkPlayer GetView() {
+		return Network.player;
+	}
+
 }
 
 [System.Serializable]

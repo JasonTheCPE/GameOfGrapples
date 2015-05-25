@@ -4,13 +4,18 @@ using System.Collections;
 public class PostGame : MonoBehaviour {
 	private MultiplayerManager mm;
 	private string mode = "";
-	private bool hasLocked = false;
-	private bool[] playersLocked;
-	
+
+	public bool hasLocked = false;
+	public bool[] playersLocked;
+	public int playersUnlocked;
+
 	private const int winner = 0;
 	private const int loser = 1;
 	private const int meh = 2;
-	
+
+	//KNOWN BUG! Players locked isn't working, so using players unlocked. Whenever LockIn is called, it keeps saying that it is the same player
+	//this may be from the lack of network view....
+
 	// Use this for initialization
 	void Start () {
 		mm = GameObject.Find("Multiplayer Manager").GetComponent<MultiplayerManager>();
@@ -77,16 +82,22 @@ public class PostGame : MonoBehaviour {
 		for (int i = 0; i < playersLocked.Length; ++i) {
 			playersLocked[i] = false;
 		}
+
+		playersUnlocked = playersLocked.Length;
 	}
-	
-	[RPC]
-	void LockIn(NetworkView player) {
+
+	public void LockIn(NetworkPlayer player) {
 		int i = 0;
 		foreach(MyPlayer mp in mm.PlayerList) {
-			//			if (mp.playerNetwork == player) {
-			playersLocked [i] = true;
-			//			}
+			if (mp.playerNetwork == player) {
+				if (playersLocked [i])
+					Debug.Log("OH NO!");
+				playersLocked [i] = true;
+			}
 		}
+
+		playersUnlocked--;
+		check();
 	}
 	
 	void check() {
@@ -95,6 +106,9 @@ public class PostGame : MonoBehaviour {
 			if (!b) {
 				EveryoneLocked = false;
 			}
+		}
+		if(EveryoneLocked || playersUnlocked == 0) {
+			Application.LoadLevel("Prep");
 		}
 	}
 	
@@ -107,7 +121,7 @@ public class PostGame : MonoBehaviour {
 		if (!hasLocked) {
 			if(GUI.Button(new Rect(Screen.width - 405, Screen.height - 40, 200, 40), "Ready")) {
 				hasLocked = true;
-				
+				mm.GetComponent<NetworkView>().RPC("PostGameLockIn", RPCMode.All, Network.player);
 			}
 		}
 	}
