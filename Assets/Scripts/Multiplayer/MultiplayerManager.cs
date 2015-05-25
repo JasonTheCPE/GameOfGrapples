@@ -30,6 +30,8 @@ public class MultiplayerManager : MonoBehaviour {
 	
 	public bool allowTeams = false;
 
+	public List<MyPlayer> PreviousWinners = new List<MyPlayer>();
+
 	void Awake() {
 		DontDestroyOnLoad(transform.gameObject);
 	}
@@ -153,30 +155,35 @@ public class MultiplayerManager : MonoBehaviour {
 	[RPC]
 	void AssignWin(NetworkPlayer view) {
 		//if (GetComponent<NetworkView>().isMine) {
+		PreviousWinners.Clear();
 		foreach(MyPlayer pl in PlayerList) {
 			if(pl.playerNetwork == view) {
 				++pl.wins;
+				PreviousWinners.Add(pl);
 			}
 		}
 		//}
-		Application.LoadLevel("Prep");
+		Application.LoadLevel("BattleVictoryScene");
 	}
 	
 	[RPC]
 	void AssignTeamWin(int team) {
 		//if (GetComponent<NetworkView>().isMine) {
+		PreviousWinners.Clear();
 		foreach(MyPlayer pl in PlayerList) {
 			if(pl.team == team) {
 				++pl.wins;
+				PreviousWinners.Add(pl);
 			}
 		}
 		//}
-		Application.LoadLevel("Prep");
+		Application.LoadLevel("BattleVictoryScene");
 	}
 	
 	[RPC]
 	void AssignDraw() {
-		Application.LoadLevel("Prep");
+		PreviousWinners.Clear();
+		Application.LoadLevel("BattleVictoryScene");
 	}
 	
 	[RPC]
@@ -219,9 +226,9 @@ public class MultiplayerManager : MonoBehaviour {
 	void OnLevelWasLoaded(int level) {
 		if (level == 0) {
 			Destroy(gameObject);
-		} else if (level == 3) {
+		} else if (level == 2) {
 			GameObject.Find("LobbyMenu").GetComponent<LobbyMenuManager>().NavigateTo("Lobby");
-		} else if (level == 4) {
+		} else if (level == 3) {
 			Debug.Log("Loading Level " + toLoad);
 			LevelIOManager.ContructLevelInCanvasByName(GameObject.Find("Level"), toLoad, isCustom);
 
@@ -233,7 +240,7 @@ public class MultiplayerManager : MonoBehaviour {
 			GameObject.Find("Ingame Manager").GetComponent<Referee>().timer = matchTime;
 			GameObject.Find("Ingame Manager").GetComponent<Referee>().startHealth = matchHP;
 			spawnPlayer(usingSkin);
-		} else if (level == 5) {
+		} else if (level == 4) {
 			if (Network.isServer) {
 				Network.maxConnections = matchMaxUsers - 1;
 			}
@@ -283,7 +290,7 @@ public class MultiplayerManager : MonoBehaviour {
 		myPlayerGO.GetComponent<Throwing>().InitShurikens(matchAmmo);
 	}
 	
-	GameObject accessSkin(int skinID) {
+	public GameObject accessSkin(int skinID) {
 		int arrayLength = skins.Length;
 		
 		for (int i = 0; i < arrayLength; i++) {
@@ -326,7 +333,7 @@ public class MultiplayerManager : MonoBehaviour {
 	void SetAmmo(int am) {
 		matchAmmo = am;
 	}
-	
+
 }
 
 [System.Serializable]

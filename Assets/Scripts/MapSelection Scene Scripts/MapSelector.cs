@@ -167,7 +167,6 @@ public class MapSelector : MonoBehaviour {
 						RPCMode.All, MultiplayerManager.instance.currentMap.mapLoadName, MultiplayerManager.instance.oldPrefix + 1);
 					MultiplayerManager.instance.oldPrefix += 1;
 					MultiplayerManager.instance.isMatchStarted = true;
-					Network.maxConnections = -1; // Experiment
 				}
 			}
 		}

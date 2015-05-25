@@ -73,11 +73,10 @@ public class Referee : MonoBehaviour {
 				}
 				
 				if (teamsAlive == 1) {
-					Debug.Log("Game over! Team " + winningTeam.ToString() + " wins!");
-					mm.GetComponent<NetworkView>().RPC("AssignTeamWin", RPCMode.All, winningTeam);
+					TeamWin(winningTeam);
 				} else if (teamsAlive == 0) {
 					Debug.Log("Game over! It's a DRAW! All teams DIED!");
-					mm.GetComponent<NetworkView>().RPC("AssignDraw", RPCMode.All);
+					DrawGame();
 				}
 				
 			} else {
@@ -86,16 +85,29 @@ public class Referee : MonoBehaviour {
 					foreach(ActivePlayer ap in ingamePlayers) {
 						if (ap.isAlive) {
 							Debug.Log("The winner is " + ap.playerName);
-							mm.GetComponent<NetworkView>().RPC("AssignWin", RPCMode.All, ap.playerNetwork);
+							PlayerWin(ap.playerNetwork);
 							return;
 						}
 					}
 				} else if (teams[0] == 0) {
 					Debug.Log("Game over! It's a DRAW!");
-					mm.GetComponent<NetworkView>().RPC("AssignDraw", RPCMode.All);
+					DrawGame();
 				}
 			}
 		//}
+	}
+
+	void TeamWin(int winningTeam) {
+		Debug.Log("Game over! Team " + winningTeam.ToString() + " wins!");
+		mm.GetComponent<NetworkView>().RPC("AssignTeamWin", RPCMode.All, winningTeam); // might not need to be rpc
+	}
+
+	void DrawGame() {
+		mm.GetComponent<NetworkView>().RPC("AssignDraw", RPCMode.All); // might not need to be rpc
+	}
+
+	void PlayerWin(NetworkPlayer winner) {
+		mm.GetComponent<NetworkView>().RPC("AssignWin", RPCMode.All, winner); // might not need to be rpc
 	}
 	
 	void AddPlayer(string name, NetworkPlayer view, int teamNumber) {
