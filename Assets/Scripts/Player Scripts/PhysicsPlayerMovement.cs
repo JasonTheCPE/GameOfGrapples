@@ -8,7 +8,7 @@ public class PhysicsPlayerMovement : MonoBehaviour
 		PlayerIdle = 0, PlayerRunning = 1, PlayerInAir = 2, PlayerMovingInAir = 3,
 		PlayerWallCling = 4, PlayerHangingFromRope = 5, PlayerHangingFromRopeMoving = 6,
 		PlayerThrowUpwards = 7, PlayerThrowDownwards = 8, PlayerDodgeRoll = 9,
-		PlayerDefeat = 10, PlayerVictory = 11
+		PlayerDefeat = 10, PlayerVictory = 11, PlayerDeath = 12
 	};
 	
 	public float moveForceMultiplier = 350;
@@ -220,6 +220,12 @@ public class PhysicsPlayerMovement : MonoBehaviour
 	{
 		lastState = playerState.PlayerDefeat;
 		GetComponent<NetworkView>().RPC("LaunchAnimation", RPCMode.All, (int) playerState.PlayerDefeat);
+	}
+	
+	public void BeDead()
+	{
+		lastState = playerState.PlayerDeath;
+		GetComponent<NetworkView>().RPC("LaunchAnimation", RPCMode.All, (int) playerState.PlayerDeath);
 	}
 
 	[RPC]
