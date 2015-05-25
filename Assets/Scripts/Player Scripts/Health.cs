@@ -14,13 +14,12 @@ public class Health : MonoBehaviour
 	private const float healFlashPeriod = 1.0f;
 	private const float invincibilityFlashPeriod = 1.0f;
 	
-	
 	private SpriteRenderer[] bodyParts;
-	private Color normalColor = new Color(1f, 1f, 1f);
+	public Color normalColor = new Color(1f, 1f, 1f);
 	private Color damagedColor = new Color(1f, 0, 0);
 	private Color invincibilityColor = new Color(1f, 1f, 0);
 	private Color healedColor = new Color(0.3f, 1f, 0.3f);
-	private Color currentColor;
+	public Color currentColor;
 
 	void Start ()
 	{
@@ -32,6 +31,7 @@ public class Health : MonoBehaviour
 	
 	void Update()
 	{
+		//GetComponent<NetworkView>().RPC("FadeInvincibilityAndColors", RPCMode.All);
 		FadeInvincibilityAndColors();
 	}
 
@@ -90,11 +90,11 @@ public class Health : MonoBehaviour
 		}
 	}
 	
-	private void SetAllChildColors(Color colorToSet)
+	public void SetAllChildColors(Color colorToSet)
 	{
 		foreach(SpriteRenderer part in bodyParts)
 		{
-			part.color = colorToSet;
+			part.material.color = colorToSet;
 		}
 	}
 	
@@ -106,7 +106,7 @@ public class Health : MonoBehaviour
 		{
 			invincibilityTime -= Time.deltaTime;
 			
-			float lerp = Mathf.PingPong(Time.time, invincibilityFlashPeriod) / invincibilityFlashPeriod;
+			float lerp = Mathf.PingPong(Time.time * 3, invincibilityFlashPeriod) / invincibilityFlashPeriod;
 			currentColor = Color.Lerp(currentColor, invincibilityColor, lerp);
 		}
 		if(damagedTime > 0)
@@ -123,5 +123,7 @@ public class Health : MonoBehaviour
 			float lerp = healedTime / healFlashPeriod;
 			currentColor = Color.Lerp(currentColor, healedColor, lerp);
 		}
+		
+		SetAllChildColors(currentColor);
 	}
 }
