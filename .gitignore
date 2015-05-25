@@ -13,6 +13,7 @@ Temp
 *.userprefs
 *.pidb
 *.booproj
+*.mp3
 
 # Unity3D generated meta files
 #*.pidb.meta
