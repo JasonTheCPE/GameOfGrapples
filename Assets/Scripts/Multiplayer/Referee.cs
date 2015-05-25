@@ -10,6 +10,7 @@ public class Referee : MonoBehaviour {
 	private int[] teams = new int[8] {0,0,0,0,0,0,0,0};
 	public float timer = 60; //in seconds
 	public bool isTimed = true;
+	private bool timerStarted = true;
 	
 	// Use this for initialization
 	void Start () {
@@ -21,11 +22,13 @@ public class Referee : MonoBehaviour {
 		} else {
 			Debug.Log("ERROR! Could not find the multiplayer manager!");
 		}
+
+		timerStarted = false;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if (isTimed) {
+		if (isTimed && timerStarted) {
 			timer -= Time.deltaTime;
 			if (timer <= 0) {
 				timer = 0;
@@ -48,6 +51,14 @@ public class Referee : MonoBehaviour {
 			++i;
 			GUI.Box(new Rect(10, 20 + 30*i, 100, 30), (ap.playerName + " " + ap.health));
 		}
+	}
+
+	public void StartTimer() {
+		timerStarted = true;
+	}
+
+	public void StopTimer() {
+		timerStarted = false;
 	}
 	
 	[RPC]
