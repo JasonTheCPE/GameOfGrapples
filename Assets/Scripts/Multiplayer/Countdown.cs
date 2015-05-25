@@ -18,10 +18,10 @@ public class Countdown : MonoBehaviour {
 
 	void OnGUI() {
 		/*To Test*/
-		/* if (GUI.Button(new Rect(Screen.width - 200, Screen.height - 200, 100, 100), "start")) {
+		if (GUI.Button(new Rect(Screen.width - 200, Screen.height - 200, 100, 100), "start")) {
 			StartMatchTimer();
 			TurnOnPlayers();
-		}*/
+		}
 	}
 
 	void TurnOffPlayers() {

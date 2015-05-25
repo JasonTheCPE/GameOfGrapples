@@ -72,7 +72,7 @@ public class MultiplayerManager : MonoBehaviour {
 		matchPassword = serverPassword;
 		matchMaxUsers = maxUsers;
 		
-		Network.InitializeServer(matchMaxUsers - 1, 2652, false);			//set the max number of players, port number, and something else
+		Network.InitializeServer(matchMaxUsers - 1, 2386, false);			//set the max number of players, port number, and something else
 		MasterServer.RegisterHost("Deathmatch", matchName, "No Comment");	//gametype, game name, and comment
 		
 		//Network.InitializeSecurity();	//breaks everything till further notice
