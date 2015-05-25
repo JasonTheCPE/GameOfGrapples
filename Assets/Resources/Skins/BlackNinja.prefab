@@ -251,7 +251,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 113784}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 44.4000015, y: 76.5899963, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 10, y: 10, z: 1}
   m_Children:
   - {fileID: 485932}
@@ -491,6 +491,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxHealth: 1
   health: 1
+  invincibilityTime: 0
+  damagedTime: 0
+  healedTime: 0
 --- !u!114 &11418266
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -650,6 +653,7 @@ MonoBehaviour:
   movementAttempted: 0
   isOnGround: 0
   isMoving: 0
+  playerControllable: 1
 --- !u!114 &11488414
 MonoBehaviour:
   m_ObjectHideFlags: 1

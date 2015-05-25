@@ -14,10 +14,10 @@ public class Health : MonoBehaviour
 	private const float healFlashPeriod = 1.0f;
 	
 	private SpriteRenderer[] bodyParts;
-	private const Color NormalColor = new Color(1f, 1f, 1f);
-	private const Color DamagedColor = new Color(1f, 0, 0);
-	private const Color InvincibilityColor = new Color(1f, 1f, 0);
-	private const Color HealedColor = new Color(0.3f, 1f, 0.3f);
+	private Color NormalColor = new Color(1f, 1f, 1f);
+	private Color DamagedColor = new Color(1f, 0, 0);
+	private Color InvincibilityColor = new Color(1f, 1f, 0);
+	private Color HealedColor = new Color(0.3f, 1f, 0.3f);
 
 	void Start ()
 	{
