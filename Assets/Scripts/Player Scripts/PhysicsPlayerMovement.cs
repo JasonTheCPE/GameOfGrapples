@@ -5,7 +5,10 @@ public class PhysicsPlayerMovement : MonoBehaviour
 {
 	enum playerState
 	{
-		PlayerIdle = 0, PlayerRunning = 1, PlayerInAir = 2, PlayerMovingInAir = 3, PlayerWallCling = 4
+		PlayerIdle = 0, PlayerRunning = 1, PlayerInAir = 2, PlayerMovingInAir = 3,
+		PlayerWallCling = 4, PlayerHangingFromRope = 5, PlayerHangingFromRopeMoving = 6,
+		PlayerThrowUpwards = 7, PlayerThrowDownwards = 8, PlayerDodgeRoll = 9,
+		PlayerDefeat = 10, PlayerVictory = 11, PlayerDeath = 12
 	};
 	
 	public float moveForceMultiplier = 350;
@@ -29,6 +32,7 @@ public class PhysicsPlayerMovement : MonoBehaviour
 	public bool movementAttempted = false;
 	public bool isOnGround = false;
 	public bool isMoving = false;
+	public bool playerControllable = true;
 	
 	// Use this for initialization
 	void Start ()
@@ -44,7 +48,7 @@ public class PhysicsPlayerMovement : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-		if (GetComponent<NetworkView>().isMine)
+		if (GetComponent<NetworkView>().isMine && playerControllable)
 		{
 			float movement = Input.GetAxis("Horizontal");
 			
@@ -75,16 +79,16 @@ public class PhysicsPlayerMovement : MonoBehaviour
 						{
 							rb.velocity = new Vector2(rb.velocity.x, 0);
 						}
-					    rb.AddForce(jumpForceVector * 0.5f);
+						rb.AddForce(jumpForceVector * 0.5f);
 					}
 					else
 					{
-					    rb.AddForce(jumpForceVector);
+						rb.AddForce(jumpForceVector);
 					}
 					++jumpsUsed;
 				}
 			}
-
+			
 			if((!facingRight && transform.localScale.x > 0) || (facingRight && transform.localScale.x < 0))
 			{
 				GetComponent<NetworkView>().RPC("SwitchDirection", RPCMode.All);
@@ -137,7 +141,7 @@ public class PhysicsPlayerMovement : MonoBehaviour
 		jumpsUsed = 0;
 		isOnGround = true;
 	}
-
+	
 	public void LandedHook() {
 		if (jumpsUsed > 0) {
 			jumpsUsed = 1;
@@ -148,7 +152,7 @@ public class PhysicsPlayerMovement : MonoBehaviour
 	{
 		isOnGround = false;
 	}
-
+	
 	public void TryClingToWall()
 	{
 		if(canClingToWall && movementAttempted && !isOnGround)
@@ -165,6 +169,11 @@ public class PhysicsPlayerMovement : MonoBehaviour
 	private void TriggerAnimationTransition()
 	{
 		playerState thisState;
+		
+		if(lastState == playerState.PlayerDefeat || lastState == playerState.PlayerVictory)
+		{
+			return;
+		}
 		
 		if(isOnGround)
 		{
@@ -193,6 +202,7 @@ public class PhysicsPlayerMovement : MonoBehaviour
 				}
 			}
 		}
+		
 		if(thisState != lastState)
 		{
 			//LaunchAnimation(thisState);
@@ -200,13 +210,37 @@ public class PhysicsPlayerMovement : MonoBehaviour
 			lastState = thisState;
 		}
 	}
-
+	
+	public void BeVictorious()
+	{
+		playerControllable = false;
+		lastState = playerState.PlayerVictory;
+		GetComponent<NetworkView>().RPC("LaunchAnimation", RPCMode.All, (int) playerState.PlayerVictory);
+	}
+	
+	public void BeDefeated()
+	{
+		playerControllable = false;
+		lastState = playerState.PlayerDefeat;
+		GetComponent<NetworkView>().RPC("LaunchAnimation", RPCMode.All, (int) playerState.PlayerDefeat);
+	}
+	
+	public void BeDead()
+	{
+		playerControllable = false;
+		lastState = playerState.PlayerDeath;
+		GetComponent<NetworkView>().RPC("LaunchAnimation", RPCMode.All, (int) playerState.PlayerDeath);
+	}
+	
 	[RPC]
-	public void SwitchDirection () {
+	public void SwitchDirection ()
+	{
 		transform.localScale += new Vector3(-transform.localScale.x * 2, 0, 0);
 	}
+	
 	[RPC]
-	public void LaunchAnimation(int thisState) {
+	public void LaunchAnimation(int thisState)
+	{
 		animator.SetInteger("nextStateNum", thisState);
 		animator.SetTrigger("nextStateTrigger");
 	}
