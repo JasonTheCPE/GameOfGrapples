@@ -21,7 +21,7 @@ public class PostGame : MonoBehaviour {
 						temp.transform.position = GameObject.Find("Tie " + i.ToString() + " Spawn").transform.position;
 						temp.transform.localScale = GameObject.Find("Tie " + i.ToString() + " Spawn").transform.localScale;
 						temp.GetComponent<Rigidbody2D>().isKinematic = true;
-						temp.GetComponent<PhysicsPlayerMovement>().StartClapping();
+						//TODO temp.GetComponent<PhysicsPlayerMovement>().StartClapping();
 						NetworkRigidbody2D _NetworkRigidbody = temp.GetComponent<NetworkRigidbody2D>();
 						_NetworkRigidbody.enabled = false;
 						Throwing th = temp.GetComponent<Throwing>();
@@ -38,7 +38,7 @@ public class PostGame : MonoBehaviour {
 						temp.GetComponent<HoverName>().localName = mp.playerName;
 						temp.transform.position = GameObject.Find("Team " + i.ToString() + " Spawn").transform.position;
 						temp.transform.localScale = GameObject.Find("Team " + i.ToString() + " Spawn").transform.localScale;
-						temp.GetComponent<PhysicsPlayerMovement>().StartClapping();
+						//TODO temp.GetComponent<PhysicsPlayerMovement>().StartClapping();
 						temp.GetComponent<Rigidbody2D>().isKinematic = true;
 						NetworkRigidbody2D _NetworkRigidbody = temp.GetComponent<NetworkRigidbody2D>();
 						_NetworkRigidbody.enabled = false;
@@ -53,7 +53,7 @@ public class PostGame : MonoBehaviour {
 					if (mp.playerNetwork == Network.player) {
 						GameObject temp = (GameObject) Network.Instantiate(mm.accessSkin(mp.skinID), Vector3.zero, Quaternion.identity, 0);
 						temp.GetComponent<NetworkView>().observed = transform;
-						temp.GetComponent<PhysicsPlayerMovement>().StartClapping();
+						//TODO temp.GetComponent<PhysicsPlayerMovement>().StartClapping();
 						temp.GetComponent<HoverName>().localName = mp.playerName;
 						temp.GetComponent<Rigidbody2D>().isKinematic = true;
 						NetworkRigidbody2D _NetworkRigidbody = temp.GetComponent<NetworkRigidbody2D>();

@@ -54,7 +54,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 487456}
   - 212: {fileID: 21284860}
-  - 114: {fileID: 11441968}
   m_Layer: 0
   m_Name: RightLeg
   m_TagString: Untagged
@@ -87,7 +86,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 401192}
   - 212: {fileID: 21212258}
-  - 114: {fileID: 11491240}
   m_Layer: 0
   m_Name: LeftArm
   m_TagString: Untagged
@@ -104,7 +102,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 424006}
   - 212: {fileID: 21261762}
-  - 114: {fileID: 11488414}
   m_Layer: 0
   m_Name: RightArm
   m_TagString: Untagged
@@ -121,7 +118,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 478486}
   - 212: {fileID: 21258646}
-  - 114: {fileID: 11447230}
   m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
@@ -188,7 +184,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 490074}
   - 212: {fileID: 21224878}
-  - 114: {fileID: 11494044}
   m_Layer: 0
   m_Name: LeftLeg
   m_TagString: Untagged
@@ -491,6 +486,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxHealth: 1
   health: 1
+  invincibilityTime: 0
+  damagedTime: 0
+  healedTime: 0
 --- !u!114 &11418266
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -520,28 +518,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9cb896c391029484783603901b8e0287, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &11441968
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 129444}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 812bdbc98b1b8584fa2eaeb37c7d3423, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &11447230
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 160010}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 812bdbc98b1b8584fa2eaeb37c7d3423, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &11451134
@@ -650,28 +626,7 @@ MonoBehaviour:
   movementAttempted: 0
   isOnGround: 0
   isMoving: 0
---- !u!114 &11488414
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 138718}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 812bdbc98b1b8584fa2eaeb37c7d3423, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &11491240
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 137828}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 812bdbc98b1b8584fa2eaeb37c7d3423, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  playerControllable: 1
 --- !u!114 &11491826
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -687,17 +642,6 @@ MonoBehaviour:
   playerNumber: 0
   skinID: 11
   skinName: Black Ninja
---- !u!114 &11494044
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 192974}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 812bdbc98b1b8584fa2eaeb37c7d3423, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!148 &14800184
 NetworkView:
   m_ObjectHideFlags: 1

@@ -274,7 +274,7 @@ MonoBehaviour:
   matchHP: 1
   matchAmmo: 4
   playerName: Host Player
-  playerPrefab: {fileID: 105110, guid: 0e57c46015d48064e85dd13d480f6e12, type: 2}
+  playerPrefab: {fileID: 113784, guid: 0e57c46015d48064e85dd13d480f6e12, type: 2}
   PlayerList: []
   MapList: []
   currentMap:
@@ -284,6 +284,7 @@ MonoBehaviour:
   oldPrefix: 0
   isMatchStarted: 0
   allowTeams: 0
+  PreviousWinners: []
 --- !u!4 &1741522683
 Transform:
   m_ObjectHideFlags: 0

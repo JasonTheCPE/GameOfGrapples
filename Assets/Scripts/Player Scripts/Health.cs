@@ -12,12 +12,15 @@ public class Health : MonoBehaviour
 	private const float startInvincibilitySeconds = 5.0f;
 	private const float repeatDamageDelay = 1.0f;
 	private const float healFlashPeriod = 1.0f;
+	private const float invincibilityFlashPeriod = 1.0f;
+	
 	
 	private SpriteRenderer[] bodyParts;
-	private const Color NormalColor = new Color(1f, 1f, 1f);
-	private const Color DamagedColor = new Color(1f, 0, 0);
-	private const Color InvincibilityColor = new Color(1f, 1f, 0);
-	private const Color HealedColor = new Color(0.3f, 1f, 0.3f);
+	private Color normalColor = new Color(1f, 1f, 1f);
+	private Color damagedColor = new Color(1f, 0, 0);
+	private Color invincibilityColor = new Color(1f, 1f, 0);
+	private Color healedColor = new Color(0.3f, 1f, 0.3f);
+	private Color currentColor;
 
 	void Start ()
 	{
@@ -29,18 +32,7 @@ public class Health : MonoBehaviour
 	
 	void Update()
 	{
-		if(invincibilityTime > 0)
-		{
-			invincibilityTime -= Time.deltaTime;
-		}
-		if(damagedTime > 0)
-		{
-			damagedTime -= Time.deltaTime;
-		}
-		if(healedTime > 0)
-		{
-			healedTime -= Time.deltaTime;
-		}
+		FadeInvincibilityAndColors();
 	}
 
 	public int GetHit(int damage)
@@ -98,8 +90,38 @@ public class Health : MonoBehaviour
 		}
 	}
 	
-	private void FlashColor(Color color)
+	private void SetAllChildColors(Color colorToSet)
 	{
+		foreach(SpriteRenderer part in bodyParts)
+		{
+			part.color = colorToSet;
+		}
+	}
+	
+	private void FadeInvincibilityAndColors()
+	{
+		currentColor = normalColor;
 		
+		if(invincibilityTime > 0)
+		{
+			invincibilityTime -= Time.deltaTime;
+			
+			float lerp = Mathf.PingPong(Time.time, invincibilityFlashPeriod) / invincibilityFlashPeriod;
+			currentColor = Color.Lerp(currentColor, invincibilityColor, lerp);
+		}
+		if(damagedTime > 0)
+		{
+			damagedTime -= Time.deltaTime;
+			
+			float lerp = damagedTime / repeatDamageDelay;
+			currentColor = Color.Lerp(currentColor, damagedColor, lerp);
+		}
+		if(healedTime > 0)
+		{
+			healedTime -= Time.deltaTime;
+			
+			float lerp = healedTime / healFlashPeriod;
+			currentColor = Color.Lerp(currentColor, healedColor, lerp);
+		}
 	}
 }
