@@ -4,6 +4,7 @@ using System.Collections;
 public class PostGame : MonoBehaviour {
 	private MultiplayerManager mm;
 	private string mode = "";
+
 	public bool hasLocked = false;
 	public bool[] playersLocked;
 	public int playersUnlocked;
@@ -18,7 +19,7 @@ public class PostGame : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		mm = GameObject.Find("Multiplayer Manager").GetComponent<MultiplayerManager>();
-
+		
 		if(mm) {
 			InitiateLocked();
 			int i = 1;
@@ -49,10 +50,10 @@ public class PostGame : MonoBehaviour {
 		} else {
 			Debug.Log("ERROR! Could not find the multiplayer manager!");
 		}
-
+		
 		Debug.Log("It was a " + mode);
 	}
-
+	
 	GameObject CreateSkin(int id, GameObject baseObject, string name, int reaction) {
 		GameObject skin = mm.accessSkin(id);
 		GameObject ret = (GameObject) Instantiate(skin);//, Vector3.zero, Quaternion.identity, 0); 
@@ -74,10 +75,10 @@ public class PostGame : MonoBehaviour {
 		ret.GetComponent<Rigidbody2D>().isKinematic = true;				//stop the rigidbody from moving
 		return ret;
 	}
-
+	
 	void InitiateLocked() {
 		playersLocked = new bool[mm.PlayerList.Count];
-
+		
 		for (int i = 0; i < playersLocked.Length; ++i) {
 			playersLocked[i] = false;
 		}
@@ -98,7 +99,7 @@ public class PostGame : MonoBehaviour {
 		playersUnlocked--;
 		check();
 	}
-
+	
 	void check() {
 		bool EveryoneLocked = true;
 		foreach(bool b in playersLocked) {
@@ -110,12 +111,12 @@ public class PostGame : MonoBehaviour {
 			Application.LoadLevel("Prep");
 		}
 	}
-
+	
 	// Update is called once per frame
 	void Update () {
-
+		
 	}
-
+	
 	void OnGUI() {
 		if (!hasLocked) {
 			if(GUI.Button(new Rect(Screen.width - 405, Screen.height - 40, 200, 40), "Ready")) {
