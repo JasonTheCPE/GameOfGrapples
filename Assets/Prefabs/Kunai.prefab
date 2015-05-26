@@ -236,6 +236,7 @@ MonoBehaviour:
   HitWall: {fileID: 8300000, guid: d9e9e9fd9d95bd44584c7795787fe6a6, type: 3}
   HitPlayer: {fileID: 8300000, guid: f1ae7d420a5edbd40b207f00b640e36d, type: 3}
   Throw: {fileID: 8300000, guid: 11fc72836e88afb448ae1a9ebd8d00bb, type: 3}
+  PickUp: {fileID: 8300000, guid: f1ae7d420a5edbd40b207f00b640e36d, type: 3}
 --- !u!148 &14867366
 NetworkView:
   m_ObjectHideFlags: 1
