@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: e51c35e099c41304e8aa16c8a18cddfb
-timeCreated: 1428800784
+guid: 51e0542252664794fb4d50a695924b65
+timeCreated: 1432621461
 licenseType: Free
 TrueTypeFontImporter:
   serializedVersion: 2
@@ -10,8 +10,7 @@ TrueTypeFontImporter:
   characterPadding: 0
   includeFontData: 1
   use2xBehaviour: 0
-  fontNames:
-  - DragonForcE
+  fontNames: []
   customCharacters: 
   fontRenderingMode: 0
   userData: 
