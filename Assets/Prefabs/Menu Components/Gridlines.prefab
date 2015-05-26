@@ -39,9 +39,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 980261bff44dbfe4bb133214e7e554a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spaceWidth: 32
-  spaceHeight: 32
-  lineColor: {r: 1, g: 1, b: 1, a: 1}
+  scaledUnitSize: 0
+  levelWidth: 0
+  levelHeight: 0
+  lineWidth: 0
+  color: {r: 0, g: 1, b: 0, a: 1}
+  gridActive: 0
+  gridVertices: []
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
