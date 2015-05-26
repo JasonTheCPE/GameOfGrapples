@@ -72,6 +72,7 @@ public class Health : MonoBehaviour
 	{
 		if(invincibilityTime <= 0 && damagedTime <= 0)
 		{
+			GetComponent<CharacterAudio>().PlayHitSFX();
 			int health = GetHit(1);
 		}
 		

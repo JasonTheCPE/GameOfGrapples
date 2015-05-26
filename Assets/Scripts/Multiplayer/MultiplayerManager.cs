@@ -14,7 +14,7 @@ public class MultiplayerManager : MonoBehaviour {
 	private bool isCustom = false;
 	private Object[] skins;
 	private int usingSkin = 0;
-
+	
 	public int matchTime = 60, matchHP = 1, matchAmmo = 4;
 	
 	public string playerName = "Host Player";	//the player name the current player will have in the match

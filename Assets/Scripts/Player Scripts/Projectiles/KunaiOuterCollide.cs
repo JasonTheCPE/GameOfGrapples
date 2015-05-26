@@ -20,6 +20,7 @@ public class KunaiOuterCollide : MonoBehaviour
 				
 				if (playerNumber != otherPlayerNumber && (myTeam == -1 || myTeam != otherTeam))
 				{
+					GetComponent<ThrowingAudio>().PlayHitPlayerSFX();
 					Debug.Log("Kunai from playerID: " + playerNumber + " killed " + otherPlayerNumber);
 					other.gameObject.GetComponent<NetworkView>().RPC("GetHurt", RPCMode.All);
 				}

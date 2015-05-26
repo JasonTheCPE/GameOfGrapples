@@ -11,6 +11,8 @@ public class MapSelector : MonoBehaviour {
 	private int startHealth = 1;
 	private int ammo = 4;
 	private bool AllReady = false;
+
+	public AudioClip MainMenuAudio;
 	// Use this for initialization
 	void Start () {
 		instance = this;
@@ -203,6 +205,7 @@ public class MapSelector : MonoBehaviour {
 	}
 
 	void OnDisconnectedFromServer(NetworkDisconnection info) {
+		GameObject.Find("Sound Manager").GetComponent<SoundManager>().PlayBackground(MainMenuAudio);
 		Application.LoadLevel("Lobby");
 	}
 }

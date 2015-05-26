@@ -16,6 +16,7 @@ public class Kunai : MonoBehaviour
 	void Start ()
 	{
 		//Debug.Log("Kunai Born!");
+		GetComponent<ThrowingAudio>().PlayThrowSFX();
 	}
 	
 	// Update is called once per frame
@@ -38,6 +39,7 @@ public class Kunai : MonoBehaviour
 	[RPC]
 	public void GetStuck()
 	{
+		GetComponent<ThrowingAudio>().PlayHitWallSFX();
 		GetComponentInParent<Kunai>().isStuck = true;
 		GetComponentInParent<Kunai>().turnTowardsVelocity = false;
 		GetComponentInParent<Rigidbody2D>().isKinematic = true;

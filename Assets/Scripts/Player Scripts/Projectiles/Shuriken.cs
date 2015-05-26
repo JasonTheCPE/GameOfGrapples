@@ -10,8 +10,9 @@ public class Shuriken : MonoBehaviour
 	void Start ()
 	{
 		//Debug.Log("Hello");
+		GetComponent<ThrowingAudio>().PlayThrowSFX();
 	}
-	
+
 	// Update is called once per frame
 	void Update ()
 	{
@@ -28,6 +29,7 @@ public class Shuriken : MonoBehaviour
 		{
 			isActive = false;
 			GetComponent<Rigidbody2D>().velocity = new Vector3(0,0,0);
+			GetComponent<ThrowingAudio>().PlayHitWallSFX();
 		}
 		else if (other.tag == "Player")// || other.tag == "OtherDestructible")
 		{
@@ -40,6 +42,7 @@ public class Shuriken : MonoBehaviour
 				
 				if (myNumber != otherPlayerNumber && (myTeam == -1 || myTeam != otherTeam))
 				{
+					GetComponent<ThrowingAudio>().PlayHitPlayerSFX();
 					Debug.Log("Shuriken's playerID: " + myNumber + " killed " + otherPlayerNumber);
 					other.gameObject.GetComponent<NetworkView>().RPC("GetHurt", RPCMode.All);
 					GetComponent<NetworkView>().RPC("SelfDestruct", RPCMode.All);
@@ -47,6 +50,7 @@ public class Shuriken : MonoBehaviour
 			}
 			else
 			{
+				GetComponent<ThrowingAudio>().PlayPickupSFX();
 				other.gameObject.GetComponent<NetworkView>().RPC("pickupStar", RPCMode.All);
 				SelfDestruct();
 			}

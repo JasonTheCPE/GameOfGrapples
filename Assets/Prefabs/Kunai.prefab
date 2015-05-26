@@ -13,6 +13,7 @@ GameObject:
   - 148: {fileID: 14867366}
   - 114: {fileID: 11424174}
   - 114: {fileID: 11423376}
+  - 114: {fileID: 11460082}
   m_Layer: 0
   m_Name: Kunai
   m_TagString: Weapon
@@ -182,6 +183,7 @@ MonoBehaviour:
   teamID: 0
   playerNumber: 0
   skinID: 0
+  skinName: 
 --- !u!114 &11424174
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -220,6 +222,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b74b351acd0b8647a607d52a558a89a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &11460082
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8106cb201e928da49ac942d514bfa241, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HitWall: {fileID: 8300000, guid: d9e9e9fd9d95bd44584c7795787fe6a6, type: 3}
+  HitPlayer: {fileID: 8300000, guid: f1ae7d420a5edbd40b207f00b640e36d, type: 3}
+  Throw: {fileID: 8300000, guid: 11fc72836e88afb448ae1a9ebd8d00bb, type: 3}
 --- !u!148 &14867366
 NetworkView:
   m_ObjectHideFlags: 1
