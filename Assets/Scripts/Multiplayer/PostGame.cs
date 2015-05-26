@@ -56,23 +56,22 @@ public class PostGame : MonoBehaviour {
 	
 	GameObject CreateSkin(int id, GameObject baseObject, string name, int reaction) {
 		GameObject skin = mm.accessSkin(id);
-		GameObject ret = (GameObject) Instantiate(skin);//, Vector3.zero, Quaternion.identity, 0); 
+		GameObject ret = (GameObject) Instantiate(skin);
 		ret.GetComponent<NetworkView>().observed = transform;				//don't view the network rigidbody
 		if (reaction == winner) {
-			ret.GetComponent<PhysicsPlayerMovement>().BeVictorious();			//play victorious animation and disable movement
+			ret.GetComponent<PhysicsPlayerMovement>().BeVictorious();		//play victorious animation and disable movement
 		} else if (reaction == meh) {
-			ret.GetComponent<PhysicsPlayerMovement>().BeDefeated();				//play meh (TODO) animation and disable movement
+			ret.GetComponent<PhysicsPlayerMovement>().BeDefeated();			//play meh (TODO) animation and disable movement
 		} else {
-			ret.GetComponent<PhysicsPlayerMovement>().BeDefeated();				//play defeated animation and disable movement
+			ret.GetComponent<PhysicsPlayerMovement>().BeDefeated();			//play defeated animation and disable movement
 		}
+		ret.GetComponent<Health>().enabled = false;							//don't start out invincible
 		ret.GetComponent<HoverName>().localName = "";						//display your name
-		NetworkRigidbody2D _NetworkRigidbody = ret.GetComponent<NetworkRigidbody2D>();	//turn off networkrigidbody2D
-		_NetworkRigidbody.enabled = false;
-		Throwing th = ret.GetComponent<Throwing>();						//turn off throwing
-		th.enabled = false;
+		ret.GetComponent<NetworkRigidbody2D>().enabled = false;				//turn off networkrigidbody2D
+		ret.GetComponent<Throwing>().enabled = false;						//turn off throwing
 		ret.transform.position = baseObject.transform.position;
 		ret.transform.localScale = baseObject.transform.localScale;
-		ret.GetComponent<Rigidbody2D>().isKinematic = true;				//stop the rigidbody from moving
+		ret.GetComponent<Rigidbody2D>().isKinematic = true;					//stop the rigidbody from moving
 		return ret;
 	}
 	

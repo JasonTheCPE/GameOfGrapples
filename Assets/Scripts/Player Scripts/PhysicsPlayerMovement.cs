@@ -10,6 +10,12 @@ public class PhysicsPlayerMovement : MonoBehaviour
 		PlayerThrowUpwards = 7, PlayerThrowDownwards = 8, PlayerDodgeRoll = 9,
 		PlayerDefeat = 10, PlayerVictory = 11, PlayerDeath = 12
 	};
+
+	enum playerSounds
+	{
+		Step = 0, Jump = 1, Hit = 2, Die = 3,
+		Victory = 4, Dodge = 5, Land = 6
+	};
 	
 	public float moveForceMultiplier = 350;
 	public Vector2 moveForceVector;
@@ -73,6 +79,7 @@ public class PhysicsPlayerMovement : MonoBehaviour
 			{
 				if (jumpsUsed < maxJumps)
 				{
+					GetComponent<NetworkView>().RPC("PlaySFX", RPCMode.All, (int)playerSounds.Jump);
 					if (jumpsUsed > 0)
 					{
 						if(rb.velocity.y < 0) //double jump will cancel downward momentum
@@ -125,6 +132,7 @@ public class PhysicsPlayerMovement : MonoBehaviour
 		GetComponent<Throwing>().refill();
 		rb.velocity = new Vector3(0, 0, 0);
 		rb.position = new Vector3(0, 0, 0);
+		PlaySFX((int)playerSounds.Die);
 		if(GetComponent<NetworkView>().isMine == true)
 		{
 			Referee reff = GameObject.Find("Ingame Manager").GetComponent<Referee>();
@@ -213,6 +221,7 @@ public class PhysicsPlayerMovement : MonoBehaviour
 	
 	public void BeVictorious()
 	{
+		GetComponent<NetworkView>().RPC("PlaySFX", RPCMode.All, (int)playerSounds.Victory);
 		playerControllable = false;
 		lastState = playerState.PlayerVictory;
 		GetComponent<NetworkView>().RPC("LaunchAnimation", RPCMode.All, (int) playerState.PlayerVictory);
@@ -243,5 +252,39 @@ public class PhysicsPlayerMovement : MonoBehaviour
 	{
 		animator.SetInteger("nextStateNum", thisState);
 		animator.SetTrigger("nextStateTrigger");
+	}
+	
+	[RPC]
+	public void PlaySFX(int sfx) {
+		switch (sfx) {
+		case 0: 
+			GetComponent<CharacterAudio>().PlayStepSFX();
+			break;
+
+		case 1: 
+			GetComponent<CharacterAudio>().PlayJumpSFX();
+			break;
+
+		case 2: 
+			GetComponent<CharacterAudio>().PlayHitSFX();
+			break;
+
+		case 3: 
+			GetComponent<CharacterAudio>().PlayDieSFX();
+			break;
+
+		case 4: 
+			GetComponent<CharacterAudio>().PlayVictorySFX();
+			break;
+
+		case 5: 
+			GetComponent<CharacterAudio>().PlayDodgeSFX();
+			break;
+
+		case 6: 
+			GetComponent<CharacterAudio>().PlayLandSFX();
+			break;
+		
+		}
 	}
 }

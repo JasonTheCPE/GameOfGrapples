@@ -22,6 +22,7 @@ GameObject:
   - 114: {fileID: 11401036}
   - 114: {fileID: 11451134}
   - 61: {fileID: 6188874}
+  - 114: {fileID: 11471650}
   m_Layer: 0
   m_Name: BlackNinja
   m_TagString: Player
@@ -494,6 +495,8 @@ MonoBehaviour:
   invincibilityTime: 0
   damagedTime: 0
   healedTime: 0
+  normalColor: {r: 1, g: 1, b: 1, a: 1}
+  currentColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &11418266
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -654,6 +657,24 @@ MonoBehaviour:
   isOnGround: 0
   isMoving: 0
   playerControllable: 1
+--- !u!114 &11471650
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 113784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f579eb9d3cf5add46b32654165f6d33f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  step: {fileID: 0}
+  hit1: {fileID: 0}
+  hit2: {fileID: 0}
+  die: {fileID: 0}
+  victory: {fileID: 0}
+  dodge: {fileID: 0}
+  land: {fileID: 0}
 --- !u!114 &11488414
 MonoBehaviour:
   m_ObjectHideFlags: 1

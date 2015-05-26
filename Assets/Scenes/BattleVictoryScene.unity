@@ -795,6 +795,52 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1244296373}
   m_RootOrder: 0
+--- !u!1001 &1431019561
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 432342, guid: 1cbca1dfbb7607d4e9891020fc6e9ee2, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 432342, guid: 1cbca1dfbb7607d4e9891020fc6e9ee2, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 432342, guid: 1cbca1dfbb7607d4e9891020fc6e9ee2, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 432342, guid: 1cbca1dfbb7607d4e9891020fc6e9ee2, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 432342, guid: 1cbca1dfbb7607d4e9891020fc6e9ee2, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 432342, guid: 1cbca1dfbb7607d4e9891020fc6e9ee2, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 432342, guid: 1cbca1dfbb7607d4e9891020fc6e9ee2, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 432342, guid: 1cbca1dfbb7607d4e9891020fc6e9ee2, type: 2}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 11467096, guid: 1cbca1dfbb7607d4e9891020fc6e9ee2, type: 2}
+      propertyPath: bg
+      value: 
+      objectReference: {fileID: 8300000, guid: e68ff7eb0eabf644b9aa6a0eda695d29, type: 3}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 1cbca1dfbb7607d4e9891020fc6e9ee2, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &1461813195
 GameObject:
   m_ObjectHideFlags: 0
@@ -851,6 +897,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hasLocked: 0
   playersLocked: 
+  playersUnlocked: 0
 --- !u!4 &1578234373
 Transform:
   m_ObjectHideFlags: 0

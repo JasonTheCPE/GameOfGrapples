@@ -14,7 +14,7 @@ public class MultiplayerManager : MonoBehaviour {
 	private bool isCustom = false;
 	private Object[] skins;
 	private int usingSkin = 0;
-
+	
 	public int matchTime = 60, matchHP = 1, matchAmmo = 4;
 	
 	public string playerName = "Host Player";	//the player name the current player will have in the match
@@ -72,7 +72,7 @@ public class MultiplayerManager : MonoBehaviour {
 		matchPassword = serverPassword;
 		matchMaxUsers = maxUsers;
 		
-		Network.InitializeServer(matchMaxUsers - 1, 2652, false);			//set the max number of players, port number, and something else
+		Network.InitializeServer(matchMaxUsers - 1, 2386, false);			//set the max number of players, port number, and something else
 		MasterServer.RegisterHost("Deathmatch", matchName, "No Comment");	//gametype, game name, and comment
 		
 		//Network.InitializeSecurity();	//breaks everything till further notice
