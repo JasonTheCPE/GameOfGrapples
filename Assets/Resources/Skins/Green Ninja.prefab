@@ -24,7 +24,7 @@ GameObject:
   - 61: {fileID: 6188874}
   - 114: {fileID: 11471650}
   m_Layer: 0
-  m_Name: BlackNinja
+  m_Name: Green Ninja
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -669,12 +669,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   step: {fileID: 0}
-  hit1: {fileID: 0}
-  hit2: {fileID: 0}
-  die: {fileID: 0}
+  hit1: {fileID: 8300000, guid: c91b2abd9e2391f4fbced425bc0b5787, type: 3}
+  hit2: {fileID: 8300000, guid: 14a57c55b83ae564e8554487a4e555fb, type: 3}
+  die: {fileID: 8300000, guid: 2d6c938c7b081c04e85b166654345810, type: 3}
   victory: {fileID: 0}
-  dodge: {fileID: 0}
-  land: {fileID: 0}
+  dodge1: {fileID: 0}
+  dodge2: {fileID: 0}
+  jump: {fileID: 0}
+  land: {fileID: 8300000, guid: 35f0609fe7d688d4891539f935d6e234, type: 3}
 --- !u!114 &11488414
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -710,8 +712,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   teamID: 0
   playerNumber: 0
-  skinID: 11
-  skinName: Black Ninja
+  skinID: 13
+  skinName: Green Ninja
 --- !u!114 &11494044
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -759,7 +761,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300006, guid: 00a6b3849219cb740bf64d0c0285322e, type: 3}
+  m_Sprite: {fileID: 21300006, guid: f33f974446e6bf34c8e9bba350e5bcc2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!212 &21224878
 SpriteRenderer:
@@ -785,7 +787,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300002, guid: 00a6b3849219cb740bf64d0c0285322e, type: 3}
+  m_Sprite: {fileID: 21300002, guid: f33f974446e6bf34c8e9bba350e5bcc2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!212 &21258646
 SpriteRenderer:
@@ -811,7 +813,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 00a6b3849219cb740bf64d0c0285322e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f33f974446e6bf34c8e9bba350e5bcc2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!212 &21261762
 SpriteRenderer:
@@ -837,7 +839,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300008, guid: 00a6b3849219cb740bf64d0c0285322e, type: 3}
+  m_Sprite: {fileID: 21300008, guid: f33f974446e6bf34c8e9bba350e5bcc2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!212 &21279204
 SpriteRenderer:
@@ -863,7 +865,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: 21300010, guid: 00a6b3849219cb740bf64d0c0285322e, type: 3}
+  m_Sprite: {fileID: 21300010, guid: f33f974446e6bf34c8e9bba350e5bcc2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!212 &21284860
 SpriteRenderer:
@@ -889,7 +891,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300004, guid: 00a6b3849219cb740bf64d0c0285322e, type: 3}
+  m_Sprite: {fileID: 21300004, guid: f33f974446e6bf34c8e9bba350e5bcc2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!231 &23141936
 SpringJoint2D:

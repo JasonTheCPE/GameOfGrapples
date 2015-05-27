@@ -3,11 +3,14 @@ using System.Collections;
 
 public class Countdown : MonoBehaviour {
 	private GameObject[] players;
+	public int countMax;
+	public bool showCountDown = false;
+	private float countDown;
+
 	// Use this for initialization
 	private 
 	void Start () {
 		players = GameObject.FindGameObjectsWithTag("Player");
-		TurnOffPlayers();
 		AnimateCountdown();
 	}
 	
@@ -17,10 +20,26 @@ public class Countdown : MonoBehaviour {
 	}
 
 	void OnGUI() {
-		/*To Test*/
-		if (GUI.Button(new Rect(Screen.width - 200, Screen.height - 200, 100, 100), "start")) {
-			StartMatchTimer();
-			TurnOnPlayers();
+		if (showCountDown) {
+			if (countDown > -1) {
+				countDown -= Time.deltaTime/2;
+			} else {
+				countDown = -1;
+				TurnOnPlayers();
+				StartMatchTimer();
+				showCountDown = false;
+			}
+
+			GUI.color = Color.red;    
+			GUI.Box (new Rect (Screen.width / 2 - 100, 50, 200, 175), "GET READY");
+			
+			// display countdown    
+			GUI.color = Color.white;
+			if (countDown < .5) {
+				GUI.TextField(new Rect (Screen.width / 2 - 90, 75, 180, 140), "GO!");
+			} else {
+				GUI.TextField(new Rect (Screen.width / 2 - 90, 75, 180, 140), countDown.ToString("0"));
+			}
 		}
 	}
 
@@ -48,7 +67,9 @@ public class Countdown : MonoBehaviour {
 	}
 
 	//when done, use TurnOnPlayers and StartMatchTimer to activate them again
-	void AnimateCountdown() {
-
+	void AnimateCountdown() {	
+		TurnOffPlayers();
+		countDown = countMax;
+		showCountDown = true;
 	}
 }
