@@ -716,7 +716,7 @@ MonoBehaviour:
   teamID: 0
   playerNumber: 0
   skinID: 13
-  skinName: Green Ninja
+  skinName: Ninja Verde
 --- !u!114 &11494044
 MonoBehaviour:
   m_ObjectHideFlags: 1
