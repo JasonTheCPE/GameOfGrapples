@@ -1,15 +1,15 @@
 fileFormatVersion: 2
 guid: bac02b744ec7c7348b71be6e232d32bc
-timeCreated: 1432706277
+timeCreated: 1432716458
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: BlackNinjaPartsSprite_0
-    21300002: BlackNinjaPartsSprite_1
-    21300004: BlackNinjaPartsSprite_2
-    21300006: BlackNinjaPartsSprite_3
-    21300008: BlackNinjaPartsSprite_4
-    21300010: BlackNinjaPartsSprite_5
+    21300000: RedNinjaPartsSprite_0
+    21300002: RedNinjaPartsSprite_1
+    21300004: RedNinjaPartsSprite_2
+    21300006: RedNinjaPartsSprite_3
+    21300008: RedNinjaPartsSprite_4
+    21300010: RedNinjaPartsSprite_5
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -55,7 +55,7 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: BlackNinjaPartsSprite_0
+    - name: RedNinjaPartsSprite_0
       rect:
         serializedVersion: 2
         x: 16
@@ -65,7 +65,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: BlackNinjaPartsSprite_1
+    - name: RedNinjaPartsSprite_1
       rect:
         serializedVersion: 2
         x: 175
@@ -75,7 +75,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: BlackNinjaPartsSprite_2
+    - name: RedNinjaPartsSprite_2
       rect:
         serializedVersion: 2
         x: 303
@@ -85,7 +85,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: BlackNinjaPartsSprite_3
+    - name: RedNinjaPartsSprite_3
       rect:
         serializedVersion: 2
         x: 48
@@ -95,7 +95,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: BlackNinjaPartsSprite_4
+    - name: RedNinjaPartsSprite_4
       rect:
         serializedVersion: 2
         x: 176
@@ -105,7 +105,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: BlackNinjaPartsSprite_5
+    - name: RedNinjaPartsSprite_5
       rect:
         serializedVersion: 2
         x: 290

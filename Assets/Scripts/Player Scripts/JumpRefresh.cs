@@ -4,10 +4,12 @@ using System.Collections;
 public class JumpRefresh : MonoBehaviour
 {
 	PhysicsPlayerMovement parentPlayer;
+	private int thingsStandingOn;
 	
 	void Start()
 	{
 		parentPlayer = GetComponentInParent<PhysicsPlayerMovement>();
+		thingsStandingOn = 0;
 	}
 	
 	void OnTriggerEnter2D(Collider2D other)
@@ -15,6 +17,7 @@ public class JumpRefresh : MonoBehaviour
 		if(other.tag == "Tiles" || other.tag == "Player")
 		{
 			parentPlayer.TouchedGround();
+			++thingsStandingOn;
 		}
 	}
 	
@@ -30,7 +33,10 @@ public class JumpRefresh : MonoBehaviour
 	{
 		if(other.tag == "Tiles" || other.tag == "Player")
 		{
-			parentPlayer.LeftGround();
+			if(--thingsStandingOn == 0)
+			{
+				parentPlayer.LeftGround();
+			}
 		}
 	}
 	

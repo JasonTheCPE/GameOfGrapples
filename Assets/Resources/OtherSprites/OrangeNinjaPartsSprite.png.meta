@@ -1,15 +1,15 @@
 fileFormatVersion: 2
 guid: 5489becd5348c0a479354bfbe74aa370
-timeCreated: 1432705877
+timeCreated: 1432716334
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: BlackNinjaPartsSprite_0
-    21300002: BlackNinjaPartsSprite_1
-    21300004: BlackNinjaPartsSprite_2
-    21300006: BlackNinjaPartsSprite_3
-    21300008: BlackNinjaPartsSprite_4
-    21300010: BlackNinjaPartsSprite_5
+    21300000: OrangeNinjaPartsSprite_0
+    21300002: OrangeNinjaPartsSprite_1
+    21300004: OrangeNinjaPartsSprite_2
+    21300006: OrangeNinjaPartsSprite_3
+    21300008: OrangeNinjaPartsSprite_4
+    21300010: OrangeNinjaPartsSprite_5
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -55,7 +55,7 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: BlackNinjaPartsSprite_0
+    - name: OrangeNinjaPartsSprite_0
       rect:
         serializedVersion: 2
         x: 16
@@ -65,7 +65,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: BlackNinjaPartsSprite_1
+    - name: OrangeNinjaPartsSprite_1
       rect:
         serializedVersion: 2
         x: 175
@@ -75,7 +75,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: BlackNinjaPartsSprite_2
+    - name: OrangeNinjaPartsSprite_2
       rect:
         serializedVersion: 2
         x: 303
@@ -85,7 +85,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: BlackNinjaPartsSprite_3
+    - name: OrangeNinjaPartsSprite_3
       rect:
         serializedVersion: 2
         x: 48
@@ -95,7 +95,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: BlackNinjaPartsSprite_4
+    - name: OrangeNinjaPartsSprite_4
       rect:
         serializedVersion: 2
         x: 176
@@ -105,7 +105,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: BlackNinjaPartsSprite_5
+    - name: OrangeNinjaPartsSprite_5
       rect:
         serializedVersion: 2
         x: 290

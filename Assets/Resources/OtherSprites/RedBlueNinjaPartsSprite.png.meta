@@ -1,15 +1,15 @@
 fileFormatVersion: 2
-guid: 625b12985d2123542910988779853918
-timeCreated: 1432706275
+guid: 2d187d31a76b2d142bb9e302f0b9dcb1
+timeCreated: 1432716435
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: BlackNinjaPartsSprite_0
-    21300002: BlackNinjaPartsSprite_1
-    21300004: BlackNinjaPartsSprite_2
-    21300006: BlackNinjaPartsSprite_3
-    21300008: BlackNinjaPartsSprite_4
-    21300010: BlackNinjaPartsSprite_5
+    21300000: RedBlueNinjaPartsSprite_0
+    21300002: RedBlueNinjaPartsSprite1
+    21300004: RedBlueNinjaPartsSprite_2
+    21300006: RedBlueNinjaPartsSprite_3
+    21300008: RedBlueNinjaPartsSprite_4
+    21300010: RedBlueNinjaPartsSprite_5
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -55,7 +55,7 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: BlackNinjaPartsSprite_0
+    - name: RedBlueNinjaPartsSprite_0
       rect:
         serializedVersion: 2
         x: 16
@@ -65,7 +65,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: BlackNinjaPartsSprite_1
+    - name: RedBlueNinjaPartsSprite1
       rect:
         serializedVersion: 2
         x: 175
@@ -75,7 +75,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: BlackNinjaPartsSprite_2
+    - name: RedBlueNinjaPartsSprite_2
       rect:
         serializedVersion: 2
         x: 303
@@ -85,7 +85,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: BlackNinjaPartsSprite_3
+    - name: RedBlueNinjaPartsSprite_3
       rect:
         serializedVersion: 2
         x: 48
@@ -95,7 +95,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: BlackNinjaPartsSprite_4
+    - name: RedBlueNinjaPartsSprite_4
       rect:
         serializedVersion: 2
         x: 176
@@ -105,7 +105,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: BlackNinjaPartsSprite_5
+    - name: RedBlueNinjaPartsSprite_5
       rect:
         serializedVersion: 2
         x: 290

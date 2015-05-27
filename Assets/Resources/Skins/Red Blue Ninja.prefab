@@ -300,7 +300,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 194990}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.91774559, y: -5.78819847, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 10, y: 10, z: 1}
   m_Children:
   - {fileID: 459512}
@@ -377,9 +377,9 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
-  m_Offset: {x: 0, y: -.162135318}
+  m_Offset: {x: 0, y: -.170000002}
   serializedVersion: 2
-  m_Size: {x: .970000088, y: 1.59919393}
+  m_Size: {x: .970000029, y: 1.62}
 --- !u!68 &6820182
 EdgeCollider2D:
   m_ObjectHideFlags: 1
@@ -672,12 +672,15 @@ MonoBehaviour:
   jumpForceVector: {x: 0, y: 0}
   maxJumps: 2
   jumpsUsed: 0
+  dodgeForce: 12000
+  dodgeForceVector: {x: 0, y: 0}
   canClingToWall: 0
   isGrabbingWall: 0
   movementAttempted: 0
   isOnGround: 0
   isMoving: 0
   playerControllable: 1
+  isDodging: 0
 --- !u!114 &11483616
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -761,7 +764,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 1c08c9cffeb2b2841b8d2823885f5880, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2d187d31a76b2d142bb9e302f0b9dcb1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!212 &21242078
 SpriteRenderer:
@@ -787,7 +790,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300008, guid: 1c08c9cffeb2b2841b8d2823885f5880, type: 3}
+  m_Sprite: {fileID: 21300008, guid: 2d187d31a76b2d142bb9e302f0b9dcb1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!212 &21246524
 SpriteRenderer:
@@ -813,7 +816,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300006, guid: 1c08c9cffeb2b2841b8d2823885f5880, type: 3}
+  m_Sprite: {fileID: 21300006, guid: 2d187d31a76b2d142bb9e302f0b9dcb1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!212 &21251970
 SpriteRenderer:
@@ -839,7 +842,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300002, guid: 1c08c9cffeb2b2841b8d2823885f5880, type: 3}
+  m_Sprite: {fileID: 21300002, guid: 2d187d31a76b2d142bb9e302f0b9dcb1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!212 &21270976
 SpriteRenderer:
@@ -865,7 +868,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300004, guid: 1c08c9cffeb2b2841b8d2823885f5880, type: 3}
+  m_Sprite: {fileID: 21300004, guid: 2d187d31a76b2d142bb9e302f0b9dcb1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!212 &21283500
 SpriteRenderer:
@@ -891,7 +894,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: 21300010, guid: 1c08c9cffeb2b2841b8d2823885f5880, type: 3}
+  m_Sprite: {fileID: 21300010, guid: 2d187d31a76b2d142bb9e302f0b9dcb1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!231 &23115036
 SpringJoint2D:

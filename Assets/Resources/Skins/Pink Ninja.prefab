@@ -288,7 +288,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 121550}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.91774559, y: -5.78819847, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 10, y: 10, z: 1}
   m_Children:
   - {fileID: 480048}
@@ -364,9 +364,9 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
-  m_Offset: {x: 0, y: -.162135318}
+  m_Offset: {x: 0, y: -.170000002}
   serializedVersion: 2
-  m_Size: {x: .970000088, y: 1.59919393}
+  m_Size: {x: .970000029, y: 1.62}
 --- !u!61 &6147402
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -571,12 +571,15 @@ MonoBehaviour:
   jumpForceVector: {x: 0, y: 0}
   maxJumps: 2
   jumpsUsed: 0
+  dodgeForce: 12000
+  dodgeForceVector: {x: 0, y: 0}
   canClingToWall: 0
   isGrabbingWall: 0
   movementAttempted: 0
   isOnGround: 0
   isMoving: 0
   playerControllable: 1
+  isDodging: 0
 --- !u!114 &11434178
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -5,15 +5,20 @@ public class Throwing : MonoBehaviour {
 	public int maxAmmo = 4;
 	public int throwSpeed = 200;
 	public int ammo;
+	private float lastThrowTime = 0f;
+	public float minThrowDelay = 0.5f;
+	
 	public GameObject myKunai;
-
 	public GrappleManager grappleManager;
+	public PhysicsPlayerMovement playerMovement;
+	
 	public GameObject kunaiPrefab;
 	public GameObject starPrefab;
 
 	// Use this for initialization
 	void Start () {
 		grappleManager = GetComponent<GrappleManager>();
+		playerMovement = GetComponent<PhysicsPlayerMovement>();
 		ammo = maxAmmo;
 	}
 
@@ -23,30 +28,39 @@ public class Throwing : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		if(Input.GetButtonDown("Fire1") && ammo > 0)
+	void Update ()
+	{
+		bool canThrow = Time.time > lastThrowTime + minThrowDelay;
+	
+		if(Input.GetButtonDown("Fire1") && ammo > 0 && canThrow)
 		{
 			Vector3 throwVector = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0));
 			throwVector = throwVector - transform.position;
-
+			playerMovement.AnimateThrow(throwVector);
 			throwStar(throwVector);
 		}
 		
-		if(Input.GetButtonDown("Fire2"))
+		if(Input.GetButtonDown("Fire2") && canThrow)
 		{
-			if(!grappleManager.grappleIsOut)
+			if(!grappleManager.grappleIsOut && grappleManager.ropeSegments != 0 && canThrow)
 			{
 				Vector3 throwVector = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0));
 				throwVector = throwVector - transform.position;
 				throwVector.Normalize();
 				throwGrapple(throwVector.x, throwVector.y);
+				playerMovement.AnimateThrow(throwVector);
 				grappleManager.InitializeGrapple(myKunai.GetComponent<Kunai>());
 			}
-			else
+			else if(grappleManager.grappleIsOut)
 			{
 				grappleManager.RetractGrapple();
 			}
 		}
+		
+//		if(Input.GetButtonUp("Fire2"))
+//		{
+//			grappleManager.RetractGrapple();
+//		}
 	}
 
 	void throwStar (Vector3 dir) {

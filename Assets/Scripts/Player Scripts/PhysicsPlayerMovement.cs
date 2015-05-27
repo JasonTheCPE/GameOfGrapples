@@ -7,7 +7,7 @@ public class PhysicsPlayerMovement : MonoBehaviour
 	{
 		PlayerIdle = 0, PlayerRunning = 1, PlayerInAir = 2, PlayerMovingInAir = 3,
 		PlayerWallCling = 4, PlayerHangingFromRope = 5, PlayerHangingFromRopeMoving = 6,
-		PlayerThrowUpwards = 7, PlayerThrowDownwards = 8, PlayerDodgeRoll = 9,
+		PlayerThrowUpwards = 7, PlayerThrowDownwards = 8, PlayerDodge = 9,
 		PlayerDefeat = 10, PlayerVictory = 11, PlayerDeath = 12
 	};
 
@@ -17,28 +17,41 @@ public class PhysicsPlayerMovement : MonoBehaviour
 		Victory = 4, Dodge = 5, Land = 6
 	};
 	
-	public float moveForceMultiplier = 350;
+	public float moveForceMultiplier = 350f;
 	public Vector2 moveForceVector;
 	
-	public float jumpForceMultiplier = 8000;
+	public float jumpForceMultiplier = 8000f;
 	public Vector2 jumpForceVector;
 	public short maxJumps = 2;
 	public short jumpsUsed = 0;
+	
+	public float dodgeForce = 12000f;
+	public Vector2 dodgeForceVector;
+	private const float dodgeAnimationTime = 0.38f;
+	private float timeOfLastDodge = 0f;
+	private float dodgeRechargeTime = 1.0f;
+	
+	private const float throwAnimationTime = 0.1f;
 	
 	private Rigidbody2D rb;
 	private float playerWeight;
 	
 	private bool facingRight = true;
-	private float minSidewaysMoveAnimationSpeed = 0.5f;
+	private const float minSidewaysMoveAnimationSpeed = 0.6f;
 	private Animator animator;
 	private playerState lastState;
+	private float animationTimeLeft = 0f;
 	
 	public bool canClingToWall = false;
 	public bool isGrabbingWall = false;
 	public bool movementAttempted = false;
 	public bool isOnGround = false;
 	public bool isMoving = false;
+	public bool isDodging = false;
+	
 	public bool playerControllable = true;
+	
+	public GrappleManager grappleManager;
 	
 	// Use this for initialization
 	void Start ()
@@ -47,7 +60,9 @@ public class PhysicsPlayerMovement : MonoBehaviour
 		playerWeight = rb.mass;
 		jumpForceVector = new Vector2(0.0f, playerWeight * jumpForceMultiplier);
 		moveForceVector = new Vector2(playerWeight * moveForceMultiplier, 0.0f);
+		dodgeForceVector = new Vector2(playerWeight * dodgeForce, 0f);
 		animator = GetComponent<Animator>();
+		grappleManager = GetComponent<GrappleManager>();
 		lastState = playerState.PlayerIdle;
 	}
 	
@@ -58,41 +73,60 @@ public class PhysicsPlayerMovement : MonoBehaviour
 		{
 			float movement = Input.GetAxis("Horizontal");
 			
-			if(movement < 0)
+			if(animationTimeLeft <= 0)
 			{
-				facingRight = false;
-				rb.AddForce(-moveForceVector);
-				movementAttempted = true;
-			}
-			else if(movement > 0)
-			{
-				facingRight = true;
-				rb.AddForce(moveForceVector);
-				movementAttempted = true;
-			}
-			else
-			{
-				movementAttempted = false;
-			}
-			
-			if (Input.GetKeyDown("space"))
-			{
-				if (jumpsUsed < maxJumps)
+				bool canDodge = Time.time > timeOfLastDodge + dodgeRechargeTime;
+				if(Input.GetButtonDown("DodgeLeft") && isOnGround && canDodge)
 				{
-					GetComponent<NetworkView>().RPC("PlaySFX", RPCMode.All, (int)playerSounds.Jump);
-					if (jumpsUsed > 0)
+					facingRight = false;
+					rb.AddForce(-dodgeForceVector);
+					isDodging = true;
+				}
+				else if(Input.GetButtonDown("DodgeRight") && isOnGround && canDodge)
+				{
+					facingRight = true;
+					rb.AddForce(dodgeForceVector);
+					isDodging = true;
+				}
+				else
+				{
+					if(movement < 0)
 					{
-						if(rb.velocity.y < 0) //double jump will cancel downward momentum
-						{
-							rb.velocity = new Vector2(rb.velocity.x, 0);
-						}
-						rb.AddForce(jumpForceVector * 0.5f);
+						facingRight = false;
+						rb.AddForce(-moveForceVector);
+						movementAttempted = true;
+					}
+					else if(movement > 0)
+					{
+						facingRight = true;
+						rb.AddForce(moveForceVector);
+						movementAttempted = true;
 					}
 					else
 					{
-						rb.AddForce(jumpForceVector);
+						movementAttempted = false;
 					}
-					++jumpsUsed;
+					
+					if (Input.GetKeyDown("space"))
+					{
+						if (jumpsUsed < maxJumps)
+						{
+							GetComponent<NetworkView>().RPC("PlaySFX", RPCMode.All, (int)playerSounds.Jump);
+							if (jumpsUsed > 0)
+							{
+								if(rb.velocity.y < 0) //double jump will cancel downward momentum
+								{
+									rb.velocity = new Vector2(rb.velocity.x, 0);
+								}
+								rb.AddForce(jumpForceVector * 0.5f);
+							}
+							else
+							{
+								rb.AddForce(jumpForceVector);
+							}
+							++jumpsUsed;
+						}
+					}
 				}
 			}
 			
@@ -174,12 +208,42 @@ public class PhysicsPlayerMovement : MonoBehaviour
 		}
 	}
 	
+	public void AnimateThrow(Vector3 throwVector)
+	{
+		if(throwVector.y > 0)
+		{
+			lastState = playerState.PlayerThrowUpwards;
+		}
+		else
+		{
+			lastState = playerState.PlayerThrowDownwards;
+		}
+		GetComponent<NetworkView>().RPC("LaunchAnimation", RPCMode.All, (int) lastState);
+		animationTimeLeft = throwAnimationTime;
+	}
+	
 	private void TriggerAnimationTransition()
 	{
 		playerState thisState;
 		
 		if(lastState == playerState.PlayerDefeat || lastState == playerState.PlayerVictory)
 		{
+			return;
+		}
+		
+		if(animationTimeLeft > 0)
+		{
+			animationTimeLeft -= Time.deltaTime;
+			return;
+		}
+		
+		if(isDodging)
+		{
+			lastState = playerState.PlayerDodge;
+			GetComponent<NetworkView>().RPC("LaunchAnimation", RPCMode.All, (int) lastState);
+			isDodging = false;
+			animationTimeLeft = dodgeAnimationTime;
+			timeOfLastDodge = Time.time;
 			return;
 		}
 		
@@ -198,11 +262,25 @@ public class PhysicsPlayerMovement : MonoBehaviour
 		{
 			if(isMoving)
 			{
-				thisState = playerState.PlayerMovingInAir;
+				if(grappleManager.grappleIsOut)
+				{
+					thisState = playerState.PlayerHangingFromRopeMoving;
+				}
+				else
+				{
+					thisState = playerState.PlayerMovingInAir;
+				}
 			}
 			else
 			{
-				thisState = playerState.PlayerInAir;
+				if(grappleManager.grappleIsOut)
+				{
+					thisState = playerState.PlayerHangingFromRope;
+				}
+				else
+				{
+					thisState = playerState.PlayerInAir;
+				}
 				
 				if(isGrabbingWall)
 				{
@@ -214,7 +292,7 @@ public class PhysicsPlayerMovement : MonoBehaviour
 		if(thisState != lastState)
 		{
 			//LaunchAnimation(thisState);
-			GetComponent<NetworkView>().RPC("LaunchAnimation", RPCMode.All, (int)thisState);
+			GetComponent<NetworkView>().RPC("LaunchAnimation", RPCMode.All, (int) thisState);
 			lastState = thisState;
 		}
 	}
