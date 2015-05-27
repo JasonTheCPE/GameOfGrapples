@@ -149,8 +149,10 @@ public class MapSelector : MonoBehaviour {
 		GUILayout.BeginArea(new Rect(460, 41, 150, Screen.height - 90));
 		
 		for(int i = 0; i < skins.Length; ++i) {
-			if(GUILayout.Button(skins[i].name)) {
-				MultiplayerManager.instance.GetComponent<NetworkView>().RPC("SetSkin", RPCMode.All, i, Network.player);
+			GameObject holdSkin = (GameObject)skins[i];
+			if(GUILayout.Button(holdSkin.GetComponent<ID>().skinName)) {
+				MultiplayerManager.instance.GetComponent<NetworkView>().RPC("SetSkin", 
+					RPCMode.All, holdSkin.GetComponent<ID>().skinID, Network.player);
 			}
 		}
 		
