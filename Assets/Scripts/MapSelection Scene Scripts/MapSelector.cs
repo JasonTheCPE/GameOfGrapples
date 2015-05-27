@@ -140,7 +140,7 @@ public class MapSelector : MonoBehaviour {
 			if(GUI.Button(new Rect(322, 243, 30, 30), "+")) {
 				if (ammo < 11) {
 					++ammo;
-				}
+				} 
 				MultiplayerManager.instance.GetComponent<NetworkView>().RPC("SetAmmo", RPCMode.All, ammo);
 			}
 		}
