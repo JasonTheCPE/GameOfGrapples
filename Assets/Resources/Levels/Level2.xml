@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="Windows-1252"?>
-<Level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" LevelName="Level2" LevelWidth="40" LevelHeight="25" LevelGravity="1" LevelBorder="">
+<Level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" LevelName="Level2" LevelWidth="40" LevelHeight="25" LevelGravity="1" LevelBorder="block">
   <Tiles>
     <Tile prefab="BrickTile" posX="6" posY="4" rot="0" scaleX="18.75" scaleY="18.75" />
     <Tile prefab="BrickTile" posX="-18" posY="-36" rot="0" scaleX="18.75" scaleY="18.75" />
