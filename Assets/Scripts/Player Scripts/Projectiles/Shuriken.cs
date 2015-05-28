@@ -28,7 +28,8 @@ public class Shuriken : MonoBehaviour
 		if(other.tag == "Tiles")
 		{
 			isActive = false;
-			GetComponent<Rigidbody2D>().velocity = new Vector3(0,0,0);
+			//GetComponent<Rigidbody2D>().velocity = new Vector3(0,0,0);
+			GetComponent<Rigidbody2D>().isKinematic = true;
 			GetComponent<ThrowingAudio>().PlayHitWallSFX();
 		}
 		else if (other.tag == "Player")// || other.tag == "OtherDestructible")

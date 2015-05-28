@@ -7,11 +7,17 @@ public class RopeDestruction : MonoBehaviour
 	
 	void OnTriggerEnter2D (Collider2D other)
 	{
-		if (GetComponent<NetworkView>().isMine) {
+		if (GetComponent<NetworkView>().isMine)
+		{
 			if(other.tag == "Weapon" && other.gameObject != kunai.gameObject)
 			{
-				kunai.ropeIntact = false;
-				GetComponent<NetworkView>().RPC("SelfDestruct", RPCMode.AllBuffered);
+				Rigidbody2D rbInOther = other.GetComponent<Rigidbody2D>();
+				if(rbInOther != null && !rbInOther.isKinematic)
+				{
+					rbInOther.velocity = rbInOther.velocity * 0.95f;
+					kunai.ropeIntact = false;
+					GetComponent<NetworkView>().RPC("SelfDestruct", RPCMode.AllBuffered);
+				}
 			}
 		}
 	}
