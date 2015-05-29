@@ -17,7 +17,7 @@ public class PhysicsPlayerMovement : MonoBehaviour
 		Victory = 4, Dodge = 5, Land = 6
 	};
 	
-	public float moveForceMultiplier = 350f;
+	public float moveForceMultiplier = 9000f;
 	public Vector2 moveForceVector;
 	
 	public float jumpForceMultiplier = 8000f;
@@ -93,13 +93,13 @@ public class PhysicsPlayerMovement : MonoBehaviour
 					if(movement < 0)
 					{
 						facingRight = false;
-						rb.AddForce(-moveForceVector);
+						rb.AddForce(-moveForceVector * Time.deltaTime);
 						movementAttempted = true;
 					}
 					else if(movement > 0)
 					{
 						facingRight = true;
-						rb.AddForce(moveForceVector);
+						rb.AddForce(moveForceVector * Time.deltaTime);
 						movementAttempted = true;
 					}
 					else

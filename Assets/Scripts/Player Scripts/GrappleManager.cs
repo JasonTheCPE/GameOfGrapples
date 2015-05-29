@@ -182,7 +182,7 @@ public class GrappleManager : MonoBehaviour
 		toDestroy = grapplePiece;
 		if(kunai != null && grapplePiece == kunai.GetComponent<Rigidbody2D>()) //pulling in the kunai not a rope segment
 		{
-			--pulledIn;
+			pulledIn -= 2;
 		}
 		else
 		{

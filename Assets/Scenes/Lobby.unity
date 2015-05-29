@@ -401,14 +401,6 @@ Prefab:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 11462982, guid: 0e57c46015d48064e85dd13d480f6e12, type: 2}
-      propertyPath: dodgeForce
-      value: 12000
-      objectReference: {fileID: 0}
-    - target: {fileID: 445160, guid: 0e57c46015d48064e85dd13d480f6e12, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 10
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0e57c46015d48064e85dd13d480f6e12, type: 2}
   m_IsPrefabParent: 0

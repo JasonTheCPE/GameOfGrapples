@@ -666,7 +666,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86ea5018e1105ff49a3cf6831f96af32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveForceMultiplier: 350
+  moveForceMultiplier: 20000
   moveForceVector: {x: 0, y: 0}
   jumpForceMultiplier: 8000
   jumpForceVector: {x: 0, y: 0}
@@ -679,8 +679,9 @@ MonoBehaviour:
   movementAttempted: 0
   isOnGround: 0
   isMoving: 0
-  playerControllable: 1
   isDodging: 0
+  playerControllable: 1
+  grappleManager: {fileID: 0}
 --- !u!114 &11483616
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -713,8 +714,10 @@ MonoBehaviour:
   maxAmmo: 4
   throwSpeed: 200
   ammo: 0
+  minThrowDelay: .5
   myKunai: {fileID: 0}
   grappleManager: {fileID: 0}
+  playerMovement: {fileID: 0}
   kunaiPrefab: {fileID: 100052, guid: d79bed03d5cb27841908ba1918ccf494, type: 2}
   starPrefab: {fileID: 143626, guid: 7e7372d0421ddfe4dbdb08a892a2fcae, type: 2}
 --- !u!114 &11498036
