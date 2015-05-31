@@ -42,7 +42,7 @@ public class Throwing : MonoBehaviour {
 		
 		if(Input.GetButtonDown("Fire2") && canThrow)
 		{
-			if(!grappleManager.grappleIsOut && grappleManager.ropeSegments != 0 && canThrow)
+			if(!grappleManager.grappleIsOut && grappleManager.heldRopeSegments != 0 && canThrow)
 			{
 				Vector3 throwVector = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0));
 				throwVector = throwVector - transform.position;

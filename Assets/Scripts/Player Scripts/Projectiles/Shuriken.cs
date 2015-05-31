@@ -7,14 +7,14 @@ public class Shuriken : MonoBehaviour
 	public const float spinAmount = 16.0f;
 
 	// Use this for initialization
-	void Start ()
+	void Start()
 	{
 		//Debug.Log("Hello");
 		GetComponent<ThrowingAudio>().PlayThrowSFX();
 	}
 
 	// Update is called once per frame
-	void Update ()
+	void Update()
 	{
 		if(!Mathf.Approximately(GetComponent<Rigidbody2D>().velocity.x, 0f) || !Mathf.Approximately(GetComponent<Rigidbody2D>().velocity.y, 0f))
 		{
@@ -23,7 +23,7 @@ public class Shuriken : MonoBehaviour
 		
 	}
 
-	void OnTriggerEnter2D (Collider2D other)
+	void OnTriggerEnter2D(Collider2D other)
 	{
 		if(other.tag == "Tiles")
 		{
@@ -32,20 +32,25 @@ public class Shuriken : MonoBehaviour
 			GetComponent<Rigidbody2D>().isKinematic = true;
 			GetComponent<ThrowingAudio>().PlayHitWallSFX();
 		}
-		else if (other.tag == "Player")// || other.tag == "OtherDestructible")
+		else if(other.tag == "Player")// || other.tag == "OtherDestructible")
 		{
-			if (isActive)
+			if(isActive)
 			{
 				int myTeam = GetComponent<ID>().teamID;
 				int myNumber = GetComponent<ID>().playerNumber;
 				int otherTeam = other.gameObject.GetComponent<ID>().teamID;
 				int otherPlayerNumber = other.gameObject.GetComponent<ID>().playerNumber;
 				
-				if (myNumber != otherPlayerNumber && (myTeam == -1 || myTeam != otherTeam))
+				if (myNumber != otherPlayerNumber)
 				{
-					GetComponent<ThrowingAudio>().PlayHitPlayerSFX();
-					Debug.Log("Shuriken's playerID: " + myNumber + " killed " + otherPlayerNumber);
-					other.gameObject.GetComponent<NetworkView>().RPC("GetHurt", RPCMode.All);
+					if(myTeam == -1 || myTeam != otherTeam)
+					{
+						GetComponent<ThrowingAudio>().PlayHitPlayerSFX();
+						//Debug.Log("Shuriken's playerID: " + myNumber + " hit " + otherPlayerNumber);
+						other.gameObject.GetComponent<NetworkView>().RPC("GetHurt", RPCMode.All);
+					}
+					
+					other.GetComponent<Throwing>().pickupStar();
 					GetComponent<NetworkView>().RPC("SelfDestruct", RPCMode.All);
 				}
 			}

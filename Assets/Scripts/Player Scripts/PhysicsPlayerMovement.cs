@@ -22,6 +22,7 @@ public class PhysicsPlayerMovement : MonoBehaviour
 	
 	public float jumpForceMultiplier = 8000f;
 	public Vector2 jumpForceVector;
+	private float upwardVelocityBound;
 	public short maxJumps = 2;
 	public short jumpsUsed = 0;
 	
@@ -107,10 +108,22 @@ public class PhysicsPlayerMovement : MonoBehaviour
 						movementAttempted = false;
 					}
 					
+					TryClingToWall();
+					
 					if (Input.GetKeyDown("space"))
 					{
 						if (jumpsUsed < maxJumps)
 						{
+							//Vector2 adjustedJumpForce;
+							if(!isOnGround && !isGrabbingWall)
+							{
+								if(jumpsUsed == 0)
+								{
+									jumpsUsed = 1;
+								}
+							}
+							
+							//Debug.Log(adjustedJumpForce);
 							GetComponent<NetworkView>().RPC("PlaySFX", RPCMode.All, (int)playerSounds.Jump);
 							if (jumpsUsed > 0)
 							{
@@ -145,7 +158,7 @@ public class PhysicsPlayerMovement : MonoBehaviour
 				isMoving = false;
 			}
 			
-			TryClingToWall();
+			
 			TriggerAnimationTransition();
 		}
 		else
@@ -200,7 +213,7 @@ public class PhysicsPlayerMovement : MonoBehaviour
 		if(canClingToWall && movementAttempted && !isOnGround)
 		{
 			isGrabbingWall = true;
-			jumpsUsed = 0;
+			jumpsUsed = 1;
 		}
 		else
 		{
@@ -226,7 +239,9 @@ public class PhysicsPlayerMovement : MonoBehaviour
 	{
 		playerState thisState;
 		
-		if(lastState == playerState.PlayerDefeat || lastState == playerState.PlayerVictory)
+		if(lastState == playerState.PlayerDefeat ||
+		   lastState == playerState.PlayerVictory ||
+		   lastState == playerState.PlayerDeath)
 		{
 			return;
 		}

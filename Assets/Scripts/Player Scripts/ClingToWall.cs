@@ -4,20 +4,32 @@ using System.Collections;
 public class ClingToWall : MonoBehaviour
 {
 	PhysicsPlayerMovement parentPlayer;
-	private int thingsSlidingDown;
+	private short thingsColliding;
 	
 	void Start()
 	{
 		parentPlayer = GetComponentInParent<PhysicsPlayerMovement>();
-		thingsSlidingDown = 0;
+		thingsColliding = 0;
+	}
+	
+	void Update()
+	{
+		if(thingsColliding > 0)
+		{
+			parentPlayer.canClingToWall = true;
+			--thingsColliding;
+		}
+		else
+		{
+			parentPlayer.canClingToWall = false;
+		}
 	}
 	
 	void OnTriggerEnter2D (Collider2D other)
 	{
 		if(other.tag == "Tiles")
 		{
-			++thingsSlidingDown;
-			parentPlayer.canClingToWall = true;
+			thingsColliding = 2;
 		}
 	}
 	
@@ -25,18 +37,7 @@ public class ClingToWall : MonoBehaviour
 	{
 		if(other.tag == "Tiles")
 		{
-			parentPlayer.canClingToWall = true;
-		}
-	}
-	
-	void OnTriggerExit2D(Collider2D other)
-	{
-		if(other.tag == "Tiles")
-		{
-			if(--thingsSlidingDown == 0)
-			{
-				parentPlayer.canClingToWall = false;
-			}
+			thingsColliding = 2;
 		}
 	}
 }

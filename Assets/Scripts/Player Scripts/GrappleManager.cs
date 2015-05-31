@@ -3,16 +3,20 @@ using System.Collections;
 
 public class GrappleManager : MonoBehaviour
 {
-	private const float pullInDistanceMultiplier = 16;
+	private const float pullInDistanceMultiplier = 12;
 	private const float outOfRopeKunaiDrag = 0.1f;
 	private const float outOfRopeKunaiMass = 8f;
-	private const float pullInDivisorBase = 1f;
+	private const float pullInDivisorBase = 4f;
 	private const float pullInDivisorStep = 0.1f;
-	private const float pullInKunaiDrag = 4f;
-	private const float pullInKunaiMass = 0.2f;
-	private const float pullInRopeDrag = 2f;
+	private const float pullInKunaiDrag = 8f;
+	private const float pullInKunaiMass = 0.1f;
+	private const float pullInRopeDrag = 0.8f;
+	private const float ropeSpawnDistanceRatio = 6f;
+	private const float playerFrequencyOnRetract = 16;
 
-	public int ropeSegments = 50;
+	public int maxRopeSegments = 50;
+	//public int ropeSegmentsInRope;
+	public int heldRopeSegments;
 	public bool grappleIsOut = false;
 	public bool beingRetracted = false;
 	public bool grappleMassReduced;
@@ -25,12 +29,16 @@ public class GrappleManager : MonoBehaviour
 	
 	public GameObject ropePrefab;
 	
+	void Start()
+	{
+		heldRopeSegments = maxRopeSegments;
+	}
+	
 	public void InitializeGrapple(Kunai newKunai)
 	{
-		if(ropeSegments == 0)
+		if(heldRopeSegments == 0)
 		{
 			kunai.GetComponent<NetworkView>().RPC("SelfDestruct", RPCMode.AllBuffered);
-			//Destroy(kunai.gameObject);
 			return;
 		}
 	
@@ -79,7 +87,7 @@ public class GrappleManager : MonoBehaviour
 	private void ReduceGrappleMass()
 	{
 		//Debug.Log("ReduceGrappleMass");
-		SpringJoint2D joint = GetComponent<SpringJoint2D>();
+		SpringJoint2D joint = GetComponent<SpringJoint2D>().connectedBody.GetComponent<SpringJoint2D>();
 		Rigidbody2D next;
 		
 		float divisor = pullInDivisorBase;
@@ -111,10 +119,11 @@ public class GrappleManager : MonoBehaviour
 	{
 		var dir = lastRopeSegment.transform.position - gameObject.transform.position;
 		float distanceLeft = dir.magnitude;
-		dir = dir.normalized;
-		Rigidbody2D lastRopeSegRb;
 		
-		while(ropeSegments > 0 && distanceLeft > ropeSegSize)
+		dir = dir.normalized;
+		float distanceBetweenSpawnedSegs = ropeSegSize * ropeSpawnDistanceRatio;
+		Rigidbody2D lastRopeSegRb;
+		while(heldRopeSegments > 0 && distanceLeft > distanceBetweenSpawnedSegs)
 		{
 			GameObject newRope = (GameObject)Network.Instantiate(ropePrefab, lastRopeSegment.transform.position - dir * ropeSegSize, Quaternion.identity, 0);
 			newRope.GetComponent<RopeDestruction>().kunai = kunai;
@@ -127,8 +136,8 @@ public class GrappleManager : MonoBehaviour
 			jointDis.distance = ropeSegSize;
 			lastRopeSegment = newRope;
 			
-			distanceLeft -= ropeSegSize;
-			--ropeSegments;
+			distanceLeft -= distanceBetweenSpawnedSegs;
+			--heldRopeSegments;
 		}
 	}
 	
@@ -196,11 +205,11 @@ public class GrappleManager : MonoBehaviour
 			playersJoint.connectedBody = grapplePiece;
 		}
 		
-		ropeSegments += pulledIn;
+		heldRopeSegments += pulledIn;
 	}
 		
 	// Update is called once per frame
-	void Update ()
+	void FixedUpdate ()
 	{
 		if(grappleIsOut)
 		{
@@ -212,7 +221,7 @@ public class GrappleManager : MonoBehaviour
 			{
 				if(kunai.ropeIntact)
 				{
-					if(!kunai.isStuck && ropeSegments > 0)
+					if(!kunai.isStuck && heldRopeSegments > 0)
 					{
 						AddToRope();
 					}
@@ -222,7 +231,7 @@ public class GrappleManager : MonoBehaviour
 						ConnectRopeToPlayer();
 					}
 					
-					if(ropeSegments == 0)
+					if(heldRopeSegments == 0)
 					{
 						RetractGrapple();
 					}

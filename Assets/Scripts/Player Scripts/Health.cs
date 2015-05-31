@@ -34,6 +34,11 @@ public class Health : MonoBehaviour
 		//GetComponent<NetworkView>().RPC("FadeInvincibilityAndColors", RPCMode.All);
 		FadeInvincibilityAndColors();
 	}
+	
+	public void BeInvincible(float seconds)
+	{
+		invincibilityTime = seconds;
+	}
 
 	public int GetHit(int damage)
 	{
@@ -76,7 +81,6 @@ public class Health : MonoBehaviour
 			int health = GetHit(1);
 		}
 		
-		//GetComponent<Throwing>().pickupStar();
 		if(GetComponent<NetworkView>().isMine == true)
 		{
 			Referee reff = GameObject.Find("Ingame Manager").GetComponent<Referee>();
