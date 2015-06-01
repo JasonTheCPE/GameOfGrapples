@@ -49,7 +49,10 @@ public class Throwing : MonoBehaviour {
 				throwVector.Normalize();
 				throwGrapple(throwVector.x, throwVector.y);
 				playerMovement.AnimateThrow(throwVector);
-				grappleManager.InitializeGrapple(myKunai.GetComponent<Kunai>());
+				if(myKunai != null)
+				{
+					grappleManager.InitializeGrapple(myKunai.GetComponent<Kunai>());
+				}
 			}
 			else if(grappleManager.grappleIsOut)
 			{

@@ -24,10 +24,15 @@ public class Kunai : MonoBehaviour
 	{
 		if(turnTowardsVelocity)
 		{
-			Vector2 dir = GetComponent<Rigidbody2D>().velocity;
-			float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90f;
-			transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+			TurnWithMotion();
 		}
+	}
+	
+	private void TurnWithMotion()
+	{
+		Vector2 dir = GetComponent<Rigidbody2D>().velocity;
+		float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90f;
+		transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 	}
 
 	[RPC]
@@ -41,6 +46,7 @@ public class Kunai : MonoBehaviour
 	{
 		GetComponent<ThrowingAudio>().PlayHitWallSFX();
 		GetComponentInParent<Kunai>().isStuck = true;
+		TurnWithMotion();
 		GetComponentInParent<Kunai>().turnTowardsVelocity = false;
 		GetComponentInParent<Rigidbody2D>().isKinematic = true;
 	}
