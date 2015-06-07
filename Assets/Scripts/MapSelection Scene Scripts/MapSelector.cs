@@ -208,6 +208,7 @@ public class MapSelector : MonoBehaviour {
 
 	void OnDisconnectedFromServer(NetworkDisconnection info) {
 		GameObject.Find("Sound Manager").GetComponent<SoundManager>().PlayBackground(MainMenuAudio);
+		Destroy(GameObject.Find("Multiplayer Manager"));
 		Application.LoadLevel("Lobby");
 	}
 }

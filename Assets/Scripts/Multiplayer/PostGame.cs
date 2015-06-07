@@ -124,4 +124,9 @@ public class PostGame : MonoBehaviour {
 			}
 		}
 	}
+
+	void OnDisconnectedFromServer(NetworkDisconnection info) {
+		Destroy(GameObject.Find("Multiplayer Manager"));
+		Application.LoadLevel("Lobby");
+	}
 }
