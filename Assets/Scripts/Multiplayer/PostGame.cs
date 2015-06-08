@@ -120,6 +120,7 @@ public class PostGame : MonoBehaviour {
 		//check if everyone had been at the victory screen too long
 		if (timer  > MaxTimeWaiting) {
 			Application.LoadLevel("Prep");
+			//mm.GetComponent<NetworkView>().RPC("ToPrepRoom", RPCMode.All, Network.player);
 		}
 	}
 	
