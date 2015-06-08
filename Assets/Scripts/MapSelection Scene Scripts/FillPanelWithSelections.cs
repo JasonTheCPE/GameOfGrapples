@@ -5,50 +5,48 @@ using UnityEngine.UI;
 public class FillPanelWithSelections : MonoBehaviour
 {
 	public string resourcesDirectory;
-	public Object[] options;
+	private Object[] options;
 	
-	public Color buttonColor;
-	public Color selectedButtonColor;
-	public Color buttonFontColor;
-	public Font buttonFont;
-	public Image buttonTexture;
-	public float buttonHeight;
-	public float buttonWidth;
+	public GameObject buttonPrefab;
+	public float vertSpaceRatio;
+	private float buttonHeight;
+	private float spaceBtwnButtons;
 	
 	public RectTransform panel;
 	public float minimumPanelSize;
 	
+	public ButtonSelection buttonSelection;
+	
 	// Use this for initialization
 	void Start ()
 	{
-		panel = GetComponent<RectTransform>();
 		options = Resources.LoadAll(resourcesDirectory);
-		//Button newButton = Button(new Rect(0, 0, buttonWidth, buttonHeight), "HELLO");
-		CreateButton(panel.transform, new Vector3(0f, 0f, -1f),
-		             new Vector2(buttonWidth, buttonHeight), () => EventFn(options[0].name));
-		//Button(new Rect(0, 0, buttonWidth, buttonHeight), "HELLO")
+		
+		buttonHeight = buttonPrefab.GetComponent<RectTransform>().rect.height;
+		spaceBtwnButtons = buttonHeight * vertSpaceRatio;
+
+		float heightOfPanel = options.Length * spaceBtwnButtons;
+		if(heightOfPanel < minimumPanelSize)
+		{
+			heightOfPanel = minimumPanelSize;
+		}
+		panel.transform.GetComponentInParent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, heightOfPanel);
+		
+		float yPos = panel.position.y - spaceBtwnButtons / 2;
+		
+		foreach(Object o in options)
+		{
+			CreateButton(o.name, yPos, () => buttonSelection.SelectOption(o.name));
+			yPos -= spaceBtwnButtons;
+		}
 	}
 	
-	// Update is called once per frame
-	void Update ()
+	public void CreateButton(string buttonText, float yPos, UnityEngine.Events.UnityAction method)
 	{
-	
-	}
-	
-	public void CreateButton(Transform panel ,Vector3 position, Vector2 size, UnityEngine.Events.UnityAction method)
-	{
-		GameObject button = new GameObject();
-		button.transform.parent = panel;
-		button.AddComponent<RectTransform>();
-		button.AddComponent<Image>();
-		button.AddComponent<Button>();
-		button.transform.position = position;
-		button.GetComponent<RectTransform>().sizeDelta = size;
+		GameObject button = Instantiate(buttonPrefab) as GameObject;
 		button.GetComponent<Button>().onClick.AddListener(method);
-	}
-	
-	public void EventFn(string str)
-	{
-		Debug.Log(str);
+		button.GetComponentInChildren<Text>().text = buttonText;
+		button.transform.SetParent(panel.transform);
+		button.transform.position = new Vector3(panel.position.x, yPos, 0);
 	}
 }
