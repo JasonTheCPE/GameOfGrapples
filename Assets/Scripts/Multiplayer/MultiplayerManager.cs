@@ -155,8 +155,9 @@ public class MultiplayerManager : MonoBehaviour {
 	}
 	
 	[RPC]
-	void AssignWin(NetworkPlayer view) {
+	public void AssignWin(NetworkPlayer view) {
 		//if (GetComponent<NetworkView>().isMine) {
+		Debug.Log("Assigning win");
 		PreviousWinners.Clear();
 		foreach(MyPlayer pl in PlayerList) {
 			if(pl.playerNetwork == view) {
@@ -240,7 +241,6 @@ public class MultiplayerManager : MonoBehaviour {
 				GameObject.Find("Ingame Manager").GetComponent<Referee>().isTimed = true;
 			}
 			GameObject.Find("Ingame Manager").GetComponent<Referee>().timer = matchTime;
-			GameObject.Find("Ingame Manager").GetComponent<Referee>().startHealth = matchHP;
 			spawnPlayer(usingSkin);
 		} else if (level == 4) {
 			if (Network.isServer) {

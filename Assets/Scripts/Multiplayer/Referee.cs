@@ -6,7 +6,6 @@ public class Referee : MonoBehaviour {
 	
 	private MultiplayerManager mm;
 	public List<ActivePlayer> ingamePlayers;
-	public int startHealth = 1;
 	private int[] teams = new int[8] {0,0,0,0,0,0,0,0};
 	public float timer = 60; //in seconds
 	public bool isTimed = true;
@@ -49,7 +48,7 @@ public class Referee : MonoBehaviour {
 		int i = 0;
 		foreach (ActivePlayer ap in ingamePlayers) {
 			++i;
-			GUI.Box(new Rect(10, 20 + 30*i, 100, 30), (ap.playerName + " " + ap.health));
+			GUI.Box(new Rect(10, 20 + 30*i, 100, 30), (ap.playerName));
 		}
 	}
 
@@ -60,52 +59,53 @@ public class Referee : MonoBehaviour {
 	public void StopTimer() {
 		timerStarted = false;
 	}
-	
-	[RPC]
-	public void KillPlayer(NetworkPlayer view) {
-		//if(GetComponent<NetworkView>().isMine == true) {
-			foreach(ActivePlayer ap in ingamePlayers) {
-				if (ap.playerNetwork == view) {
-					--ap.health;
-					if (ap.health == 0) {
-						ap.isAlive = false;
-						teams[ap.onTeam] -= 1;
-					} //MERP
+
+	public void CheckWin() {
+		if (mm.allowTeams) {
+			int teamsAlive = 0, winningTeam = -1;
+			for (int i = 1; i < 8; ++i) {
+				if(teams[i] > 0) {
+					++teamsAlive;
+					winningTeam = i;
 				}
 			}
 			
-			if (mm.allowTeams) {
-				int teamsAlive = 0, winningTeam = -1;
-				for (int i = 1; i < 8; ++i) {
-					if(teams[i] > 0) {
-						++teamsAlive;
-						winningTeam = i;
-					}
-				}
-				
-				if (teamsAlive == 1) {
-					TeamWin(winningTeam);
-				} else if (teamsAlive == 0) {
-					Debug.Log("Game over! It's a DRAW! All teams DIED!");
-					DrawGame();
-				}
-				
-			} else {
-				if(teams[0] == 1) {
-					Debug.Log("Game over! One person left alive");
-					foreach(ActivePlayer ap in ingamePlayers) {
-						if (ap.isAlive) {
-							Debug.Log("The winner is " + ap.playerName);
-							PlayerWin(ap.playerNetwork);
-							return;
-						}
-					}
-				} else if (teams[0] == 0) {
-					Debug.Log("Game over! It's a DRAW!");
-					DrawGame();
-				}
+			if (teamsAlive == 1) {
+				TeamWin(winningTeam);
+			} else if (teamsAlive == 0) {
+				Debug.Log("Game over! It's a DRAW! All teams DIED!");
+				DrawGame();
 			}
-		//}
+			
+		} else {
+			
+			if(teams[0] == 1) {
+				Debug.Log("Game over! One person left alive");
+				foreach(ActivePlayer ap in ingamePlayers) {
+					if (ap.isAlive) {
+						Debug.Log("The winner is " + ap.playerName);
+						PlayerWin(ap.playerNetwork);
+						return;
+					}
+				}
+			} else if (teams[0] == 0) {
+				Debug.Log("Game over! It's a DRAW!");
+				DrawGame();
+			}
+		}
+	}
+	
+	[RPC]
+	public void KillPlayer(NetworkPlayer view) {
+		foreach(ActivePlayer ap in ingamePlayers) {
+			if (ap.playerNetwork == view) {
+				ap.isAlive = false;
+				teams[ap.onTeam] -= 1;
+			}
+		}
+
+		if (Network.isServer)
+			CheckWin();
 	}
 
 	void TeamWin(int winningTeam) {
@@ -119,6 +119,7 @@ public class Referee : MonoBehaviour {
 
 	void PlayerWin(NetworkPlayer winner) {
 		mm.GetComponent<NetworkView>().RPC("AssignWin", RPCMode.All, winner); // might not need to be rpc
+		//mm.AssignWin(winner);
 	}
 	
 	void AddPlayer(string name, NetworkPlayer view, int teamNumber) {
@@ -129,7 +130,6 @@ public class Referee : MonoBehaviour {
 		tempPlayer.onTeam = teamNumber;
 		ingamePlayers.Add(tempPlayer);
 		teams[teamNumber] += 1;
-		tempPlayer.health = startHealth;
 	}
 	
 	void OnDisconnectedFromServer(NetworkDisconnection info) {
@@ -144,5 +144,4 @@ public class ActivePlayer {
 	public NetworkPlayer playerNetwork;
 	public bool isAlive;
 	public int onTeam;
-	public int health;
 }
