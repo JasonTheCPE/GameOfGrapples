@@ -1,5 +1,21 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &121868
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 468070}
+  - 60: {fileID: 6053792}
+  m_Layer: 8
+  m_Name: WeaponCollider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &143626
 GameObject:
   m_ObjectHideFlags: 0
@@ -31,8 +47,21 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 18, y: 18, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 468070}
   m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!4 &468070
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 121868}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 467896}
   m_RootOrder: 0
 --- !u!50 &5085138
 Rigidbody2D:
@@ -49,6 +78,27 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
+--- !u!60 &6053792
+PolygonCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 121868}
+  m_Enabled: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  m_Points:
+    m_Paths:
+    - - {x: .0568964928, y: .0571565032}
+      - {x: .000502027571, y: .321448386}
+      - {x: -.0591123477, y: .0582080781}
+      - {x: -.31952104, y: .000338512938}
+      - {x: -.0563435256, y: -.0540036038}
+      - {x: .000111804227, y: -.319592774}
+      - {x: .0571336336, y: -.0528495237}
+      - {x: .319664478, y: -3.11555341e-05}
 --- !u!60 &6090798
 PolygonCollider2D:
   m_ObjectHideFlags: 1

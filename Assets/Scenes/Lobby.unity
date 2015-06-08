@@ -242,6 +242,60 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
+--- !u!1001 &902305381
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 467896, guid: 7e7372d0421ddfe4dbdb08a892a2fcae, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 467896, guid: 7e7372d0421ddfe4dbdb08a892a2fcae, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 467896, guid: 7e7372d0421ddfe4dbdb08a892a2fcae, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 467896, guid: 7e7372d0421ddfe4dbdb08a892a2fcae, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 467896, guid: 7e7372d0421ddfe4dbdb08a892a2fcae, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 467896, guid: 7e7372d0421ddfe4dbdb08a892a2fcae, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 467896, guid: 7e7372d0421ddfe4dbdb08a892a2fcae, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 467896, guid: 7e7372d0421ddfe4dbdb08a892a2fcae, type: 2}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 14820646, guid: 7e7372d0421ddfe4dbdb08a892a2fcae, type: 2}
+      propertyPath: m_ViewID.m_ID
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 14820646, guid: 7e7372d0421ddfe4dbdb08a892a2fcae, type: 2}
+      propertyPath: m_ViewID.m_Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 143626, guid: 7e7372d0421ddfe4dbdb08a892a2fcae, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 7e7372d0421ddfe4dbdb08a892a2fcae, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &937415429
 GameObject:
   m_ObjectHideFlags: 0
@@ -368,6 +422,8 @@ MonoBehaviour:
   matchTime: 60
   matchHP: 1
   matchAmmo: 4
+  isMatchStarted: 0
+  allowTeams: 0
   playerName: Host Player
   playerPrefab: {fileID: 113784, guid: 0e57c46015d48064e85dd13d480f6e12, type: 2}
   PlayerList: []
@@ -377,8 +433,6 @@ MonoBehaviour:
     mapLoadName: 
     mapLoadTexture: {fileID: 0}
   oldPrefix: 0
-  isMatchStarted: 0
-  allowTeams: 0
   PreviousWinners: []
 --- !u!4 &1741522683
 Transform:
