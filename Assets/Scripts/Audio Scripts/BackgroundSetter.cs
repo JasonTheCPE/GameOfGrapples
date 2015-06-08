@@ -7,7 +7,6 @@ public class BackgroundSetter : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		//GameObject.Find("Sound Manager").GetComponent<SoundManager>().PlayBackground(bg);
 		GameObject.Find("Sound Manager").GetComponent<SoundManager>().PlaySong(bgName);
 	}
 }
