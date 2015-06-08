@@ -101,6 +101,7 @@ public class Referee : MonoBehaviour {
 			if (ap.playerNetwork == view) {
 				ap.isAlive = false;
 				teams[ap.onTeam] -= 1;
+				Debug.Log("Killing player " + ap.playerName);
 			}
 		}
 
