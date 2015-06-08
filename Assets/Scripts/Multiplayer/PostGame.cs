@@ -8,10 +8,12 @@ public class PostGame : MonoBehaviour {
 	public bool hasLocked = false;
 	public bool[] playersLocked;
 	public int playersUnlocked;
+	public int MaxTimeWaiting = 30;
 
 	private const int winner = 0;
 	private const int loser = 1;
 	private const int meh = 2;
+	private double timer = 0;
 
 	//KNOWN BUG! Players locked isn't working, so using players unlocked. Whenever LockIn is called, it keeps saying that it is the same player
 	//this may be from the lack of network view....
@@ -113,7 +115,12 @@ public class PostGame : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+		timer += Time.deltaTime;
+
+		//check if everyone had been at the victory screen too long
+		if (timer  > MaxTimeWaiting) {
+			Application.LoadLevel("Prep");
+		}
 	}
 	
 	void OnGUI() {
