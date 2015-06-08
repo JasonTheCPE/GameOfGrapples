@@ -8,10 +8,12 @@ public class SoundManager : MonoBehaviour {
 	public static SoundManager instance = null;     //Allows other scripts to call functions from SoundManager.             
 	public float lowPitchRange = .95f;              //The lowest a sound effect will be randomly pitched.
 	public float highPitchRange = 1.05f;            //The highest a sound effect will be randomly pitched.
+	public object[] BackgroundMusics;
 	
 	
 	void Awake ()
 	{
+		BackgroundMusics = Resources.LoadAll("Audio/Music");
 		//Check if there is already an instance of SoundManager
 		if (instance == null)
 			//if not, set it to this.
@@ -63,5 +65,16 @@ public class SoundManager : MonoBehaviour {
 		
 		//Play the clip.
 		efxSource.Play();
+	}
+
+	public bool PlaySong(string name) {
+		for (int i = 0; i < BackgroundMusics.Length; ++i) {
+			if (name.Equals(BackgroundMusics[i].ToString().Substring(0, BackgroundMusics[i].ToString().Length - 24))) {
+				PlayBackground((AudioClip) BackgroundMusics[i]);
+				return true;
+			}
+		}
+		Debug.Log("ERROR! Could not find the song " + name);
+		return false;
 	}
 }

@@ -6,29 +6,31 @@ using System.IO;
 
 public class MultiplayerManager : MonoBehaviour {
 	
-	public static MultiplayerManager instance;
+	public static MultiplayerManager instance;	//holds a reference to itself
 	private string matchName = "";				//name of the match
 	private string matchPassword = "";			//password to enter the match
 	private int matchMaxUsers = 4;				//max players in the match
 	private string toLoad = "";					//stores the level to load in OnLevelWasLoaded
-	private bool isCustom = false;
-	private Object[] skins;
-	private int usingSkin = 0;
-	
-	public int matchTime = 60, matchHP = 1, matchAmmo = 4;
+	private Object[] skins;						//an array to hold all the skins
+	private int usingSkin = 0;					//an id for the skin you are currently using
+
+	//variables related to the match
+	public int matchTime = 60, matchHP = 1, matchAmmo = 4;	//match info
+	public bool isMatchStarted = false;						//boolean for if the match has started
+	public bool allowTeams = false;							//Whether theere will be teams in the game or not
 	
 	public string playerName = "Host Player";	//the player name the current player will have in the match
-	public GameObject playerPrefab;
+	public GameObject playerPrefab;				//a reference to the prefab (skin) the player wants to use
 	
-	public List<MyPlayer> PlayerList = new List<MyPlayer>();
-	public List<MapSettings> MapList = new List<MapSettings>();
-	
-	public MapSettings currentMap = null;
+	public List<MyPlayer> PlayerList = new List<MyPlayer>();		//An array of players in the lobby
+
+	//variables relating to maps
+	public List<MapSettings> MapList = new List<MapSettings>();		//An array of all the maps
+	private bool isCustom = false;									//a boolean for determining if the level 
+																	//being loaded is a custom level or not
+	public MapSettings currentMap = null;							//a reference to the current map
 	
 	public int oldPrefix;
-	public bool isMatchStarted = false;
-	
-	public bool allowTeams = false;
 
 	public List<MyPlayer> PreviousWinners = new List<MyPlayer>();
 
@@ -41,7 +43,7 @@ public class MultiplayerManager : MonoBehaviour {
 		instance = this;
 		playerName = PlayerPrefs.GetString("Player Name");	//get saved player settings for their name
 		
-		DirectoryInfo levelDir = new DirectoryInfo("Assets/Resources/Levels");
+		DirectoryInfo levelDir = new DirectoryInfo("Assets/Resources/Levels");	//load all the levels
 		FileInfo[] levelInfo = levelDir.GetFiles("*.*");
 		
 		foreach(FileInfo level in levelInfo)
