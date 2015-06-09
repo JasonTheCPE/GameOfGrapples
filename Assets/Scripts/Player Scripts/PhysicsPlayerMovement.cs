@@ -104,7 +104,7 @@ public class PhysicsPlayerMovement : MonoBehaviour
 					if(movement < 0)
 					{
 						facingRight = false;
-						if(hasTileInFront && isOnGround)
+						if(hasTileInFront && isOnGround && !canClingToWall)
 						{
 							rb.AddForce((-moveForceVector + moveSlopeExtraForceVector) * Time.deltaTime);
 						}
@@ -117,7 +117,7 @@ public class PhysicsPlayerMovement : MonoBehaviour
 					else if(movement > 0)
 					{
 						facingRight = true;
-						if(hasTileInFront && isOnGround)
+						if(hasTileInFront && isOnGround && !canClingToWall)
 						{
 							rb.AddForce((moveForceVector + moveSlopeExtraForceVector) * Time.deltaTime);
 						}
