@@ -48,7 +48,14 @@ public class Kunai : MonoBehaviour
 	{
 		GetComponent<ThrowingAudio>().PlayHitWallSFX();
 		GetComponentInParent<Kunai>().isStuck = true;
-		transform.rotation = lastFrame.rotation;
+		if(lastFrame != null)
+		{
+			transform.rotation = lastFrame.rotation;
+		}
+		else
+		{
+			TurnWithMotion();
+		}
 		GetComponentInParent<Kunai>().turnTowardsVelocity = false;
 		GetComponentInParent<Rigidbody2D>().isKinematic = true;
 	}

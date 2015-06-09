@@ -19,6 +19,7 @@ public class PhysicsPlayerMovement : MonoBehaviour
 	
 	private float moveForceMultiplier = 20000f;
 	private Vector2 moveForceVector;
+	private Vector2 moveSlopeExtraForceVector;
 	
 	private float jumpForceMultiplier = 12000f;
 	private Vector2 jumpForceVector;
@@ -35,8 +36,8 @@ public class PhysicsPlayerMovement : MonoBehaviour
 	
 	private Rigidbody2D rb;
 	private float playerWeight;
-	private const float gravityOnGround = 5f;
-	private const float gravityInAir = 50f;
+	//private const float gravityOnGround = 5f;
+	//private const float gravityInAir = 50f;
 	
 	private bool facingRight = true;
 	private const float minSidewaysMoveAnimationSpeed = 0.6f;
@@ -50,6 +51,7 @@ public class PhysicsPlayerMovement : MonoBehaviour
 	public bool isOnGround = false;
 	public bool isMoving = false;
 	public bool isDodging = false;
+	public bool hasTileInFront = false;
 	
 	public bool playerControllable = true;
 	
@@ -66,11 +68,12 @@ public class PhysicsPlayerMovement : MonoBehaviour
 		playerWeight = rb.mass;
 		jumpForceVector = new Vector2(0.0f, playerWeight * jumpForceMultiplier);
 		moveForceVector = new Vector2(playerWeight * moveForceMultiplier, 0.0f);
-		dodgeForceVector = new Vector2(playerWeight * dodgeForce, 0f);
+		moveSlopeExtraForceVector = new Vector2(0.0f, playerWeight * moveForceMultiplier * 1.5f);
+		dodgeForceVector = new Vector2(playerWeight * dodgeForce, 0.0f);
 		animator = GetComponent<Animator>();
 		grappleManager = GetComponent<GrappleManager>();
 		lastState = playerState.PlayerIdle;
-		lastPulledInTime = lastLetOutTime = 0f;
+		lastPulledInTime = lastLetOutTime = 0.0f;
 	}
 	
 	// Update is called once per frame
@@ -101,13 +104,27 @@ public class PhysicsPlayerMovement : MonoBehaviour
 					if(movement < 0)
 					{
 						facingRight = false;
-						rb.AddForce(-moveForceVector * Time.deltaTime);
+						if(hasTileInFront && isOnGround)
+						{
+							rb.AddForce((-moveForceVector + moveSlopeExtraForceVector) * Time.deltaTime);
+						}
+						else
+						{
+							rb.AddForce(-moveForceVector * Time.deltaTime);
+						}
 						movementAttempted = true;
 					}
 					else if(movement > 0)
 					{
 						facingRight = true;
-						rb.AddForce(moveForceVector * Time.deltaTime);
+						if(hasTileInFront && isOnGround)
+						{
+							rb.AddForce((moveForceVector + moveSlopeExtraForceVector) * Time.deltaTime);
+						}
+						else
+						{
+							rb.AddForce(moveForceVector * Time.deltaTime);
+						}
 						movementAttempted = true;
 					}
 					else
@@ -191,7 +208,7 @@ public class PhysicsPlayerMovement : MonoBehaviour
 	
 	void FixedUpdate()
 	{
-		rb.gravityScale = isOnGround ? gravityOnGround : gravityInAir;
+		//rb.gravityScale = isOnGround ? gravityOnGround : gravityInAir;
 	}
 	
 	[RPC]
