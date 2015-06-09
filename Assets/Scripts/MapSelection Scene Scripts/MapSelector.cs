@@ -51,6 +51,8 @@ public class MapSelector : MonoBehaviour {
 			}
 		}
 
+		Check();
+
 		if (/*TeamVariety && */AllLockedIn) {
 			AllReady = true;
 		}
@@ -235,9 +237,10 @@ public class MapSelector : MonoBehaviour {
 	public void LockIn(NetworkPlayer player) {
 		int i = 0;
 		foreach(MyPlayer mp in mm.PlayerList) {
-			if (mp.playerNetwork == player || mp.playerNetwork == Network.player) {
+			if (mp.playerNetwork == player) {
 				playersLocked [i] = true;
 			}
+			++i;
 		}
 
 		Check();

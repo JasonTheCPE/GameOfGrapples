@@ -185,11 +185,11 @@ public class PhysicsPlayerMovement : MonoBehaviour
 			Referee reff = GameObject.Find("Ingame Manager").GetComponent<Referee>();
 			if(reff)
 			{
-				reff.KillPlayer(Network.player);
-				//reff.GetComponent<NetworkView>().RPC("KillPlayer", RPCMode.All, Network.player);
+				reff.GetComponent<NetworkView>().RPC("KillPlayer", RPCMode.All, Network.player);
 			}
 		}
-		//Destroy(gameObject);
+
+		gameObject.SetActive(false);
 	}
 	
 	public void TouchedGround()
