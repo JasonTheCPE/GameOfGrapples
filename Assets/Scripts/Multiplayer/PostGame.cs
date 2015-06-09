@@ -28,13 +28,13 @@ public class PostGame : MonoBehaviour {
 			if (mm.PreviousWinners.Count == 0) {
 				mode = "Tie-Game";
 				foreach(MyPlayer mp in mm.PlayerList) {
-					GameObject skin = CreateSkin(mp.skinID,  GameObject.Find("Tie " + i.ToString() + " Spawn"), mp.playerName, meh);
+					GameObject skin = CreateSkin(mp.skinID,  GameObject.Find("Tie " + i.ToString() + " Spawn"), mp.playerName, mp.wins, meh);
 					++i;
 				}
 			} else if (mm.allowTeams) {
 				mode = "Team-Game";
 				foreach(MyPlayer mp in mm.PreviousWinners) {
-					GameObject skin = CreateSkin(mp.skinID, GameObject.Find("Team " + i.ToString() + " Spawn"), mp.playerName, winner);
+					GameObject skin = CreateSkin(mp.skinID, GameObject.Find("Team " + i.ToString() + " Spawn"), mp.playerName, mp.wins, winner);
 					++i;
 				}
 			} else {
@@ -42,10 +42,10 @@ public class PostGame : MonoBehaviour {
 				foreach(MyPlayer mp in mm.PlayerList) {
 					GameObject skin;
 					if (mp.playerNetwork != mm.PreviousWinners[0].playerNetwork) {
-						skin = CreateSkin(mp.skinID, GameObject.Find("Loser " + i.ToString() + " Spawn"), mp.playerName, loser);
+						skin = CreateSkin(mp.skinID, GameObject.Find("Loser " + i.ToString() + " Spawn"), mp.playerName, mp.wins, loser);
 						++i;
 					} else {
-						skin = CreateSkin(mp.skinID, GameObject.Find("Winner Spawn"), mp.playerName, winner);
+						skin = CreateSkin(mp.skinID, GameObject.Find("Winner Spawn"), mp.playerName, mp.wins, winner);
 					}
 				}
 			}
@@ -56,7 +56,7 @@ public class PostGame : MonoBehaviour {
 		Debug.Log("It was a " + mode);
 	}
 	
-	GameObject CreateSkin(int id, GameObject baseObject, string name, int reaction) {
+	GameObject CreateSkin(int id, GameObject baseObject, string name, int numWins, int reaction) {
 		GameObject skin = mm.accessSkin(id);
 		GameObject ret = (GameObject) Instantiate(skin);
 		ret.GetComponent<NetworkView>().observed = transform;				//don't view the network rigidbody
@@ -69,6 +69,7 @@ public class PostGame : MonoBehaviour {
 		}
 		ret.GetComponent<Health>().enabled = false;							//don't start out invincible
 		ret.GetComponent<HoverName>().localName = "";						//display your name
+		ret.GetComponent<HoverName>().healthSring = "";						//display your health
 		ret.GetComponent<NetworkRigidbody2D>().enabled = false;				//turn off networkrigidbody2D
 		ret.GetComponent<Throwing>().enabled = false;						//turn off throwing
 		ret.transform.position = baseObject.transform.position;

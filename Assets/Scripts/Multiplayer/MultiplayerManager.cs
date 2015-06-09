@@ -162,6 +162,7 @@ public class MultiplayerManager : MonoBehaviour {
 		foreach(MyPlayer pl in PlayerList) {
 			if(pl.playerNetwork == view) {
 				++pl.wins;
+				Debug.Log("Winner has " + pl.wins + " wins");
 				PreviousWinners.Add(pl);
 			}
 		}
@@ -339,6 +340,11 @@ public class MultiplayerManager : MonoBehaviour {
 	[RPC]
 	void PostGameLockIn(NetworkPlayer player) {
 		GameObject.Find("NinjaPlacer").GetComponent<PostGame>().LockIn(player);
+	}
+
+	[RPC]
+	void PrepLockIn(NetworkPlayer player) {
+		GameObject.Find("MapSelection").GetComponent<MapSelector>().LockIn(player);
 	}
 
 	public NetworkPlayer GetView() {
