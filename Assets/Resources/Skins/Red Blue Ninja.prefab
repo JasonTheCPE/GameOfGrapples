@@ -253,7 +253,7 @@ Transform:
   m_GameObject: {fileID: 171514}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -.970000029, z: 0}
-  m_LocalScale: {x: .939999998, y: 1, z: 1}
+  m_LocalScale: {x: .850000024, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 484926}
   m_RootOrder: 8
@@ -265,7 +265,7 @@ Transform:
   m_GameObject: {fileID: 103346}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: .0610000007, z: 0}
-  m_LocalScale: {x: .939999998, y: 1, z: 1}
+  m_LocalScale: {x: .850000024, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 484926}
   m_RootOrder: 6
@@ -450,7 +450,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5c5f61e40b4add4e95b6131f130b795, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ropeSpawnDistanceRatio: 12.5
   maxRopeSegments: 50
   heldRopeSegments: 0
   grappleIsOut: 0
@@ -576,6 +575,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   localName: 
+  healthSring: 
   namePlate:
     m_Name: 
     m_Normal:
@@ -668,10 +668,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86ea5018e1105ff49a3cf6831f96af32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveForceMultiplier: 20000
-  moveForceVector: {x: 0, y: 0}
-  jumpForceMultiplier: 12000
-  jumpForceVector: {x: 0, y: 0}
   maxJumps: 2
   jumpsUsed: 0
   dodgeForce: 12000
