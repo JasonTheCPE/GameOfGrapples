@@ -34,6 +34,8 @@ public class MultiplayerManager : MonoBehaviour {
 
 	public List<MyPlayer> PreviousWinners = new List<MyPlayer>();
 
+	public int inroom = 2;
+
 	void Awake() {
 		DontDestroyOnLoad(transform.gameObject);
 	}
@@ -93,12 +95,26 @@ public class MultiplayerManager : MonoBehaviour {
 	}
 	
 	void OnPlayerConnected(NetworkPlayer player) {
-		//the newly connected player gets a list of all the other players
-		foreach(MyPlayer pl in PlayerList) {
-			GetComponent<NetworkView>().RPC("Client_AddPlayerToList", player, pl.playerName, pl.playerNetwork);
+		if (inroom > 3) {
+
+		}else if (inroom == 3) {
+			//if you want to be able to join a game in the prep step, uncomment out the code and start debugging
+			/*
+			//the newly connected player gets a list of all the other players
+			foreach(MyPlayer pl in PlayerList) {
+				GetComponent<NetworkView>().RPC("Client_AddPlayerToList", player, pl.playerName, pl.playerNetwork);
+			}
+			//tell the newly connected player the settings and map to load
+			GetComponent<NetworkView>().RPC("Client_GetMultiplayerMatchSettings", player, currentMap.mapName, "", "");
+			*/
+		} else {
+			//the newly connected player gets a list of all the other players
+			foreach(MyPlayer pl in PlayerList) {
+				GetComponent<NetworkView>().RPC("Client_AddPlayerToList", player, pl.playerName, pl.playerNetwork);
+			}
+			//tell the newly connected player the settings and map to load
+			GetComponent<NetworkView>().RPC("Client_GetMultiplayerMatchSettings", player, currentMap.mapName, "", "");
 		}
-		//tell the newly connected player the settings and map to load
-		GetComponent<NetworkView>().RPC("Client_GetMultiplayerMatchSettings", player, currentMap.mapName, "", "");
 	}
 	
 	void OnDisconnectedFromServer(NetworkDisconnection info) {
@@ -107,8 +123,25 @@ public class MultiplayerManager : MonoBehaviour {
 	
 	[RPC]
 	void Server_PlayerJoinRequest(string playerName, NetworkPlayer view) {
-		//tell everyone on server to add player to their list
-		GetComponent<NetworkView>().RPC("Client_AddPlayerToList", RPCMode.All, playerName, view);
+		//if you want players to be able to join in the prep room, remove the equal sign so that it is just >
+		if (inroom >= 3) {
+				Network.CloseConnection(view, true);
+		} else if (inroom == 3) {
+			//tell the person to go to the preproom when connected
+			GetComponent<NetworkView>().RPC("ToPrepRoom", view);
+			//tell everyone on server to add player to their list
+			GetComponent<NetworkView>().RPC("Client_AddPlayerToList", RPCMode.All, playerName, view);
+			//tell everyone on server to add player to their list
+			GetComponent<NetworkView>().RPC("ResetLocks", RPCMode.All);
+		} else {
+			//tell everyone on server to add player to their list
+			GetComponent<NetworkView>().RPC("Client_AddPlayerToList", RPCMode.All, playerName, view);
+		}
+	}
+
+	[RPC]
+	void ResetLocks() {
+		GameObject.Find("MapSelection").GetComponent<MapSelector>().InitiateLocked();
 	}
 	
 	[RPC]
@@ -228,6 +261,7 @@ public class MultiplayerManager : MonoBehaviour {
 	}
 	
 	void OnLevelWasLoaded(int level) {
+		inroom = level;
 		if (level == 0) {
 			Destroy(gameObject);
 		} else if (level == 2) {

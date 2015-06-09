@@ -71,9 +71,11 @@ public class LobbyMenuManager : MonoBehaviour {
 		foreach(HostData match in MasterServer.PollHostList()) {
 			GUILayout.BeginHorizontal("Box");
 
-			GUILayout.Label(match.gameName + ": " + match.connectedPlayers.ToString() + "/" + match.playerLimit.ToString());
-			if(GUILayout.Button("Connect")) {
-				Network.Connect(match);
+			if (match.connectedPlayers < match.playerLimit) {
+				GUILayout.Label(match.gameName + ": " + match.connectedPlayers.ToString() + "/" + match.playerLimit.ToString());
+				if(GUILayout.Button("Connect")) {
+					Network.Connect(match);
+				}
 			}
 
 			GUILayout.EndHorizontal();
@@ -124,8 +126,8 @@ public class LobbyMenuManager : MonoBehaviour {
 
 		if (Network.isServer) {
 			if(GUI.Button(new Rect(Screen.width - 405, Screen.height - 40, 200, 40), "Enter Dojo")) {
+				//Network.maxConnections = 0; // TODO Stops new players from joining once in preproom
 				MultiplayerManager.instance.GetComponent<NetworkView>().RPC("ToPrepRoom", RPCMode.All);
-				//MultiplayerManager.instance.GetComponent<Network>().maxConnections = -1; // TODO Stops new players from joining once in preproom
 			}
 		}
 
