@@ -53,6 +53,9 @@ public class LobbyMenuManager : MonoBehaviour {
 
 		GUI.Label(new Rect(220, 10, 130, 30), "Player Name");
 		MultiplayerManager.instance.playerName = GUI.TextField(new Rect(350, 10, 150, 30), MultiplayerManager.instance.playerName);
+		if (MultiplayerManager.instance.playerName.Length > 15) {
+			MultiplayerManager.instance.playerName = MultiplayerManager.instance.playerName.Substring(0, 15);
+		}
 
 		if(GUI.Button(new Rect(510, 10, 100, 30), "Save Name")) {
 			PlayerPrefs.SetString("Player Name", MultiplayerManager.instance.playerName);	//save the user name in the player prefs
@@ -101,6 +104,9 @@ public class LobbyMenuManager : MonoBehaviour {
 
 		GUI.Label(new Rect(220, 10, 130, 30), "Match Name");
 		matchName = GUI.TextField(new Rect(400, 10, 200, 30), matchName);
+		if (matchName.Length > 20) {
+			matchName = matchName.Substring(0, 20);
+		}
 
 		GUI.Label(new Rect(220, 50, 130, 30), "Match Password");
 		matchPassword = GUI.PasswordField(new Rect(400, 50, 200, 30), matchPassword, '*');
