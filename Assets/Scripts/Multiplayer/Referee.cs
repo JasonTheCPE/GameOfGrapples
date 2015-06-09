@@ -100,8 +100,15 @@ public class Referee : MonoBehaviour {
 		foreach(ActivePlayer ap in ingamePlayers) {
 			if (ap.playerNetwork == view) {
 				ap.isAlive = false;
-				teams[ap.onTeam] -= 1;
 				Debug.Log("Killing player " + ap.playerName);
+			}
+		}
+
+		teams = new int[8] {0,0,0,0,0,0,0,0};
+
+		foreach(ActivePlayer ap in ingamePlayers) {
+			if (ap.isAlive) {
+				teams[ap.onTeam]++;
 			}
 		}
 
