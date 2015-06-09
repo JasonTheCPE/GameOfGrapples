@@ -53,6 +53,10 @@ public class PhysicsPlayerMovement : MonoBehaviour
 	public bool playerControllable = true;
 	
 	public GrappleManager grappleManager;
+	private float ropeSegmentPullTime = 0.025f;
+	private float lastPulledInTime;
+	private float ropeSegmentLetOutTime = 0.01f;
+	private float lastLetOutTime;
 	
 	// Use this for initialization
 	void Start ()
@@ -65,6 +69,7 @@ public class PhysicsPlayerMovement : MonoBehaviour
 		animator = GetComponent<Animator>();
 		grappleManager = GetComponent<GrappleManager>();
 		lastState = playerState.PlayerIdle;
+		lastPulledInTime = lastLetOutTime = 0f;
 	}
 	
 	// Update is called once per frame
@@ -73,6 +78,7 @@ public class PhysicsPlayerMovement : MonoBehaviour
 		if (GetComponent<NetworkView>().isMine && playerControllable)
 		{
 			float movement = Input.GetAxis("Horizontal");
+			float climbingDirection = Input.GetAxis("Vertical");
 			
 			if(animationTimeLeft <= 0)
 			{
@@ -106,6 +112,23 @@ public class PhysicsPlayerMovement : MonoBehaviour
 					else
 					{
 						movementAttempted = false;
+					}
+					
+					if(climbingDirection > 0 && grappleManager.grappleIsOut && !grappleManager.beingRetracted && grappleManager.kunai.isStuck)
+					{
+						if(Time.time > lastPulledInTime + ropeSegmentPullTime)
+						{
+							lastPulledInTime = Time.time;
+							grappleManager.PullInRope();
+						}
+					}
+					else if(climbingDirection < 0 && grappleManager.grappleIsOut && !grappleManager.beingRetracted && grappleManager.kunai.isStuck)
+					{
+						if(Time.time > lastLetOutTime + ropeSegmentLetOutTime)
+						{
+							lastLetOutTime = Time.time;
+							grappleManager.LetOutRope();
+						}
 					}
 					
 					TryClingToWall();
