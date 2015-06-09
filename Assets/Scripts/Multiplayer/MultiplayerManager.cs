@@ -36,6 +36,8 @@ public class MultiplayerManager : MonoBehaviour {
 
 	public int inroom = 2;
 
+	public List<MyPlayer> PlayerWinOrder = new List<MyPlayer>();
+
 	void Awake() {
 		DontDestroyOnLoad(transform.gameObject);
 	}
@@ -340,6 +342,17 @@ public class MultiplayerManager : MonoBehaviour {
 		}
 		
 		return playerPrefab;
+	}
+
+	[RPC]
+	public void SetPlayerWinOrder(List<NetworkPlayer> netlist) {
+		foreach(NetworkPlayer np in netlist) {
+			foreach(MyPlayer player in PlayerList) {
+				if (np == player.playerNetwork) {
+					PlayerWinOrder.Add(player);
+				}
+			}
+		}
 	}
 	
 	[RPC]

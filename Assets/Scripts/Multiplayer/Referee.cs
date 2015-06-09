@@ -10,6 +10,7 @@ public class Referee : MonoBehaviour {
 	public float timer = 60; //in seconds
 	public bool isTimed = true;
 	private bool timerStarted = true;
+	public List<ActivePlayer> DeathOrder = new List<ActivePlayer>(); 
 	
 	// Use this for initialization
 	void Start () {
@@ -101,6 +102,7 @@ public class Referee : MonoBehaviour {
 			if (ap.playerNetwork == view) {
 				ap.isAlive = false;
 				Debug.Log("Killing player " + ap.playerName);
+				DeathOrder.Add(ap);
 			}
 		}
 
@@ -117,15 +119,18 @@ public class Referee : MonoBehaviour {
 	}
 
 	void TeamWin(int winningTeam) {
+		SetMultiplayerManagerDeathOrder();
 		Debug.Log("Game over! Team " + winningTeam.ToString() + " wins!");
 		mm.GetComponent<NetworkView>().RPC("AssignTeamWin", RPCMode.All, winningTeam); // might not need to be rpc
 	}
 
 	void DrawGame() {
+		SetMultiplayerManagerDeathOrder();
 		mm.GetComponent<NetworkView>().RPC("AssignDraw", RPCMode.All); // might not need to be rpc
 	}
 
 	void PlayerWin(NetworkPlayer winner) {
+		SetMultiplayerManagerDeathOrder();
 		mm.GetComponent<NetworkView>().RPC("AssignWin", RPCMode.All, winner); // might not need to be rpc
 		//mm.AssignWin(winner);
 	}
@@ -138,6 +143,22 @@ public class Referee : MonoBehaviour {
 		tempPlayer.onTeam = teamNumber;
 		ingamePlayers.Add(tempPlayer);
 		teams[teamNumber] += 1;
+	}
+
+	void SetMultiplayerManagerDeathOrder() {
+		List<NetworkPlayer> netlist = new List<NetworkPlayer>();
+
+		foreach(ActivePlayer ap in ingamePlayers) {
+			if (ap.isAlive) {
+				DeathOrder.Add(ap);
+				ap.isAlive = false;
+			}
+		}
+		DeathOrder.Reverse();
+		foreach (ActivePlayer ap in DeathOrder) {
+			netlist.Add(ap.playerNetwork);
+		}
+		mm.GetComponent<NetworkView>().RPC("AddDeath", RPCMode.All, netlist);
 	}
 	
 	void OnDisconnectedFromServer(NetworkDisconnection info) {

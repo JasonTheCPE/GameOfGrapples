@@ -39,7 +39,12 @@ public class PostGame : MonoBehaviour {
 				}
 			} else {
 				mode = "Free-For-All";
-				foreach(MyPlayer mp in mm.PlayerList) {
+				foreach(MyPlayer mp in mm.PlayerWinOrder) {
+					GameObject skin;
+					skin = CreateSkin(mp.skinID, GameObject.Find("Free " + i.ToString() + " Spawn"), mp.playerName, mp.wins, loser);
+					++i;
+				}
+				/*foreach(MyPlayer mp in mm.PlayerList) {
 					GameObject skin;
 					if (mp.playerNetwork != mm.PreviousWinners[0].playerNetwork) {
 						skin = CreateSkin(mp.skinID, GameObject.Find("Loser " + i.ToString() + " Spawn"), mp.playerName, mp.wins, loser);
@@ -47,7 +52,7 @@ public class PostGame : MonoBehaviour {
 					} else {
 						skin = CreateSkin(mp.skinID, GameObject.Find("Winner Spawn"), mp.playerName, mp.wins, winner);
 					}
-				}
+				}*/
 			}
 		} else {
 			Debug.Log("ERROR! Could not find the multiplayer manager!");
