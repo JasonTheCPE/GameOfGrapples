@@ -162,6 +162,7 @@ public class MultiplayerManager : MonoBehaviour {
 		foreach(MyPlayer pl in PlayerList) {
 			if(pl.playerNetwork == view) {
 				++pl.wins;
+				Debug.Log("Winner has " + pl.wins + " wins");
 				PreviousWinners.Add(pl);
 			}
 		}

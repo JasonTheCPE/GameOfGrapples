@@ -112,7 +112,7 @@ public class Referee : MonoBehaviour {
 			}
 		}
 
-		if (Network.isServer)
+		if (view == Network.player)
 			CheckWin();
 	}
 
