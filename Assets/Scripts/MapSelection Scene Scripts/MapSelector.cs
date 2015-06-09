@@ -3,6 +3,7 @@ using System.Collections;
 
 public class MapSelector : MonoBehaviour {
 	public MapSelector instance;
+	private MultiplayerManager mm;
 
 	private string currentMenu;
 	private Object[] skins;
@@ -11,13 +12,27 @@ public class MapSelector : MonoBehaviour {
 	private int startHealth = 1;
 	private int ammo = 4;
 	private bool AllReady = false;
+	private bool AllLockedIn = false;
+	private bool hasLocked = false;
+	public bool[] playersLocked;
 
 	public AudioClip MainMenuAudio;
 	// Use this for initialization
 	void Start () {
+		mm = GameObject.Find("Multiplayer Manager").GetComponent<MultiplayerManager>();
+
 		instance = this;
 		skins = Resources.LoadAll("Skins");
 		currentMenu = "Lobby";
+		InitiateLocked();
+	}
+
+	void InitiateLocked() {
+		playersLocked = new bool[mm.PlayerList.Count];
+		
+		for (int i = 0; i < playersLocked.Length; ++i) {
+			playersLocked[i] = false;
+		}
 	}
 
 	//keep the instance alive
@@ -30,16 +45,15 @@ public class MapSelector : MonoBehaviour {
 
 		int prevTeam = MultiplayerManager.instance.PlayerList[0].team;
 		bool TeamVariety = false;
-		bool AllLockedIn = false;
 		foreach(MyPlayer pl in MultiplayerManager.instance.PlayerList) {
 			if (pl.team != prevTeam || !MultiplayerManager.instance.allowTeams) {
 				TeamVariety = true;
 			}
 		}
 
-		//if (TeamVariety && AllLockedIn) {
+		if (/*TeamVariety && */AllLockedIn) {
 			AllReady = true;
-		//}
+		}
 	}
 
 	public void NavigateTo(string nextMenu) {
@@ -174,6 +188,12 @@ public class MapSelector : MonoBehaviour {
 				}
 			}
 		}
+		if (!hasLocked) {
+			if(GUI.Button(new Rect(Screen.width - 405, Screen.height - 40, 200, 40), "Ready")) {
+				hasLocked = true;
+				mm.GetComponent<NetworkView>().RPC("PrepLockIn", RPCMode.All, Network.player);
+			}
+		}
 
 		if (MultiplayerManager.instance.allowTeams) {
 			for (int i = 0; i < 7; ++i) {
@@ -210,5 +230,28 @@ public class MapSelector : MonoBehaviour {
 		GameObject.Find("Sound Manager").GetComponent<SoundManager>().PlayBackground(MainMenuAudio);
 		Destroy(GameObject.Find("Multiplayer Manager"));
 		Application.LoadLevel("Lobby");
+	}
+
+	public void LockIn(NetworkPlayer player) {
+		int i = 0;
+		foreach(MyPlayer mp in mm.PlayerList) {
+			if (mp.playerNetwork == player || mp.playerNetwork == Network.player) {
+				playersLocked [i] = true;
+			}
+		}
+
+		Check();
+	}
+
+	private void Check() {
+		bool lockedin = true;
+
+		for (int i = 0; i < mm.PlayerList.Count; ++i) {
+			if (!playersLocked[i]) {
+				lockedin = false;
+			}
+		}
+
+		AllLockedIn = lockedin;
 	}
 }

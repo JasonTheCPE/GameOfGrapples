@@ -342,6 +342,11 @@ public class MultiplayerManager : MonoBehaviour {
 		GameObject.Find("NinjaPlacer").GetComponent<PostGame>().LockIn(player);
 	}
 
+	[RPC]
+	void PrepLockIn(NetworkPlayer player) {
+		GameObject.Find("MapSelection").GetComponent<MapSelector>().LockIn(player);
+	}
+
 	public NetworkPlayer GetView() {
 		return Network.player;
 	}
