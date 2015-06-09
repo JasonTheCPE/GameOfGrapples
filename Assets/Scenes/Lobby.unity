@@ -328,6 +328,39 @@ MonoBehaviour:
   oldPrefix: 0
   PreviousWinners: []
   inroom: 2
+  PlayerWinOrder:
+  - playerName: 
+    skinID: 0
+    wins: 0
+    team: 0
+  - playerName: 
+    skinID: 0
+    wins: 0
+    team: 0
+  - playerName: 
+    skinID: 0
+    wins: 0
+    team: 0
+  - playerName: 
+    skinID: 0
+    wins: 0
+    team: 0
+  - playerName: 
+    skinID: 0
+    wins: 0
+    team: 0
+  - playerName: 
+    skinID: 0
+    wins: 0
+    team: 0
+  - playerName: 
+    skinID: 0
+    wins: 0
+    team: 0
+  - playerName: 
+    skinID: 0
+    wins: 0
+    team: 0
 --- !u!4 &1741522683
 Transform:
   m_ObjectHideFlags: 0
