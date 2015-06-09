@@ -143,10 +143,8 @@ public class GrappleManager : MonoBehaviour
 	
 	public void LetOutRope()
 	{
-		Debug.Log("LOR?");
 		if(heldRopeSegments > 0) //&& lastRopeSegment != null)
 		{
-			Debug.Log("Letting out rope");
 			Rigidbody2D lastRopeSegRb = lastRopeSegment.GetComponent<Rigidbody2D>();;
 	
 			GameObject newRope = (GameObject)Network.Instantiate(ropePrefab, gameObject.transform.position, Quaternion.identity, 0);

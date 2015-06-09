@@ -21,6 +21,7 @@ public class MultiplayerManager : MonoBehaviour {
 	
 	public string playerName = "Host Player";	//the player name the current player will have in the match
 	public GameObject playerPrefab;				//a reference to the prefab (skin) the player wants to use
+	public LevelScaleManager levelScaleManager;
 	
 	public List<MyPlayer> PlayerList = new List<MyPlayer>();		//An array of players in the lobby
 
@@ -276,13 +277,13 @@ public class MultiplayerManager : MonoBehaviour {
 				GameObject.Find("Ingame Manager").GetComponent<Referee>().isTimed = true;
 			}
 			GameObject.Find("Ingame Manager").GetComponent<Referee>().timer = matchTime;
+			levelScaleManager = FindObjectOfType<LevelScaleManager>();
 			spawnPlayer(usingSkin);
 		} else if (level == 4) {
 			if (Network.isServer) {
 				Network.maxConnections = matchMaxUsers - 1;
 			}
 		}
-		
 	}
 	
 	int FindPlayerNumber() {
@@ -314,6 +315,8 @@ public class MultiplayerManager : MonoBehaviour {
 		}
 		
 		GameObject myPlayerGO = (GameObject)Network.Instantiate(spawnPrefab, spawnlocation, Quaternion.identity, 0);
+		levelScaleManager.ScalePlayerToLevel(myPlayerGO);
+
 		myPlayerGO.GetComponent<ID>().playerNumber = playerNumber;
 		if (allowTeams) {
 			myPlayerGO.GetComponent<ID>().teamID = PlayerList[playerNumber].team;
