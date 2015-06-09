@@ -6,6 +6,7 @@ public class DojoButtons : MonoBehaviour
 {
 	//Text Fields
 	public Text[] playerSlotNames;
+	public Text[] playerScores;
 	public Text playerSkinName;
 	public Text stageName;
 	public Text timeOption;
