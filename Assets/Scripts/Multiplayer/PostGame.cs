@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class PostGame : MonoBehaviour {
 	private MultiplayerManager mm;
@@ -37,21 +38,24 @@ public class PostGame : MonoBehaviour {
 					++i;
 				}
 			} else if (mm.allowTeams) {
-				mode = "Team-Game";
+				string holdteamname = "ERROR";
 				foreach(MyPlayer mp in mm.PreviousWinners) {
 					GameObject skin = CreateSkin(mp.skinID, GameObject.Find("Team " + i.ToString() + " Spawn"), mp.playerName, mp.wins, winner);
+					holdteamname = mp.team.ToString();
 					++i;
 				}
+				mode = "Team-Game Winner: Team " + holdteamname + "!";
 			} else {
-				mode = "Free-For-All";
 				for (i = 1; i < 9; ++i) {
 					MyPlayer mp = mm.PlayerWinOrder[i - 1];
 					GameObject skin;
 					if (mp != null){
-						if (i == 1)
+						if (i == 1) {
+							mode = "This Game's Winner: " + mp.playerName + "!";
 							skin = CreateSkin(mp.skinID, GameObject.Find("Free " + i.ToString() + " Spawn"), mp.playerName, mp.wins, winner);
-						else
+						} else {
 							skin = CreateSkin(mp.skinID, GameObject.Find("Free " + i.ToString() + " Spawn"), mp.playerName, mp.wins, loser);
+						}
 					}
 				}
 				/*foreach(MyPlayer mp in mm.PlayerList) {
@@ -64,11 +68,11 @@ public class PostGame : MonoBehaviour {
 					}
 				}*/
 			}
+
+			GameObject.Find("Victor Text").GetComponent<Text>().text = mode;
 		} else {
 			Debug.Log("ERROR! Could not find the multiplayer manager!");
 		}
-		
-		Debug.Log("It was a " + mode);
 	}
 	
 	GameObject CreateSkin(int id, GameObject baseObject, string name, int numWins, int reaction) {
