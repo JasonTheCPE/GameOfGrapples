@@ -141,6 +141,38 @@ public class GrappleManager : MonoBehaviour
 		}
 	}
 	
+	public void LetOutRope()
+	{
+		Debug.Log("LOR?");
+		if(heldRopeSegments > 0) //&& lastRopeSegment != null)
+		{
+			Debug.Log("Letting out rope");
+			Rigidbody2D lastRopeSegRb = lastRopeSegment.GetComponent<Rigidbody2D>();;
+	
+			GameObject newRope = (GameObject)Network.Instantiate(ropePrefab, gameObject.transform.position, Quaternion.identity, 0);
+			newRope.GetComponent<RopeDestruction>().kunai = kunai;
+			SpringJoint2D jointSpr = newRope.GetComponent<SpringJoint2D>();
+			jointSpr.connectedBody = lastRopeSegRb;
+			jointSpr.distance = ropeSegSize;
+			DistanceJoint2D jointDis = newRope.GetComponent<DistanceJoint2D>();
+			jointDis.connectedBody = lastRopeSegRb;
+			jointDis.distance = ropeSegSize;
+			lastRopeSegment = newRope;
+			
+			SpringJoint2D playerSprJoint = GetComponent<SpringJoint2D>();
+			playerSprJoint.enabled = true;
+			playerSprJoint.connectedBody = lastRopeSegment.GetComponent<Rigidbody2D>();
+			playerSprJoint.distance = 0;
+			
+			DistanceJoint2D playerDisJoint = GetComponent<DistanceJoint2D>();
+			playerDisJoint.enabled = true;
+			playerDisJoint.connectedBody = lastRopeSegment.GetComponent<Rigidbody2D>();
+			playerDisJoint.distance = 0;
+			
+			--heldRopeSegments;
+		}
+	}
+	
 	private void ConnectRopeToPlayer()
 	{
 		//Debug.Log("ConnectRopeToPlayer");
@@ -169,8 +201,13 @@ public class GrappleManager : MonoBehaviour
 		ropeConnectedToPlayer = true;
 	}
 	
-	private void PullInRope()
+	public void PullInRope()
 	{	
+		if(!ropeConnectedToPlayer && kunai.isStuck && kunai.ropeIntact)
+		{
+			ConnectRopeToPlayer();
+		}
+		
 		SpringJoint2D playersJoint = GetComponent<SpringJoint2D>();
 		Rigidbody2D grapplePiece = playersJoint.connectedBody;
 		Rigidbody2D toDestroy;
@@ -203,6 +240,7 @@ public class GrappleManager : MonoBehaviour
 		if(grapplePiece != null)
 		{
 			playersJoint.connectedBody = grapplePiece;
+			lastRopeSegment = grapplePiece.gameObject;
 		}
 		
 		heldRopeSegments += pulledIn;
@@ -221,19 +259,24 @@ public class GrappleManager : MonoBehaviour
 			{
 				if(kunai.ropeIntact)
 				{
-					if(!kunai.isStuck && heldRopeSegments > 0)
+					if(!kunai.isStuck)
 					{
-						AddToRope();
+						if(heldRopeSegments > 0)
+						{
+							AddToRope();
+						}
+						else
+						{
+							RetractGrapple();
+						}
 					}
 					
 					if(kunai.isStuck && !ropeConnectedToPlayer)
 					{
-						ConnectRopeToPlayer();
-					}
-					
-					if(heldRopeSegments == 0)
-					{
-						RetractGrapple();
+						if(!ropeConnectedToPlayer)
+						{
+							ConnectRopeToPlayer();
+						}
 					}
 				}
 				else

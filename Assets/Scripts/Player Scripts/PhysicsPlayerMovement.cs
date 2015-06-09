@@ -17,12 +17,11 @@ public class PhysicsPlayerMovement : MonoBehaviour
 		Victory = 4, Dodge = 5, Land = 6
 	};
 	
-	public float moveForceMultiplier = 9000f;
-	public Vector2 moveForceVector;
+	private float moveForceMultiplier = 20000f;
+	private Vector2 moveForceVector;
 	
-	public float jumpForceMultiplier = 8000f;
-	public Vector2 jumpForceVector;
-	private float upwardVelocityBound;
+	private float jumpForceMultiplier = 12000f;
+	private Vector2 jumpForceVector;
 	public short maxJumps = 2;
 	public short jumpsUsed = 0;
 	
@@ -36,6 +35,8 @@ public class PhysicsPlayerMovement : MonoBehaviour
 	
 	private Rigidbody2D rb;
 	private float playerWeight;
+	private const float gravityOnGround = 5f;
+	private const float gravityInAir = 50f;
 	
 	private bool facingRight = true;
 	private const float minSidewaysMoveAnimationSpeed = 0.6f;
@@ -53,9 +54,13 @@ public class PhysicsPlayerMovement : MonoBehaviour
 	public bool playerControllable = true;
 	
 	public GrappleManager grappleManager;
+	private float ropeSegmentPullTime = 0.025f;
+	private float lastPulledInTime;
+	private float ropeSegmentLetOutTime = 0.01f;
+	private float lastLetOutTime;
 	
 	// Use this for initialization
-	void Start ()
+	void Start()
 	{
 		rb = GetComponent<Rigidbody2D>();
 		playerWeight = rb.mass;
@@ -65,6 +70,7 @@ public class PhysicsPlayerMovement : MonoBehaviour
 		animator = GetComponent<Animator>();
 		grappleManager = GetComponent<GrappleManager>();
 		lastState = playerState.PlayerIdle;
+		lastPulledInTime = lastLetOutTime = 0f;
 	}
 	
 	// Update is called once per frame
@@ -73,6 +79,7 @@ public class PhysicsPlayerMovement : MonoBehaviour
 		if (GetComponent<NetworkView>().isMine && playerControllable)
 		{
 			float movement = Input.GetAxis("Horizontal");
+			float climbingDirection = Input.GetAxis("Vertical");
 			
 			if(animationTimeLeft <= 0)
 			{
@@ -108,13 +115,29 @@ public class PhysicsPlayerMovement : MonoBehaviour
 						movementAttempted = false;
 					}
 					
+					if(climbingDirection > 0 && grappleManager.grappleIsOut && !grappleManager.beingRetracted && grappleManager.kunai.isStuck)
+					{
+						if(Time.time > lastPulledInTime + ropeSegmentPullTime)
+						{
+							lastPulledInTime = Time.time;
+							grappleManager.PullInRope();
+						}
+					}
+					else if(climbingDirection < 0 && grappleManager.grappleIsOut && !grappleManager.beingRetracted && grappleManager.kunai.isStuck)
+					{
+						if(Time.time > lastLetOutTime + ropeSegmentLetOutTime)
+						{
+							lastLetOutTime = Time.time;
+							grappleManager.LetOutRope();
+						}
+					}
+					
 					TryClingToWall();
 					
 					if (Input.GetKeyDown("space"))
 					{
 						if (jumpsUsed < maxJumps)
 						{
-							//Vector2 adjustedJumpForce;
 							if(!isOnGround && !isGrabbingWall)
 							{
 								if(jumpsUsed == 0)
@@ -122,8 +145,7 @@ public class PhysicsPlayerMovement : MonoBehaviour
 									jumpsUsed = 1;
 								}
 							}
-							
-							//Debug.Log(adjustedJumpForce);
+
 							GetComponent<NetworkView>().RPC("PlaySFX", RPCMode.All, (int)playerSounds.Jump);
 							if (jumpsUsed > 0)
 							{
@@ -167,6 +189,11 @@ public class PhysicsPlayerMovement : MonoBehaviour
 		}
 	}
 	
+	void FixedUpdate()
+	{
+		rb.gravityScale = isOnGround ? gravityOnGround : gravityInAir;
+	}
+	
 	[RPC]
 	void SelfDestruct()
 	{
@@ -198,8 +225,10 @@ public class PhysicsPlayerMovement : MonoBehaviour
 		isOnGround = true;
 	}
 	
-	public void LandedHook() {
-		if (jumpsUsed > 0) {
+	public void LandedHook()
+	{
+		if (jumpsUsed > 0)
+		{
 			jumpsUsed = 1;
 		}
 	}
