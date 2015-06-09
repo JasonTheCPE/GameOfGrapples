@@ -11,6 +11,7 @@ public class Kunai : MonoBehaviour
 	
 	private Collider2D stickInWallCollider;
 	private Collider2D lethalCollider;
+	private Transform lastFrame;
 	
 	// Use this for initialization
 	void Start ()
@@ -32,6 +33,7 @@ public class Kunai : MonoBehaviour
 	{
 		Vector2 dir = GetComponent<Rigidbody2D>().velocity;
 		float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90f;
+		lastFrame = transform;
 		transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 	}
 
@@ -46,7 +48,7 @@ public class Kunai : MonoBehaviour
 	{
 		GetComponent<ThrowingAudio>().PlayHitWallSFX();
 		GetComponentInParent<Kunai>().isStuck = true;
-		TurnWithMotion();
+		transform.rotation = lastFrame.rotation;
 		GetComponentInParent<Kunai>().turnTowardsVelocity = false;
 		GetComponentInParent<Rigidbody2D>().isKinematic = true;
 	}

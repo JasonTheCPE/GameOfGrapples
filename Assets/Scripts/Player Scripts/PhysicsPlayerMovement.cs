@@ -224,16 +224,19 @@ public class PhysicsPlayerMovement : MonoBehaviour
 	
 	public void AnimateThrow(Vector3 throwVector)
 	{
-		if(throwVector.y > 0)
+		if (GetComponent<NetworkView>().isMine && playerControllable)
 		{
-			lastState = playerState.PlayerThrowUpwards;
+			if(throwVector.y > 0)
+			{
+				lastState = playerState.PlayerThrowUpwards;
+			}
+			else
+			{
+				lastState = playerState.PlayerThrowDownwards;
+			}
+			GetComponent<NetworkView>().RPC("LaunchAnimation", RPCMode.All, (int) lastState);
+			animationTimeLeft = throwAnimationTime;
 		}
-		else
-		{
-			lastState = playerState.PlayerThrowDownwards;
-		}
-		GetComponent<NetworkView>().RPC("LaunchAnimation", RPCMode.All, (int) lastState);
-		animationTimeLeft = throwAnimationTime;
 	}
 	
 	private void TriggerAnimationTransition()
