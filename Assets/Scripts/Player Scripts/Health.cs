@@ -47,6 +47,8 @@ public class Health : MonoBehaviour
 			health = 0;
 		}
 
+		GetComponent<HoverName>().ResetName();
+
 		damagedTime = repeatDamageDelay;
 		
 		return health;
