@@ -85,8 +85,6 @@ public class Health : MonoBehaviour
 		
 		if(GetComponent<NetworkView>().isMine == true)
 		{
-			Referee reff = GameObject.Find("Ingame Manager").GetComponent<Referee>();
-			
 			if (health == 0) {
 				GetComponent<NetworkView>().RPC("Die", RPCMode.All);
 			}

@@ -221,8 +221,6 @@ public class PhysicsPlayerMovement : MonoBehaviour
 	public void Die()
 	{
 		GetComponent<Throwing>().refill();
-		rb.velocity = new Vector3(0, 0, 0);
-		rb.position = new Vector3(0, 0, 0);
 		PlaySFX((int)playerSounds.Die);
 		if(GetComponent<NetworkView>().isMine == true)
 		{
@@ -233,7 +231,7 @@ public class PhysicsPlayerMovement : MonoBehaviour
 			}
 		}
 
-		gameObject.SetActive(false);
+		BeDead();
 	}
 	
 	public void TouchedGround()
@@ -380,6 +378,12 @@ public class PhysicsPlayerMovement : MonoBehaviour
 	public void BeDead()
 	{
 		playerControllable = false;
+		GetComponent<BoxCollider2D>().enabled = false;
+		GetComponent<HoverName>().enabled = false;
+		BoxCollider2D[] colliders = GetComponentsInChildren<BoxCollider2D>();
+		for (int i = 0; i < colliders.Length; ++i) {
+			colliders[i].enabled = false;
+		}
 		lastState = playerState.PlayerDeath;
 		GetComponent<NetworkView>().RPC("LaunchAnimation", RPCMode.All, (int) playerState.PlayerDeath);
 	}
