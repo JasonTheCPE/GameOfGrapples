@@ -28,14 +28,41 @@ public class LevelScaleManager : MonoBehaviour
 		//Debug.Log("WidthScaled: " + widthScaled + " HeightScaled: " + heightScaled + " scaledUnitSize: " + scaledUnitSize);
 	}
 	
+	public void ScalePlayerToLevel(GameObject obj)
+	{
+		var bodySize = obj.transform.GetChild(1).GetComponent<SpriteRenderer>().sprite.bounds.size;
+		float newHeightScale = 0.75f * scaledUnitSize / bodySize.y;
+		
+		obj.transform.localScale = new Vector3(newHeightScale, newHeightScale, 1f);
+	}
+	
+	public static void ScalePlayerByHeightOnly(GameObject obj, float newScale)
+	{
+		obj.transform.localScale = new Vector3(newScale, newScale, 1f);
+	}
+	
 	//Finds the SpriteRenderer in the children of this GameObject and scales its sprite to be 
 	//the number of units wide and tall given.
 	public void ScaleObjectWithSprite(GameObject obj, float unitsWide, float unitsTall)
 	{
-		Transform trans = obj.GetComponent<Transform>();
 		var spriteBounds = obj.GetComponentInChildren<SpriteRenderer>().sprite.bounds.size;
 		
-		trans.localScale = new Vector3(unitsWide * scaledUnitSize / spriteBounds.x, unitsTall * scaledUnitSize / spriteBounds.y, 1f);
+		obj.transform.localScale = new Vector3(unitsWide * scaledUnitSize / spriteBounds.x, unitsTall * scaledUnitSize / spriteBounds.y, 1f);
+	}
+	
+	//Finds the SpriteRenderer in the children of this GameObject and scales its sprite according 
+	//to its original height.
+	public void ScaleObjectWithSpriteByHeight(GameObject obj, float unitsTall)
+	{
+		SpriteRenderer sprRend = obj.GetComponent<SpriteRenderer>();
+		if(sprRend == null)
+		{
+			sprRend = obj.GetComponentInChildren<SpriteRenderer>();
+		}
+		var spriteBounds = sprRend.sprite.bounds.size;
+		float newHeightScale = unitsTall * scaledUnitSize / spriteBounds.y;
+		
+		obj.transform.localScale = new Vector3(newHeightScale, newHeightScale, 1f);
 	}
 	
 	//For a GameObject with a SpriteRenderer, adjusts the given GameObject's transform vector 
@@ -44,7 +71,13 @@ public class LevelScaleManager : MonoBehaviour
 	public void KeepObjectWithSpriteInBounds(GameObject obj)
 	{
 		Transform trans = obj.GetComponent<Transform>();
-		var sprBounds = obj.GetComponentInChildren<SpriteRenderer>().sprite.bounds.size;
+		SpriteRenderer sprRend = obj.GetComponent<SpriteRenderer>();
+		if(sprRend == null)
+		{
+			sprRend = obj.GetComponentInChildren<SpriteRenderer>();
+		}
+		
+		var sprBounds = sprRend.sprite.bounds.size;
 		float maxX = (scaledUnitSize * levelWidth / 2) - trans.localScale.x * sprBounds.x / 2;
 		float maxY = (scaledUnitSize * levelHeight / 2) -  trans.localScale.y * sprBounds.y / 2;
 		//Debug.Log("MaxY, MaxX - " + maxY + " " + maxX);

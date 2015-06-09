@@ -318,6 +318,7 @@ MonoBehaviour:
   allowTeams: 0
   playerName: Host Player
   playerPrefab: {fileID: 113784, guid: 0e57c46015d48064e85dd13d480f6e12, type: 2}
+  levelScaleManager: {fileID: 0}
   PlayerList: []
   MapList: []
   currentMap:
