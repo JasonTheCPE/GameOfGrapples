@@ -328,6 +328,7 @@ MonoBehaviour:
   oldPrefix: 0
   PreviousWinners: []
   inroom: 2
+  PlayerWinOrder: []
 --- !u!4 &1741522683
 Transform:
   m_ObjectHideFlags: 0

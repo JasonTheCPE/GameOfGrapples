@@ -31,7 +31,7 @@ public class LevelScaleManager : MonoBehaviour
 	public void ScalePlayerToLevel(GameObject obj)
 	{
 		var bodySize = obj.transform.GetChild(1).GetComponent<SpriteRenderer>().sprite.bounds.size;
-		float newHeightScale = 0.75f * scaledUnitSize / bodySize.y;
+		float newHeightScale = 0.7f * scaledUnitSize / bodySize.y;
 		
 		obj.transform.localScale = new Vector3(newHeightScale, newHeightScale, 1f);
 	}

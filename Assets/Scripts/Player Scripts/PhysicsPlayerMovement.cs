@@ -17,6 +17,9 @@ public class PhysicsPlayerMovement : MonoBehaviour
 		Victory = 4, Dodge = 5, Land = 6
 	};
 	
+	private const float defaultPlayerScale = 10;
+	private const float defaultPlayerMass = 20;
+	
 	private float moveForceMultiplier = 20000f;
 	private Vector2 moveForceVector;
 	private Vector2 moveSlopeExtraForceVector;
@@ -26,8 +29,8 @@ public class PhysicsPlayerMovement : MonoBehaviour
 	public short maxJumps = 2;
 	public short jumpsUsed = 0;
 	
-	public float dodgeForce = 12000f;
-	public Vector2 dodgeForceVector;
+	private float dodgeForce = 12000f;
+	private Vector2 dodgeForceVector;
 	private const float dodgeAnimationTime = 0.38f;
 	private float timeOfLastDodge = 0f;
 	private float dodgeRechargeTime = 1.0f;
@@ -36,8 +39,6 @@ public class PhysicsPlayerMovement : MonoBehaviour
 	
 	private Rigidbody2D rb;
 	private float playerWeight;
-	//private const float gravityOnGround = 5f;
-	//private const float gravityInAir = 50f;
 	
 	private bool facingRight = true;
 	private const float minSidewaysMoveAnimationSpeed = 0.6f;
@@ -204,6 +205,15 @@ public class PhysicsPlayerMovement : MonoBehaviour
 		{
 			enabled = false;
 		}
+	}
+	
+	public void UpdateMovementVectors()
+	{
+		playerWeight = rb.mass * transform.localScale.y / defaultPlayerScale;
+		jumpForceVector = new Vector2(0.0f, playerWeight * jumpForceMultiplier);
+		moveForceVector = new Vector2(playerWeight * moveForceMultiplier, 0.0f);
+		moveSlopeExtraForceVector = new Vector2(0.0f, playerWeight * moveForceMultiplier * 1.5f);
+		dodgeForceVector = new Vector2(playerWeight * dodgeForce, 0.0f);
 	}
 	
 	void FixedUpdate()
