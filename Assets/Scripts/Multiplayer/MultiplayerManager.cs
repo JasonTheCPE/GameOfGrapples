@@ -37,7 +37,7 @@ public class MultiplayerManager : MonoBehaviour {
 
 	public int inroom = 2;
 
-	public List<MyPlayer> PlayerWinOrder = new List<MyPlayer>();
+	public MyPlayer[] PlayerWinOrder = new MyPlayer[8];
 
 	void Awake() {
 		DontDestroyOnLoad(transform.gameObject);
@@ -193,12 +193,10 @@ public class MultiplayerManager : MonoBehaviour {
 	[RPC]
 	public void AssignWin(NetworkPlayer view) {
 		//if (GetComponent<NetworkView>().isMine) {
-		Debug.Log("Assigning win");
 		PreviousWinners.Clear();
 		foreach(MyPlayer pl in PlayerList) {
 			if(pl.playerNetwork == view) {
 				++pl.wins;
-				Debug.Log("Winner has " + pl.wins + " wins");
 				PreviousWinners.Add(pl);
 			}
 		}
@@ -266,10 +264,13 @@ public class MultiplayerManager : MonoBehaviour {
 	void OnLevelWasLoaded(int level) {
 		inroom = level;
 		if (level == 0) {
+			//main menu
 			Destroy(gameObject);
 		} else if (level == 2) {
+			//lobby
 			GameObject.Find("LobbyMenu").GetComponent<LobbyMenuManager>().NavigateTo("Lobby");
 		} else if (level == 3) {
+			//in multiplayer game
 			Debug.Log("Loading Level " + toLoad);
 			LevelIOManager.ContructLevelInCanvasByName(GameObject.Find("Level"), toLoad, isCustom);
 
@@ -282,8 +283,13 @@ public class MultiplayerManager : MonoBehaviour {
 			levelScaleManager = FindObjectOfType<LevelScaleManager>();
 			spawnPlayer(usingSkin);
 		} else if (level == 4) {
+			//prep
 			if (Network.isServer) {
 				Network.maxConnections = matchMaxUsers - 1;
+			}
+
+			for (int i = 0; i < 8; ++i) {
+				PlayerWinOrder[i] = null;
 			}
 		}
 	}
@@ -348,13 +354,10 @@ public class MultiplayerManager : MonoBehaviour {
 	}
 
 	[RPC]
-	public void SetPlayerWinOrder(List<NetworkPlayer> netlist) {
-		foreach(NetworkPlayer np in netlist) {
-			foreach(MyPlayer player in PlayerList) {
-				if (np == player.playerNetwork) {
-					PlayerWinOrder.Add(player);
-				}
-			}
+	public void SetWinOrder(NetworkPlayer net, int pos) {
+		foreach (MyPlayer mp in PlayerList) {
+			if (mp.playerNetwork == net)
+				PlayerWinOrder[pos] = mp;
 		}
 	}
 	

@@ -146,7 +146,6 @@ public class Referee : MonoBehaviour {
 	}
 
 	void SetMultiplayerManagerDeathOrder() {
-		List<NetworkPlayer> netlist = new List<NetworkPlayer>();
 
 		foreach(ActivePlayer ap in ingamePlayers) {
 			if (ap.isAlive) {
@@ -155,10 +154,11 @@ public class Referee : MonoBehaviour {
 			}
 		}
 		DeathOrder.Reverse();
+		int i = 0;
 		foreach (ActivePlayer ap in DeathOrder) {
-			netlist.Add(ap.playerNetwork);
+			mm.GetComponent<NetworkView>().RPC("SetWinOrder", RPCMode.All, ap.playerNetwork, i);
+			++i;
 		}
-		mm.GetComponent<NetworkView>().RPC("AddDeath", RPCMode.All, netlist);
 	}
 	
 	void OnDisconnectedFromServer(NetworkDisconnection info) {

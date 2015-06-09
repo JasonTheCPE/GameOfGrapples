@@ -27,6 +27,11 @@ public class PostGame : MonoBehaviour {
 			int i = 1;
 			if (mm.PreviousWinners.Count == 0) {
 				mode = "Tie-Game";
+				/*foreach(MyPlayer mp in mm.PlayerWinOrder) {
+					GameObject skin;
+					skin = CreateSkin(mp.skinID, GameObject.Find("Tie " + i.ToString() + " Spawn"), mp.playerName, mp.wins, meh);
+					++i;
+				}*/
 				foreach(MyPlayer mp in mm.PlayerList) {
 					GameObject skin = CreateSkin(mp.skinID,  GameObject.Find("Tie " + i.ToString() + " Spawn"), mp.playerName, mp.wins, meh);
 					++i;
@@ -39,10 +44,15 @@ public class PostGame : MonoBehaviour {
 				}
 			} else {
 				mode = "Free-For-All";
-				foreach(MyPlayer mp in mm.PlayerWinOrder) {
+				for (i = 1; i < 9; ++i) {
+					MyPlayer mp = mm.PlayerWinOrder[i - 1];
 					GameObject skin;
-					skin = CreateSkin(mp.skinID, GameObject.Find("Free " + i.ToString() + " Spawn"), mp.playerName, mp.wins, loser);
-					++i;
+					if (mp != null){
+						if (i == 1)
+							skin = CreateSkin(mp.skinID, GameObject.Find("Free " + i.ToString() + " Spawn"), mp.playerName, mp.wins, winner);
+						else
+							skin = CreateSkin(mp.skinID, GameObject.Find("Free " + i.ToString() + " Spawn"), mp.playerName, mp.wins, loser);
+					}
 				}
 				/*foreach(MyPlayer mp in mm.PlayerList) {
 					GameObject skin;
@@ -78,7 +88,7 @@ public class PostGame : MonoBehaviour {
 		ret.GetComponent<NetworkRigidbody2D>().enabled = false;				//turn off networkrigidbody2D
 		ret.GetComponent<Throwing>().enabled = false;						//turn off throwing
 		ret.transform.position = baseObject.transform.position;
-		ret.transform.localScale = baseObject.transform.localScale;
+		ret.transform.localScale = baseObject.transform.localScale*10;
 		ret.GetComponent<Rigidbody2D>().isKinematic = true;					//stop the rigidbody from moving
 		return ret;
 	}
@@ -129,13 +139,12 @@ public class PostGame : MonoBehaviour {
 			mm.GetComponent<NetworkView>().RPC("ToPrepRoom", RPCMode.All);
 		}
 	}
-	
-	void OnGUI() {
+
+	public void ButtonClicked() {
 		if (!hasLocked) {
-			if(GUI.Button(new Rect(Screen.width - 405, Screen.height - 40, 200, 40), "Ready")) {
-				hasLocked = true;
-				mm.GetComponent<NetworkView>().RPC("PostGameLockIn", RPCMode.All, Network.player);
-			}
+			hasLocked = true;
+			mm.GetComponent<NetworkView>().RPC("PostGameLockIn", RPCMode.All, Network.player);
+			GameObject.Find("Ready Button").SetActive(false);
 		}
 	}
 

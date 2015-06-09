@@ -2,7 +2,6 @@
 using System.Collections;
 
 public class BackgroundSetter : MonoBehaviour {
-	public AudioClip bg;
 	public string bgName;
 
 	// Use this for initialization

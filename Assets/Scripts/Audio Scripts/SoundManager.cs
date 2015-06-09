@@ -70,18 +70,18 @@ public class SoundManager : MonoBehaviour {
 	}
 
 	public bool PlaySong(string name) {
-		/*for (int i = 0; i < BackgroundMusics.Length; ++i) {
+		for (int i = 0; i < BackgroundMusics.Length; ++i) {
 			if (name.Equals(BackgroundMusics[i].ToString().Substring(0, BackgroundMusics[i].ToString().Length - 24))) {
 				PlayBackground((AudioClip) BackgroundMusics[i]);
 				return true;
 			}
 		}
-		Debug.Log("ERROR! Could not find the song " + name);*/
+		Debug.Log("ERROR! Could not find the song " + name);
 		return false;
 	}
 
 	private void LoadBackgroundMusic() {
-		/*BackgroundMusics = Resources.LoadAll("Audio/Music");
-		LoadedMusic = true;*/
+		BackgroundMusics = Resources.LoadAll("Audio/Music");
+		LoadedMusic = true;
 	}
 }
