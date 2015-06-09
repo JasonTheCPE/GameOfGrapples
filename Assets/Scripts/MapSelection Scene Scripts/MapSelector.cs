@@ -27,7 +27,9 @@ public class MapSelector : MonoBehaviour {
 		InitiateLocked();
 	}
 
-	void InitiateLocked() {
+	public void InitiateLocked() {
+		AllLockedIn = false;
+		hasLocked = false;
 		playersLocked = new bool[mm.PlayerList.Count];
 		
 		for (int i = 0; i < playersLocked.Length; ++i) {
@@ -238,7 +240,9 @@ public class MapSelector : MonoBehaviour {
 		int i = 0;
 		foreach(MyPlayer mp in mm.PlayerList) {
 			if (mp.playerNetwork == player) {
-				playersLocked [i] = true;
+				if (i < playersLocked.Length) {
+					playersLocked [i] = true;
+				}
 			}
 			++i;
 		}
@@ -249,7 +253,7 @@ public class MapSelector : MonoBehaviour {
 	private void Check() {
 		bool lockedin = true;
 
-		for (int i = 0; i < mm.PlayerList.Count; ++i) {
+		for (int i = 0; i < playersLocked.Length; ++i) {
 			if (!playersLocked[i]) {
 				lockedin = false;
 			}
